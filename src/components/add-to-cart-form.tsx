@@ -11,7 +11,6 @@ export function AddToCartForm({ product, description }: { product: Product; desc
   const { addLine } = useCart()
   const router = useRouter()
   const [size, setSize] = useState(product.sizes[0] ?? 'XS')
-  const [notice, setNotice] = useState('')
   const look = shopLook(product.slug)
   const copy = description || product.description
 
@@ -36,10 +35,6 @@ export function AddToCartForm({ product, description }: { product: Product; desc
       <button
         type="button"
         onClick={() => {
-          if (!product.stripePriceId) {
-            setNotice('Stripe price ID missing for this product — add it in Payload admin.')
-            return
-          }
           addLine(
             {
               productId: product.id,
@@ -59,7 +54,6 @@ export function AddToCartForm({ product, description }: { product: Product; desc
       >
         add to cart
       </button>
-      {notice ? <p className="mt-4 text-sm normal-case">{notice}</p> : null}
     </div>
   )
 }

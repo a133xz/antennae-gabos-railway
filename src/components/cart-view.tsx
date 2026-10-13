@@ -5,12 +5,14 @@ import { useState } from 'react'
 import { shopLook } from '@/content/shop-looks'
 import { useCart } from '@/lib/cart'
 import { formatPrice } from '@/lib/format-price'
+import { checkoutAvailable } from '@/lib/shop-demo'
 import { CroppedPhoto } from './cropped-photo'
 
 export function CartView() {
-  const { lines, subtotal, setQuantity, clear } = useCart()
+  const { lines, subtotal, setQuantity, removeLine, clear } = useCart()
   const [pending, setPending] = useState(false)
   const [error, setError] = useState('')
+  const canCheckout = checkoutAvailable() && lines.every((line) => line.stripePriceId)
 
   if (lines.length === 0) {
     return (
@@ -23,6 +25,10 @@ export function CartView() {
   }
 
   async function checkout() {
+    if (!canCheckout) {
+      setError('Checkout is preview-only until Stripe keys and Price IDs are configured (see docs/stripe-setup.md).')
+      return
+    }
     setPending(true)
     setError('')
     try {
@@ -89,6 +95,13 @@ export function CartView() {
                       +
                     </button>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => removeLine(line.key)}
+                    className="mt-3 text-[19px] normal-case opacity-60 transition-opacity hover:opacity-100"
+                  >
+                    remove
+                  </button>
                 </div>
                 <p className="text-right text-[21px] uppercase leading-none lg:pt-[225px]">{formatPrice(line.price * line.quantity, 2)}</p>
               </div>
@@ -105,13 +118,18 @@ export function CartView() {
           type="button"
           disabled={pending}
           onClick={() => void checkout()}
-          className="mx-auto flex h-[38px] w-[157px] items-center justify-center border border-black text-[19px] uppercase leading-none transition-opacity hover:opacity-70 disabled:opacity-50"
+          className="mx-auto flex h-[38px] w-[157px] items-center justify-center border border-black text-[19px] uppercase leading-none transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-40"
         >
           checkout &gt;
         </button>
         <p className="text-right text-[21px] uppercase leading-none">subtotal {formatPrice(subtotal, 2)}</p>
       </div>
-      {error ? <p className="mt-4 text-right text-sm font-normal normal-case text-red-700">{error}</p> : null}
+      {!canCheckout && lines.length > 0 ? (
+        <p className="mt-4 text-center text-sm font-normal normal-case opacity-70">
+          Cart preview — add and remove items freely. Connect Stripe to enable checkout.
+        </p>
+      ) : null}
+      {error ? <p className="mt-4 text-center text-sm font-normal normal-case text-red-700">{error}</p> : null}
     </div>
   )
 }

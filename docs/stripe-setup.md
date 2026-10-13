@@ -2,6 +2,15 @@
 
 The shop uses **Stripe Checkout** (hosted payment page). Product copy and images live in **Payload**; prices and tax behavior are controlled by **Stripe Price** objects referenced from each product.
 
+## Try the cart without Stripe
+
+You can preview the shop UX before Stripe is connected:
+
+1. Open `/shop`, pick a product, choose a size, **add to cart**.
+2. On `/cart`, use **− / +** to change quantity (at zero the line is removed) or **remove** to drop a line.
+3. The cart persists in your browser (`localStorage` key `gabos-cart-v1`).
+4. **Checkout** stays disabled until `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` and each product’s **Stripe Price ID** are set; the cart page shows a short preview notice instead.
+
 ## What is already wired
 
 | Piece | Location |
