@@ -23,14 +23,25 @@
 }
 
 html {
-  background: #fff;
+  background: var(--color-curtain);
+  overscroll-behavior: none;
 }
 
 body {
   margin: 0;
-  background: #fff;
+  background: var(--color-curtain);
   color: #000;
   font-family: var(--font-gabos);
+  overscroll-behavior: none;
+}
+
+/* Shop / about shells — white page, curtain red only in overscroll gutters */
+body:has(.gabos-page-white) {
+  background: #fff;
+}
+
+html:has(.gabos-page-white) {
+  background: #fff;
 }
 
 ::selection {
@@ -49,15 +60,28 @@ body.gabos-curtain-active {
   overflow: hidden;
 }
 
+/* Contact (and curtain intro): no document scroll — matches Gabos theme */
+html.gabos-curtain-locked,
+body.gabos-curtain-locked {
+  overflow: hidden;
+  height: 100%;
+}
+
+body.gabos-curtain-view {
+  background: var(--color-curtain);
+}
+
 body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   visibility: hidden;
 }
 
 .wrapper {
   background-color: var(--color-curtain);
+  width: 100%;
   max-width: 1920px;
+  min-height: 100vh;
   height: 100vh;
-  margin: auto;
+  margin: 0 auto;
   position: relative;
   overflow: hidden;
 }

@@ -14,6 +14,18 @@ export function GabosCurtainShell({
   const rootRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
+    document.body.classList.add('gabos-curtain-view')
+    if (!scrollable) {
+      document.documentElement.classList.add('gabos-curtain-locked')
+      document.body.classList.add('gabos-curtain-locked')
+    }
+    return () => {
+      document.body.classList.remove('gabos-curtain-view', 'gabos-curtain-locked')
+      document.documentElement.classList.remove('gabos-curtain-locked')
+    }
+  }, [scrollable])
+
+  useLayoutEffect(() => {
     const root = rootRef.current
     if (!root) return
     return runGabosCurtainAnimation(root, { scrollable })
