@@ -169,16 +169,22 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   position: relative;
 }
 
-.wrapper .item {
+.wrapper .linkContainer .item {
   margin: 0 1%;
   text-align: center;
 }
 
-.wrapper a {
-  font-family: var(--font-gabos);
-  font-size: var(--body);
+.wrapper .linkContainer a.email {
+  font-family: 'renner', sans-serif;
+  font-size: 1.4rem;
+  font-weight: normal;
   text-decoration: none;
   color: white;
+  padding-bottom: 30px;
+  width: 100%;
+  max-width: 30vw;
+  display: block;
+  text-transform: none;
 }
 
 .wrapper .email,
@@ -186,11 +192,16 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 .wrapper .details {
   font-family: 'renner', sans-serif;
   font-size: 1.4rem;
+  font-weight: normal;
   text-decoration: none;
   color: white;
   padding-bottom: 30px;
   width: 100%;
   max-width: 30vw;
+}
+
+.wrapper .details.item {
+  display: block;
 }
 
 .wrapper .details p {
@@ -201,6 +212,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 .wrapper .heading {
   font-family: 'renner', sans-serif;
   font-size: 0.7rem;
+  font-weight: normal;
   text-decoration: none;
   color: white;
   text-align: center;
@@ -208,6 +220,16 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   margin: 0;
   width: 100%;
   max-width: 100%;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.page-contact .navWrapper {
+  width: 100%;
+}
+
+.page-contact .linkContainer {
+  width: 100%;
 }
 
 @media screen and (max-width: 1350px) {
@@ -230,6 +252,12 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     margin-bottom: 5vh;
     text-align: center;
     max-width: 50vw;
+  }
+
+  .wrapper .linkContainer a.email {
+    font-size: var(--body);
+    margin-bottom: 15px !important;
+    max-width: 80vw;
   }
 
   .wrapper .email,

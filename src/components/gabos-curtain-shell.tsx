@@ -34,7 +34,7 @@ export function GabosCurtainShell({
   return (
     <div
       ref={rootRef}
-      className={`wrapper ${scrollable ? 'wrapper--scroll' : ''}`}
+      className={`wrapper ${scrollable ? 'wrapper--scroll' : 'page-contact'}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/curtain/mobile_curtain.png" alt="" className="mobileCurtain" />
