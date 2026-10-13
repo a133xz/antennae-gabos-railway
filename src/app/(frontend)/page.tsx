@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { GabosCurtainShell } from '@/components/gabos-curtain-shell'
 import { GabosHero } from '@/components/gabos-hero'
@@ -22,11 +21,14 @@ export default async function HomePage() {
           <h1 className="mx-auto max-w-[910px] text-[32px] leading-[normal]">{settings.statement}</h1>
 
           <div className="mx-auto mt-[clamp(96px,10vw,180px)] aspect-[2250/2813] w-full max-w-[910px] lg:w-[47.4%]">
-            <Image
-              src={editorial.src}
-              alt={editorial.alt}
-              width={909}
-              height={1136}
+            <video
+              src="/media/video.mp4"
+              poster={editorial.src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-label={editorial.alt}
               className="h-full w-full object-cover"
             />
           </div>
