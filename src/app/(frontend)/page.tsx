@@ -3,32 +3,35 @@ import Link from 'next/link'
 import { GabosCurtainShell } from '@/components/gabos-curtain-shell'
 import { GabosHero } from '@/components/gabos-hero'
 import { LandingFooter } from '@/components/landing-footer'
+import { LandingPanel } from '@/components/landing-panel'
 import { getSettings } from '@/content/site'
 
 export default async function HomePage() {
   const settings = await getSettings()
+  const editorial = settings.editorialImage ?? {
+    src: '/media/editorial.jpg',
+    alt: 'Hands around a cocktail glass',
+  }
 
   return (
     <GabosCurtainShell scrollable>
       <div className="min-h-screen bg-[var(--color-burgundy)] font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[1.2] text-white">
         <GabosHero settings={settings} />
 
-        <section className="bg-[var(--color-burgundy)] px-[var(--gutter)] pb-12 pt-[clamp(96px,14vh,180px)] text-center text-white">
-          <h1 className="mx-auto max-w-[28em] text-[32px]">{settings.statement}</h1>
+        <LandingPanel>
+          <h1 className="mx-auto max-w-[910px] text-[32px] leading-[normal]">{settings.statement}</h1>
 
-          {settings.editorialImage ? (
-            <div className="mx-auto mt-[clamp(56px,8vh,96px)] aspect-[2250/2813] w-[min(910px,100%)]">
-              <Image
-                src={settings.editorialImage.src}
-                alt={settings.editorialImage.alt}
-                width={909}
-                height={1136}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          ) : null}
+          <div className="mx-auto mt-[clamp(96px,10vw,180px)] aspect-[2250/2813] w-full max-w-[910px] lg:w-[47.4%]">
+            <Image
+              src={editorial.src}
+              alt={editorial.alt}
+              width={909}
+              height={1136}
+              className="h-full w-full object-cover"
+            />
+          </div>
 
-          <div className="mt-[clamp(48px,7vh,80px)]">
+          <div className="mt-[clamp(72px,8vw,120px)]">
             {settings.socialUrl ? (
               <Link href={settings.socialUrl} className="grid transition-opacity hover:opacity-70" target="_blank" rel="noreferrer">
                 <span>{settings.instagramLabel}</span>
@@ -43,7 +46,7 @@ export default async function HomePage() {
           </div>
 
           <LandingFooter settings={settings} />
-        </section>
+        </LandingPanel>
       </div>
     </GabosCurtainShell>
   )

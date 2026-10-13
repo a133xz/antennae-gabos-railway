@@ -84,6 +84,10 @@ if (existingMedia.totalDocs === 0) {
       menuPdfUrl: settings.menuPdfUrl,
       bookUrl: settings.bookUrl,
       navLinks: settings.navLinks,
+      originKicker: settings.originKicker,
+      originPlace: settings.originPlace,
+      storeAddress: settings.storeAddress,
+      instagramLabel: settings.instagramLabel,
     },
   })
   console.log('Updated site settings (Echo nav, menu PDF, book URL, contact copy).')

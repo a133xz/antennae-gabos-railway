@@ -122,9 +122,10 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   z-index: 3;
 }
 
+/* Home: side drapes belong to the first screen and scroll away into the lower section. */
 .wrapper--scroll .fixedCurtainLeft,
 .wrapper--scroll .fixedCurtainRight {
-  position: fixed;
+  position: absolute;
   top: 0;
 }
 
