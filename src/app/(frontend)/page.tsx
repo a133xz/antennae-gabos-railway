@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { CurtainIntro } from '@/components/curtain-intro'
+import { GabosCurtainShell } from '@/components/gabos-curtain-shell'
 import { GabosHero } from '@/components/gabos-hero'
 import { LandingFooter } from '@/components/landing-footer'
 import { getSettings } from '@/content/site'
@@ -9,9 +9,8 @@ export default async function HomePage() {
   const settings = await getSettings()
 
   return (
-    <>
-      <CurtainIntro />
-      <div className="home-landing min-h-screen bg-[var(--color-burgundy)] font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[1.2] text-white">
+    <GabosCurtainShell scrollable>
+      <div className="min-h-screen bg-[var(--color-burgundy)] font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[1.2] text-white">
         <GabosHero settings={settings} />
 
         <section className="bg-[var(--color-burgundy)] px-[var(--gutter)] pb-12 pt-[clamp(96px,14vh,180px)] text-center text-white">
@@ -46,6 +45,6 @@ export default async function HomePage() {
           <LandingFooter settings={settings} />
         </section>
       </div>
-    </>
+    </GabosCurtainShell>
   )
 }

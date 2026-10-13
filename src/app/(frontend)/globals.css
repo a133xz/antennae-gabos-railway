@@ -43,127 +43,123 @@ body {
   outline-offset: 3px;
 }
 
-/* —— Curtain (Echo's of New York) —— */
+/* —— Curtain (from Gabos theme style.css + curtain.js) —— */
 
-.curtain-root {
-  position: relative;
-  max-width: 1920px;
-  margin: 0 auto;
-  background-color: var(--color-curtain);
-}
-
-.curtain-root--contact {
-  height: 100vh;
+body.gabos-curtain-active {
   overflow: hidden;
 }
 
-.curtain-root--contact .curtain-content {
+body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
+  visibility: hidden;
+}
+
+.wrapper {
+  background-color: var(--color-curtain);
+  max-width: 1920px;
+  height: 100vh;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.wrapper--scroll {
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+/* After open: don’t leave theme red filling the center “stage” on the long landing */
+.wrapper--scroll.wrapper--opened {
+  background-color: transparent;
+}
+
+.wrapper--scroll.wrapper--opened .linkContainer--landing {
+  visibility: visible;
+}
+
+.wrapper .fixedCurtainLeft {
+  position: absolute;
+  height: 100vh;
+  z-index: 3;
+}
+
+.wrapper .fixedCurtainRight {
+  position: absolute;
+  height: 100vh;
+  right: 0;
+  z-index: 3;
+}
+
+.wrapper--scroll .fixedCurtainLeft,
+.wrapper--scroll .fixedCurtainRight {
+  position: fixed;
+  top: 0;
+}
+
+.wrapper--scroll .mobileCurtain,
+.wrapper--scroll .curtainLeft,
+.wrapper--scroll .curtainRight {
+  position: fixed;
+}
+
+.wrapper .mobileCurtain,
+.wrapper .curtainLeft,
+.wrapper .curtainRight {
+  display: none;
+  height: 100vh;
+  z-index: 2;
+}
+
+.wrapper .mobileCurtain {
+  width: 100%;
+  object-fit: cover;
+}
+
+.wrapper .navWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   z-index: 1;
+  position: relative;
 }
 
-.curtain-mobile,
-.curtain-slider,
-.curtain-fixed {
-  position: absolute;
-  top: 0;
-  height: 100vh;
-  pointer-events: none;
-}
-
-.curtain-mobile {
-  display: none;
-  left: 0;
+.wrapper--scroll .navWrapper {
   width: 100%;
-  object-fit: cover;
-  z-index: 2;
-  transition: transform 1.5s ease-in-out;
+  height: auto;
+  min-height: 100vh;
+  align-items: flex-start;
 }
 
-.curtain-slider {
-  display: none;
-  width: 51%;
-  z-index: 2;
-  transition: transform 1.5s ease-in-out;
-}
-
-.curtain-slider-left {
-  left: 0;
-}
-
-.curtain-slider-right {
-  right: 0;
-}
-
-.curtain-fixed {
-  z-index: 3;
-}
-
-.curtain-fixed-left {
-  left: 0;
-  height: 100vh;
-}
-
-.curtain-fixed-right {
-  right: 0;
-  height: 100vh;
-}
-
-.curtain-link-container {
+.wrapper .linkContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.wrapper--scroll .linkContainer--landing {
   width: 100%;
+  align-items: stretch;
+  position: relative;
 }
 
-.curtain-intro-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  max-width: 1920px;
-  margin: 0 auto;
-  background-color: var(--color-curtain);
-  pointer-events: none;
-}
-
-body.curtain-intro-active {
-  overflow: hidden;
-}
-
-body.curtain-intro-active .home-landing {
-  visibility: hidden;
-}
-
-.curtain-item {
+.wrapper .item {
   margin: 0 1%;
   text-align: center;
 }
 
-.curtain-nav-link {
+.wrapper a {
   font-family: var(--font-gabos);
   font-size: var(--body);
   text-decoration: none;
   color: white;
-  text-transform: uppercase;
 }
 
-.curtain-logo-wrap {
-  width: 15%;
-  min-width: 200px;
-}
-
-.curtain-logo {
-  width: 100%;
-  height: auto;
-}
-
-.curtain-details,
-.curtain-email {
+.wrapper .email,
+.wrapper .phoneNumber,
+.wrapper .details {
   font-family: 'renner', sans-serif;
   font-size: 1.4rem;
   text-decoration: none;
@@ -173,12 +169,12 @@ body.curtain-intro-active .home-landing {
   max-width: 30vw;
 }
 
-.curtain-details p {
+.wrapper .details p {
   margin: 0;
   text-align: center;
 }
 
-.curtain-heading {
+.wrapper .heading {
   font-family: 'renner', sans-serif;
   font-size: 0.7rem;
   text-decoration: none;
@@ -187,47 +183,36 @@ body.curtain-intro-active .home-landing {
   padding: 0;
   margin: 0;
   width: 100%;
-}
-
-.curtain-email-block {
-  width: 100%;
-  text-align: center;
+  max-width: 100%;
 }
 
 @media screen and (max-width: 1350px) {
-  .curtain-fixed-left {
+  .home .linkContainer {
+    flex-direction: column !important;
+  }
+
+  .wrapper .fixedCurtainLeft {
     width: 70%;
     transform: translateX(-50%);
   }
 
-  .curtain-fixed-right {
+  .wrapper .fixedCurtainRight {
     width: 70%;
     transform: translateX(50%);
   }
 
-  .curtain-item {
+  .wrapper .linkContainer .item {
     width: 100%;
     margin-bottom: 5vh;
     text-align: center;
     max-width: 50vw;
   }
 
-  .curtain-logo-wrap {
-    order: 1;
-    margin-bottom: 2vh;
-    transform: translateX(4%);
-  }
-
-  .curtain-details,
-  .curtain-email {
+  .wrapper .email,
+  .wrapper .phoneNumber,
+  .wrapper .details {
     font-size: var(--body);
     margin-bottom: 15px !important;
     max-width: 80vw;
-  }
-}
-
-@media screen and (max-width: 720px) {
-  .curtain-item {
-    max-width: 90vw;
   }
 }
