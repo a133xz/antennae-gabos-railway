@@ -29,16 +29,24 @@ export function GabosHero({ settings }: { settings: SiteSettings }) {
           </div>
           <Link
             href="/"
-            className="max-[1350px]:order-1 max-[1350px]:mb-[2vh] min-[1351px]:shrink-0"
+            className="flex w-full justify-center max-[1350px]:order-1 max-[1350px]:mb-[2vh] min-[1351px]:shrink-0"
             aria-label="Gabos home"
           >
-            {/* eslint-disable-next-line @next/next-no-img-element */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/curtain/Artboard-1-1.png"
+              alt=""
+              width={280}
+              height={200}
+              className="mx-auto block h-auto w-[118px] min-[1351px]:hidden"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/brand/monogram.svg"
               alt=""
               width={118}
               height={165}
-              className="block h-auto w-[118px] max-[1350px]:translate-x-[4%]"
+              className="mx-auto hidden h-auto w-[118px] min-[1351px]:block"
             />
           </Link>
           <div className="flex flex-col items-center max-[1350px]:contents min-[1351px]:flex-row min-[1351px]:gap-12">

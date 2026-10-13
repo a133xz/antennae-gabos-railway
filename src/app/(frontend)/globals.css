@@ -26,6 +26,7 @@
 html {
   background: var(--color-curtain);
   overscroll-behavior: none;
+  max-width: 100%;
 }
 
 body {
@@ -34,6 +35,11 @@ body {
   color: #000;
   font-family: var(--font-gabos);
   overscroll-behavior: none;
+  overscroll-behavior-x: none;
+  max-width: 100%;
+  /* Horizontal only — never lock vertical document scroll except contact (see .gabos-curtain-locked) */
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 /* Shop / about shells — page color only in overscroll gutters */
@@ -65,8 +71,14 @@ html:has(.gabos-page-shop) {
 
 /* —— Curtain (from Gabos theme style.css + curtain.js) —— */
 
-body.gabos-curtain-active {
+/* Curtain intro animation: lock scroll on contact only; home landing must stay vertically scrollable */
+body.gabos-curtain-active:not(.home) {
   overflow: hidden;
+}
+
+body.gabos-curtain-active.home {
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 /* Contact (and curtain intro): no document scroll — matches Gabos theme */
@@ -98,6 +110,8 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 .wrapper--scroll {
   height: auto;
   min-height: 100vh;
+  max-width: 100%;
+  /* Do not set overflow here — it can trap scroll on the wrapper; html/body hide overflow-x instead */
   overflow: visible;
 }
 
@@ -175,8 +189,10 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
 .wrapper--scroll .linkContainer--landing {
   width: 100%;
+  max-width: 100%;
   align-items: stretch;
   position: relative;
+  min-width: 0;
 }
 
 .wrapper .linkContainer .item {
