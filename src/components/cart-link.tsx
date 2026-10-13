@@ -1,15 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { useCart } from '@/lib/cart'
+import { usePathname } from 'next/navigation'
 
 export function CartLink({ className }: { className?: string }) {
-  const { count } = useCart()
-  const label = count > 0 ? `cart (${count})` : 'cart'
+  const pathname = usePathname()
+  const onCart = pathname === '/cart' || pathname.startsWith('/cart/')
+  const classes = `${className ?? ''}${onCart ? ' underline' : ''}`
 
   return (
-    <Link href="/cart" className={className}>
-      {label}
+    <Link href="/cart" className={classes} aria-current={onCart ? 'page' : undefined}>
+      cart
     </Link>
   )
 }

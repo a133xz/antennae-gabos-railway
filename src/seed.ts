@@ -23,7 +23,7 @@ const uploaded = new Map<string, number>()
 async function mediaId(image: Picture) {
   const cached = uploaded.get(image.src)
   if (cached) return cached
-  const filename = image.src.replace(/^\/media\//, '')
+  const filename = path.basename(image.src)
   const existing = await payload.find({
     collection: 'media',
     where: { filename: { equals: filename } },
@@ -36,7 +36,7 @@ async function mediaId(image: Picture) {
   const created = await payload.create({
     collection: 'media',
     data: { alt: image.alt || filename },
-    filePath: path.resolve('public/media', filename),
+    filePath: path.resolve('public', image.src.replace(/^\//, '')),
   })
   uploaded.set(image.src, created.id)
   return created.id

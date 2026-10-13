@@ -1,21 +1,24 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { shopLook } from '@/content/shop-looks'
 import { useCart } from '@/lib/cart'
 import { formatPrice } from '@/lib/format-price'
+import { CroppedPhoto } from './cropped-photo'
 
 export function CartView() {
-  const { lines, subtotal, setQuantity, removeLine, clear } = useCart()
+  const { lines, subtotal, setQuantity, clear } = useCart()
   const [pending, setPending] = useState(false)
   const [error, setError] = useState('')
 
   if (lines.length === 0) {
     return (
-      <p className="py-[40vh] text-center text-[32px] font-bold lowercase">
-        your cart is empty
-      </p>
+      <div className="flex-1">
+        <p className="fixed left-1/2 top-1/2 w-[min(909px,90vw)] -translate-x-1/2 -translate-y-1/2 text-center text-[32px] uppercase leading-none">
+          your cart is empty
+        </p>
+      </div>
     )
   }
 
@@ -50,54 +53,65 @@ export function CartView() {
   }
 
   return (
-    <div className="px-[var(--gutter)] pb-20">
-      <ul className="divide-y divide-black/20 border-y border-black/20">
-        {lines.map((line) => (
-          <li key={line.key} className="grid gap-8 py-8 lg:grid-cols-[min(445px,40%)_1fr] lg:items-start">
-            <div className="relative aspect-[421/545] w-full max-w-md bg-[#f5f5f5]">
-              <Image src={line.imageSrc} alt={line.imageAlt} fill className="object-cover" sizes="40vw" />
-            </div>
-            <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
-              <div className="text-center lg:text-left">
-                <p className="max-w-[8rem] text-[21px] lowercase leading-snug lg:mx-0 lg:max-w-none">
-                  {line.title} size {line.size}
-                </p>
-                <div className="mt-6 inline-flex items-center gap-4 text-[21px]">
-                  <button type="button" aria-label="Decrease quantity" onClick={() => setQuantity(line.key, line.quantity - 1)}>
-                    -
-                  </button>
-                  <span>{line.quantity}</span>
-                  <button type="button" aria-label="Increase quantity" onClick={() => setQuantity(line.key, line.quantity + 1)}>
-                    +
-                  </button>
+    <div className="px-[var(--gutter)] pb-8 pt-16 lg:pt-[242px]">
+      <ul className="border-y border-black">
+        {lines.map((line) => {
+          const look = shopLook(line.slug)
+          const color = look?.color
+          return (
+            <li key={line.key} className="border-b border-black py-0 last:border-b-0">
+              <div className="grid items-start gap-8 py-8 lg:grid-cols-[minmax(0,421px)_1fr_auto] lg:gap-6 lg:py-0">
+                <div className="w-full max-w-[421px]">
+                  {look ? (
+                    <CroppedPhoto crop={look.card} aspect="421 / 545" alt={look.card.alt} />
+                  ) : (
+                    <div className="relative aspect-[421/545] w-full overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={line.imageSrc} alt={line.imageAlt} className="h-full w-full object-contain" />
+                    </div>
+                  )}
                 </div>
-                <button type="button" className="mt-4 block text-sm font-normal normal-case opacity-60" onClick={() => removeLine(line.key)}>
-                  Remove
-                </button>
+                <div className="text-center text-[21px] uppercase leading-none lg:pt-[225px]">
+                  <p>{line.title}</p>
+                  {color ? (
+                    <>
+                      <p className="h-[21px]" aria-hidden="true" />
+                      <p>{color}</p>
+                    </>
+                  ) : null}
+                  <p>size {line.size}</p>
+                  <div className="mt-[23px] flex items-center justify-center gap-2">
+                    <button type="button" aria-label="Decrease quantity" onClick={() => setQuantity(line.key, line.quantity - 1)}>
+                      -
+                    </button>
+                    <span className="min-w-[0.6em]">{line.quantity}</span>
+                    <button type="button" aria-label="Increase quantity" onClick={() => setQuantity(line.key, line.quantity + 1)}>
+                      +
+                    </button>
+                  </div>
+                </div>
+                <p className="text-right text-[21px] uppercase leading-none lg:pt-[225px]">{formatPrice(line.price * line.quantity, 2)}</p>
               </div>
-              <p className="text-right text-[21px]">{formatPrice(line.price * line.quantity)}</p>
-            </div>
-          </li>
-        ))}
+            </li>
+          )
+        })}
       </ul>
 
-      <div className="mt-10 flex flex-col items-center justify-between gap-6 md:flex-row">
-        <Link href="/shop" className="text-[19px] lowercase transition-opacity hover:opacity-70">
+      <div className="mt-[42px] grid items-center gap-6 sm:grid-cols-3">
+        <Link href="/shop" className="text-[19px] uppercase leading-none transition-opacity hover:opacity-70">
           continue shopping &gt;
         </Link>
-        <div className="flex flex-col items-center gap-4 md:items-end">
-          <p className="text-[21px]">subtotal {formatPrice(subtotal)}</p>
-          <button
-            type="button"
-            disabled={pending}
-            onClick={() => void checkout()}
-            className="inline-flex min-w-[157px] items-center justify-center bg-[var(--color-burgundy)] px-6 py-2.5 text-[19px] text-white transition-opacity hover:opacity-90 disabled:opacity-50"
-          >
-            checkout &gt;
-          </button>
-          {error ? <p className="text-sm font-normal normal-case text-red-700">{error}</p> : null}
-        </div>
+        <button
+          type="button"
+          disabled={pending}
+          onClick={() => void checkout()}
+          className="mx-auto flex h-[38px] w-[157px] items-center justify-center border border-black text-[19px] uppercase leading-none transition-opacity hover:opacity-70 disabled:opacity-50"
+        >
+          checkout &gt;
+        </button>
+        <p className="text-right text-[21px] uppercase leading-none">subtotal {formatPrice(subtotal, 2)}</p>
       </div>
+      {error ? <p className="mt-4 text-right text-sm font-normal normal-case text-red-700">{error}</p> : null}
     </div>
   )
 }

@@ -2,39 +2,39 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { shopLook } from '@/content/shop-looks'
 import type { Product } from '@/content/types'
 import { useCart } from '@/lib/cart'
 import { formatPrice } from '@/lib/format-price'
 
-export function AddToCartForm({ product }: { product: Product }) {
+export function AddToCartForm({ product, description }: { product: Product; description?: string }) {
   const { addLine } = useCart()
   const router = useRouter()
   const [size, setSize] = useState(product.sizes[0] ?? 'XS')
   const [notice, setNotice] = useState('')
-
-  const checkoutReady = Boolean(product.stripePriceId)
+  const look = shopLook(product.slug)
+  const copy = description || product.description
 
   return (
-    <div className="mx-auto max-w-md text-center">
-      <p className="text-[21px]">{formatPrice(product.price)}</p>
-      <div className="mt-6 flex flex-wrap justify-center gap-4 text-[21px] lowercase">
+    <div className="mx-auto max-w-[444px] text-center">
+      <p className="mt-[18px] text-[21px] leading-none">{formatPrice(product.price)}</p>
+      <div className="mx-auto mt-11 flex w-full max-w-[444px] justify-between text-[21px] leading-none">
         {product.sizes.map((option) => (
           <button
             key={option}
             type="button"
             onClick={() => setSize(option)}
-            className={`transition-opacity ${size === option ? 'opacity-100' : 'opacity-40 hover:opacity-70'}`}
+            className={size === option ? 'underline' : 'transition-opacity hover:opacity-70'}
           >
             {option}
           </button>
         ))}
       </div>
-      <p className="mx-auto mt-10 max-w-[28rem] text-left text-[21px] font-bold normal-case leading-snug">
-        {product.description}
+      <p className="mx-auto mt-12 max-w-[444px] whitespace-pre-line text-center text-[21px] uppercase leading-[normal]">
+        {copy}
       </p>
       <button
         type="button"
-        disabled={!checkoutReady}
         onClick={() => {
           if (!product.stripePriceId) {
             setNotice('Stripe price ID missing for this product — add it in Payload admin.')
@@ -46,26 +46,20 @@ export function AddToCartForm({ product }: { product: Product }) {
               slug: product.slug,
               title: product.title,
               price: product.price,
-              imageSrc: product.image.src,
-              imageAlt: product.image.alt,
+              imageSrc: look?.card.src ?? product.image.src,
+              imageAlt: look?.card.alt ?? product.image.alt,
               size,
               stripePriceId: product.stripePriceId,
             },
             1,
           )
-          setNotice('Added to cart')
           router.push('/cart')
         }}
-        className="mt-10 inline-flex min-w-[157px] items-center justify-center bg-[var(--color-burgundy)] px-6 py-2.5 text-[19px] text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+        className="mx-auto mt-7 flex h-[38px] w-[157px] items-center justify-center border border-black text-[19px] uppercase leading-none transition-opacity hover:opacity-70"
       >
         add to cart
       </button>
       {notice ? <p className="mt-4 text-sm normal-case">{notice}</p> : null}
-      {!checkoutReady ? (
-        <p className="mt-4 text-sm font-normal normal-case opacity-70">
-          Connect Stripe and set a Price ID on this product to enable checkout.
-        </p>
-      ) : null}
     </div>
   )
 }

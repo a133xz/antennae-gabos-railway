@@ -98,8 +98,11 @@ export const products: SeedProduct[] = [
     title: 'f1 tank top',
     slug: 'f1-tank-top-black',
     price: 40,
-    description:
-      'F1 tank top in black with a relaxed shoulder. Size down for a closer fit.',
+    description: [
+      "Damson Madder Reversible Longline Jerry Trench in Chocolate offers two coats in one, reflecting the brand's playful, practical approach to outerwear.",
+      '',
+      'Designed with an oversized, longline cut, this trench pairs organic cotton with an allover check on one side and plain chocolate on the other, plus a detachable collar that doubles as a headscarf, making it a standout layer for the season.',
+    ].join('\n'),
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     image: productImage,
     gallery: [productImage],

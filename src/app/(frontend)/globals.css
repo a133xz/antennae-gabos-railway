@@ -35,13 +35,21 @@ body {
   overscroll-behavior: none;
 }
 
-/* Shop / about shells — white page, curtain red only in overscroll gutters */
+/* Shop / about shells — page color only in overscroll gutters */
 body:has(.gabos-page-white) {
   background: #fff;
 }
 
 html:has(.gabos-page-white) {
   background: #fff;
+}
+
+body:has(.gabos-page-shop) {
+  background: #f2f2f2;
+}
+
+html:has(.gabos-page-shop) {
+  background: #f2f2f2;
 }
 
 ::selection {

@@ -47,14 +47,17 @@ function readStorage(): CartLine[] {
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([])
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
     setLines(readStorage())
+    setReady(true)
   }, [])
 
   useEffect(() => {
+    if (!ready) return
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(lines))
-  }, [lines])
+  }, [lines, ready])
 
   const addLine = useCallback((line: Omit<CartLine, 'key' | 'quantity'>, quantity = 1) => {
     setLines((current) => {

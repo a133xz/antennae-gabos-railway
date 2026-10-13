@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import type { SiteSettings } from '@/content/types'
 import { CartLink } from './cart-link'
-import { GabosNavLink } from './gabos-nav-link'
 import { MobileNav } from './mobile-nav'
+import { StoreNav } from './store-nav'
 
 export function GabosStoreHeader({ settings }: { settings: SiteSettings }) {
   const mobileItems = [
@@ -17,12 +17,14 @@ export function GabosStoreHeader({ settings }: { settings: SiteSettings }) {
       <Link href="/" className="text-[21px] uppercase transition-opacity hover:opacity-70">
         gabos
       </Link>
-      <nav className="hidden items-center justify-center gap-12 lg:flex" aria-label="Primary">
-        <GabosNavLink href={settings.menuPdfUrl} label="Menu" download className="text-[21px] uppercase transition-opacity hover:opacity-70" />
-        <GabosNavLink href="/shop" label="shop" className="text-[21px] uppercase transition-opacity hover:opacity-70" />
-        <GabosNavLink href={settings.bookUrl} label="book" external className="text-[21px] uppercase transition-opacity hover:opacity-70" />
-        <GabosNavLink href="/contact" label="contact" className="text-[21px] uppercase transition-opacity hover:opacity-70" />
-      </nav>
+      <StoreNav
+        items={[
+          { label: 'Menu', href: settings.menuPdfUrl, download: true, external: true },
+          { label: 'shop', href: '/shop', activePrefix: '/shop' },
+          { label: 'book', href: settings.bookUrl, external: true },
+          { label: 'contact', href: '/contact' },
+        ]}
+      />
       <div className="flex items-center justify-end gap-4">
         <CartLink className="text-[21px] uppercase transition-opacity hover:opacity-70" />
         <MobileNav items={mobileItems} />
