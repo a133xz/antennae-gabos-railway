@@ -13,7 +13,7 @@ export function GabosStoreHeader({ settings }: { settings: SiteSettings }) {
   ]
 
   return (
-    <header className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-[var(--gutter)] py-5">
+    <header className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-5">
       <Link href="/" className="text-[21px] uppercase transition-opacity hover:opacity-70">
         gabos
       </Link>

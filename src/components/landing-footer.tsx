@@ -13,7 +13,7 @@ export function LandingFooter({ settings }: { settings: SiteSettings }) {
       </Link>
       <p className="grid justify-items-center gap-2 text-[21px] uppercase">
         <span>{settings.originKicker}</span>
-        <span className="mr-[-31.5px] tracking-[31.5px]">{place}</span>
+        <span className="max-md:tracking-[0.35em] md:mr-[-31.5px] md:tracking-[31.5px]">{place}</span>
       </p>
       <p className="grid justify-items-center gap-2 text-[21px] uppercase md:justify-items-end md:text-right">
         <span>{settings.copyright}</span>

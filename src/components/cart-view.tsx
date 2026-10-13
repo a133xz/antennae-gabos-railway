@@ -59,7 +59,7 @@ export function CartView() {
   }
 
   return (
-    <div className="px-[var(--gutter)] pb-8 pt-16 lg:pt-[242px]">
+    <div className="pt-16 lg:pt-[242px]">
       <ul className="border-y border-black">
         {lines.map((line) => {
           const look = shopLook(line.slug)

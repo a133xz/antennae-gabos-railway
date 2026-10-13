@@ -13,7 +13,7 @@ export default async function ShopPage() {
 
   return (
     <GabosStoreShell surface="shop">
-      <div className="px-[var(--gutter)] pb-[clamp(96px,16vh,220px)] pt-[127px]">
+      <div className="pt-[127px]">
         <h1 className="sr-only">Shop</h1>
         <ul className="grid grid-cols-2 gap-x-5 gap-y-[22px] lg:grid-cols-4">
           {products.map((product) => (

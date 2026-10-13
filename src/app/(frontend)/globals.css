@@ -18,6 +18,7 @@
   --color-burgundy: #650f0a;
   --color-curtain: #6e0001;
   --gutter: 40px;
+  --gutter-bottom: 32px;
   --font-gabos: 'estilo', Palatino, 'Palatino Linotype', Georgia, serif;
   --body: 1rem;
 }
@@ -260,7 +261,23 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   margin-right: auto;
 }
 
+.gabos-hero-nav-link {
+  font-size: 19px;
+  text-transform: uppercase;
+  transition: opacity 0.15s ease;
+}
+
+.gabos-hero-nav-link:hover {
+  opacity: 0.7;
+}
+
 @media screen and (max-width: 1350px) {
+  .gabos-hero-nav-link {
+    width: min(100%, 50vw);
+    margin-bottom: 5vh;
+    text-align: center;
+  }
+
   .home .linkContainer {
     flex-direction: column !important;
   }

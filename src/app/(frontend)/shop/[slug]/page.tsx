@@ -40,7 +40,7 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <GabosStoreShell>
-      <div className="grid items-start gap-x-5 px-[var(--gutter)] pb-16 lg:grid-cols-2">
+      <div className="grid items-start gap-x-5 lg:grid-cols-2">
         <div>
           {frames.map((frame) => (
             <CroppedPhoto key={frame.src} crop={frame} aspect={frame.aspect} alt={frame.alt} />

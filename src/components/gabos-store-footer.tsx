@@ -3,7 +3,7 @@ import type { SiteSettings } from '@/content/types'
 
 export function GabosStoreFooter({ settings }: { settings: SiteSettings }) {
   return (
-    <footer className="mt-auto px-[var(--gutter)] pb-8 pt-10">
+    <footer className="mt-auto pt-10">
       <div className="flex items-end justify-between gap-6">
         <Link href="/" className="shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -54,7 +54,9 @@ export function LandingPanel({ children }: { children: React.ReactNode }) {
         height={379}
         className="pointer-events-none absolute left-1/2 top-0 z-10 h-auto w-[min(578px,72vw)] -translate-x-1/2 -translate-y-[38%]"
       />
-      <div className="px-[var(--gutter)] pb-16 pt-[clamp(188px,22vw,340px)]">{children}</div>
+      <div className="px-[var(--gutter)] pb-[var(--gutter-bottom)] pt-[clamp(188px,22vw,340px)]">
+        {children}
+      </div>
     </section>
   )
 }

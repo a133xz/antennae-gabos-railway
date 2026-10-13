@@ -17,7 +17,7 @@ export async function GabosStoreShell({
 
   return (
     <div
-      className={`${page} flex min-h-screen flex-col font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[normal]`}
+      className={`${page} flex min-h-screen flex-col px-[var(--gutter)] pb-[var(--gutter-bottom)] font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[normal]`}
     >
       <GabosStoreHeader settings={settings} />
       <main className="flex flex-1 flex-col">{children}</main>
