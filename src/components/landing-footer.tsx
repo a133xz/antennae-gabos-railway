@@ -9,7 +9,7 @@ export function LandingFooter({ settings }: { settings: SiteSettings }) {
     <footer className="mt-[clamp(96px,12vh,200px)] grid grid-cols-1 items-end gap-10 text-center md:grid-cols-[1fr_auto_1fr] md:gap-6">
       <Link href="/" className="justify-self-center md:justify-self-start">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/brand/logo-gabos.svg" alt="Gabos" width={234} height={175} className="h-[175px] w-auto" />
+        <img src="/brand/logo-gabos.svg" alt="Gabos" width={234} height={175} className="h-[120px] w-auto md:h-[175px]" />
       </Link>
       <p className="grid justify-items-center gap-2 text-[21px] uppercase">
         <span>{settings.originKicker}</span>

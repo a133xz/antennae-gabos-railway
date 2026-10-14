@@ -277,7 +277,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 /* Home — phones only (desktop stays in component Tailwind, same as d91c560) */
 @media screen and (max-width: 767px) {
   .landing-panel {
-    overflow-x: hidden;
+    overflow: visible;
   }
 
   .gabos-hero-nav {
@@ -335,23 +335,13 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   }
 
   .landing-panel-skirt {
-    width: min(240px, 52vw);
-    transform: translate(-50%, -46%);
+    top: 1.25rem;
+    width: min(300px, 68vw);
+    --tw-translate-y: 0;
   }
 
   .landing-panel-inner {
-    padding-top: clamp(6.5rem, 21vw, 11rem);
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .landing-panel-skirt {
-    width: min(188px, 46vw);
-    transform: translate(-50%, -52%);
-  }
-
-  .landing-panel-inner {
-    padding-top: clamp(6rem, 20vw, 9rem);
+    padding-top: calc(min(300px, 68vw) * 0.66 + 3rem);
   }
 }
 

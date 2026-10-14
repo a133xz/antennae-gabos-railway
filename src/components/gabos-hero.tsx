@@ -32,7 +32,7 @@ export function GabosHero({ settings }: { settings: SiteSettings }) {
           </div>
           <Link href="/" className="gabos-hero-logo shrink-0" aria-label="Gabos home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/monogram.svg" alt="" width={118} height={165} className="block h-auto w-[118px]" />
+            <img src="/brand/monogram.svg" alt="" width={118} height={165} className="block h-auto w-[72px] md:w-[118px]" />
           </Link>
           <div className="gabos-hero-nav-group flex gap-12">
             <GabosNavLink
