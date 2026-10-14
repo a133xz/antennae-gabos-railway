@@ -275,15 +275,44 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 }
 
 /* Home — phones only (desktop stays in component Tailwind, same as d91c560) */
+.gabos-hero-nav-follow {
+  display: none;
+}
+
 @media screen and (max-width: 767px) {
   .landing-panel {
     overflow: visible;
+  }
+
+  .gabos-home,
+  .gabos-hero {
+    background: transparent;
+  }
+
+  .gabos-hero {
+    min-height: 100vh;
+  }
+
+  .wrapper--scroll.wrapper--opened .navWrapper {
+    z-index: 4;
+  }
+
+  .wrapper--scroll.wrapper--opened .fixedCurtainLeft,
+  .wrapper--scroll.wrapper--opened .fixedCurtainRight {
+    z-index: 3;
+  }
+
+  .gabos-hero-photo {
+    display: none;
   }
 
   .gabos-hero-nav {
     position: relative;
     z-index: 6;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
     width: 100%;
   }
 
@@ -291,8 +320,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     width: 100%;
     min-height: 0;
     background: transparent;
-    padding-top: 6vh;
-    padding-bottom: 6vh;
+    padding: 0;
   }
 
   .gabos-hero-nav-group {
@@ -301,10 +329,23 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
   .gabos-hero-logo {
     order: 1;
-    display: flex;
-    justify-content: center;
+    display: block;
+    width: 15%;
+    min-width: 200px;
+    margin: 0;
+    text-align: center;
+    font-size: 1rem;
+    line-height: normal;
+  }
+
+  .gabos-hero-logo-original {
+    display: inline;
     width: 100%;
+    max-width: 50vw;
+    height: auto;
     margin-bottom: 2vh;
+    vertical-align: baseline;
+    transform: translateX(4%);
   }
 
   .gabos-hero-nav-book {
@@ -315,23 +356,31 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     order: 3;
   }
 
-  .gabos-hero-nav-shop {
+  .gabos-hero-nav-contact {
     order: 4;
   }
 
-  .gabos-hero-nav-contact {
+  .gabos-hero-nav-follow {
     order: 5;
   }
 
+  .gabos-hero-nav-shop {
+    display: none;
+  }
+
   .gabos-hero-nav-menu,
-  .gabos-hero-nav-shop,
   .gabos-hero-nav-book,
-  .gabos-hero-nav-contact {
+  .gabos-hero-nav-contact,
+  .gabos-hero-nav-follow {
     display: block;
-    width: min(100%, 50vw);
-    margin-bottom: 4vh;
+    width: 100%;
+    max-width: 50vw;
+    margin: 0 0 5vh;
     text-align: center;
     color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.2;
   }
 
   .landing-panel-skirt {

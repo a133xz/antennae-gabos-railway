@@ -31,9 +31,12 @@ export function runGabosCurtainAnimation(
     fixedRight.style.pointerEvents = 'none'
 
     if (scrollable) {
-      nav.style.zIndex = '1'
-      fixedLeft.style.zIndex = '5'
-      fixedRight.style.zIndex = '5'
+      // Phones match the original theme: the mark and links sit above the drapes,
+      // so the stack stays in the middle of the opening.
+      const phone = window.innerWidth <= 767
+      nav.style.zIndex = phone ? '4' : '1'
+      fixedLeft.style.zIndex = phone ? '3' : '5'
+      fixedRight.style.zIndex = phone ? '3' : '5'
     } else {
       nav.style.zIndex = '4'
       fixedLeft.style.zIndex = '3'

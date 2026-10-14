@@ -14,7 +14,7 @@ export default async function HomePage() {
 
   return (
     <GabosCurtainShell scrollable>
-      <div className="min-h-screen bg-[var(--color-burgundy)] font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[1.2] text-white">
+      <div className="gabos-home min-h-screen bg-[var(--color-burgundy)] font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[1.2] text-white">
         <GabosHero settings={settings} />
 
         <LandingPanel>

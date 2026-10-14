@@ -12,7 +12,7 @@ export function GabosHero({ settings }: { settings: SiteSettings }) {
   return (
     <section className="gabos-hero relative grid min-h-svh place-items-center bg-[#650f0a] text-white">
       {hero ? (
-        <div className="absolute inset-0">
+        <div className="gabos-hero-photo absolute inset-0">
           <Image src={hero.src} alt="" fill priority sizes="100vw" className="object-cover" />
         </div>
       ) : null}
@@ -32,7 +32,15 @@ export function GabosHero({ settings }: { settings: SiteSettings }) {
           </div>
           <Link href="/" className="gabos-hero-logo shrink-0" aria-label="Gabos home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/monogram.svg" alt="" width={118} height={165} className="block h-auto w-[72px] md:w-[118px]" />
+            <img
+              src="/curtain/Artboard-1-1.png"
+              alt=""
+              width={200}
+              height={200}
+              className="gabos-hero-logo-original md:hidden"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/monogram.svg" alt="" width={118} height={165} className="hidden h-auto w-[118px] md:block" />
           </Link>
           <div className="gabos-hero-nav-group flex gap-12">
             <GabosNavLink
@@ -42,6 +50,12 @@ export function GabosHero({ settings }: { settings: SiteSettings }) {
               className={`${navLink} gabos-hero-nav-book`}
             />
             <GabosNavLink href="/contact" label="contact" className={`${navLink} gabos-hero-nav-contact`} />
+            <GabosNavLink
+              href={settings.socialUrl || 'https://www.instagram.com/gabosmadrid/'}
+              label="follow"
+              external
+              className={`${navLink} gabos-hero-nav-follow`}
+            />
           </div>
         </nav>
       </div>
