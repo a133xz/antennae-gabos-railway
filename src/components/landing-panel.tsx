@@ -45,16 +45,16 @@ export function LandingPanel({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <section ref={ref} className="relative bg-[#650f0a] text-center text-white">
+    <section ref={ref} className="landing-panel relative bg-[#650f0a] text-center text-white">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/brand/table-skirt.svg"
         alt=""
         width={578}
         height={379}
-        className="pointer-events-none absolute left-1/2 top-0 z-10 h-auto w-[min(578px,72vw)] -translate-x-1/2 -translate-y-[38%]"
+        className="landing-panel-skirt pointer-events-none absolute left-1/2 top-0 z-10 h-auto w-[min(578px,72vw)] -translate-x-1/2 -translate-y-[38%]"
       />
-      <div className="px-[var(--gutter)] pb-[var(--gutter-bottom)] pt-[clamp(188px,22vw,340px)]">
+      <div className="landing-panel-inner px-[var(--gutter)] pb-[var(--gutter-bottom)] pt-[clamp(188px,22vw,340px)]">
         {children}
       </div>
     </section>

@@ -31,7 +31,6 @@ export function runGabosCurtainAnimation(
     fixedRight.style.pointerEvents = 'none'
 
     if (scrollable) {
-      // Full-width landing sits below side drapes (contact keeps nav above narrow copy only).
       nav.style.zIndex = '1'
       fixedLeft.style.zIndex = '5'
       fixedRight.style.zIndex = '5'

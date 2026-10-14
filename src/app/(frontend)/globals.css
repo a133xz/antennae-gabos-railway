@@ -26,7 +26,6 @@
 html {
   background: var(--color-curtain);
   overscroll-behavior: none;
-  max-width: 100%;
 }
 
 body {
@@ -35,11 +34,7 @@ body {
   color: #000;
   font-family: var(--font-gabos);
   overscroll-behavior: none;
-  overscroll-behavior-x: none;
-  max-width: 100%;
-  /* Horizontal only — never lock vertical document scroll except contact (see .gabos-curtain-locked) */
   overflow-x: hidden;
-  overflow-y: visible;
 }
 
 /* Shop / about shells — page color only in overscroll gutters */
@@ -71,14 +66,8 @@ html:has(.gabos-page-shop) {
 
 /* —— Curtain (from Gabos theme style.css + curtain.js) —— */
 
-/* Curtain intro animation: lock scroll on contact only; home landing must stay vertically scrollable */
-body.gabos-curtain-active:not(.home) {
+body.gabos-curtain-active {
   overflow: hidden;
-}
-
-body.gabos-curtain-active.home {
-  overflow-x: hidden;
-  overflow-y: visible;
 }
 
 /* Contact (and curtain intro): no document scroll — matches Gabos theme */
@@ -110,8 +99,6 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 .wrapper--scroll {
   height: auto;
   min-height: 100vh;
-  max-width: 100%;
-  /* Do not set overflow here — it can trap scroll on the wrapper; html/body hide overflow-x instead */
   overflow: visible;
 }
 
@@ -122,6 +109,16 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
 .wrapper--scroll.wrapper--opened .linkContainer--landing {
   visibility: visible;
+}
+
+.wrapper--scroll.wrapper--opened .navWrapper {
+  z-index: 1;
+}
+
+.wrapper--scroll.wrapper--opened .fixedCurtainLeft,
+.wrapper--scroll.wrapper--opened .fixedCurtainRight {
+  z-index: 5;
+  pointer-events: none;
 }
 
 .wrapper .fixedCurtainLeft {
@@ -277,27 +274,88 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   margin-right: auto;
 }
 
-.gabos-hero-nav-link {
-  font-size: 19px;
-  text-transform: uppercase;
-  transition: opacity 0.15s ease;
+/* Home — phones only (desktop stays in component Tailwind, same as d91c560) */
+@media screen and (max-width: 767px) {
+  .landing-panel {
+    overflow-x: hidden;
+  }
+
+  .gabos-hero-nav {
+    position: relative;
+    z-index: 6;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .gabos-hero-stage {
+    width: 100%;
+    min-height: 0;
+    background: transparent;
+    padding-top: 6vh;
+    padding-bottom: 6vh;
+  }
+
+  .gabos-hero-nav-group {
+    display: contents;
+  }
+
+  .gabos-hero-logo {
+    order: 1;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2vh;
+  }
+
+  .gabos-hero-nav-book {
+    order: 2;
+  }
+
+  .gabos-hero-nav-menu {
+    order: 3;
+  }
+
+  .gabos-hero-nav-shop {
+    order: 4;
+  }
+
+  .gabos-hero-nav-contact {
+    order: 5;
+  }
+
+  .gabos-hero-nav-menu,
+  .gabos-hero-nav-shop,
+  .gabos-hero-nav-book,
+  .gabos-hero-nav-contact {
+    display: block;
+    width: min(100%, 50vw);
+    margin-bottom: 4vh;
+    text-align: center;
+    color: #fff;
+  }
+
+  .landing-panel-skirt {
+    width: min(240px, 52vw);
+    transform: translate(-50%, -46%);
+  }
+
+  .landing-panel-inner {
+    padding-top: clamp(6.5rem, 21vw, 11rem);
+  }
 }
 
-.gabos-hero-nav-link:hover {
-  opacity: 0.7;
+@media screen and (max-width: 480px) {
+  .landing-panel-skirt {
+    width: min(188px, 46vw);
+    transform: translate(-50%, -52%);
+  }
+
+  .landing-panel-inner {
+    padding-top: clamp(6rem, 20vw, 9rem);
+  }
 }
 
 @media screen and (max-width: 1350px) {
-  .gabos-hero-nav-link {
-    width: min(100%, 50vw);
-    margin-bottom: 5vh;
-    text-align: center;
-  }
-
-  .home .linkContainer {
-    flex-direction: column !important;
-  }
-
   .wrapper .fixedCurtainLeft {
     width: 70%;
     transform: translateX(-50%);

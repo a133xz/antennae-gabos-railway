@@ -15,15 +15,12 @@ export function GabosCurtainShell({
 
   useLayoutEffect(() => {
     document.body.classList.add('gabos-curtain-view')
-    if (scrollable) {
-      document.body.classList.add('home')
-    }
     if (!scrollable) {
       document.documentElement.classList.add('gabos-curtain-locked')
       document.body.classList.add('gabos-curtain-locked')
     }
     return () => {
-      document.body.classList.remove('gabos-curtain-view', 'gabos-curtain-locked', 'home')
+      document.body.classList.remove('gabos-curtain-view', 'gabos-curtain-locked')
       document.documentElement.classList.remove('gabos-curtain-locked')
     }
   }, [scrollable])
