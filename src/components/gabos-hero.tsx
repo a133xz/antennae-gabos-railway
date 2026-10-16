@@ -3,8 +3,7 @@ import Link from 'next/link'
 import type { SiteSettings } from '@/content/types'
 import { GabosNavLink } from './gabos-nav-link'
 
-const navLink =
-  'text-[19px] uppercase text-white transition-opacity hover:opacity-70'
+const navLink = 'uppercase text-white transition-opacity hover:opacity-70'
 
 export function GabosHero({ settings }: { settings: SiteSettings }) {
   const hero = settings.hero[0]

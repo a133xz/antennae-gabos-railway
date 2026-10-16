@@ -11,11 +11,11 @@ export function LandingFooter({ settings }: { settings: SiteSettings }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/brand/logo-gabos.svg" alt="Gabos" width={234} height={175} className="h-[120px] w-auto md:h-[175px]" />
       </Link>
-      <p className="grid justify-items-center gap-2 text-[21px] uppercase">
+      <p className="grid justify-items-center gap-2 uppercase">
         <span>{settings.originKicker}</span>
         <span className="max-md:tracking-[0.35em] md:mr-[-31.5px] md:tracking-[31.5px]">{place}</span>
       </p>
-      <p className="grid justify-items-center gap-2 text-[21px] uppercase md:justify-items-end md:text-right">
+      <p className="grid justify-items-center gap-2 uppercase md:justify-items-end md:text-right">
         <span>{settings.copyright}</span>
         <span>{address}</span>
       </p>

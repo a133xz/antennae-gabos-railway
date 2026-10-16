@@ -14,11 +14,11 @@ export default async function HomePage() {
 
   return (
     <GabosCurtainShell scrollable>
-      <div className="gabos-home min-h-screen bg-[var(--color-burgundy)] font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[1.2] text-white">
+      <div className="gabos-home min-h-screen bg-[var(--color-burgundy)] font-[family-name:var(--font-gabos)] font-bold uppercase leading-[1.2] text-white">
         <GabosHero settings={settings} />
 
         <LandingPanel>
-          <h1 className="mx-auto max-w-[910px] text-[32px] leading-[normal]">{settings.statement}</h1>
+          <h1 className="mx-auto max-w-[910px] leading-[normal]">{settings.statement}</h1>
 
           <div className="mx-auto mt-[clamp(96px,10vw,180px)] aspect-[2250/2813] w-full max-w-[910px] lg:w-[47.4%]">
             <video

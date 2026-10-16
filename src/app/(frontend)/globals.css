@@ -274,7 +274,15 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   margin-right: auto;
 }
 
-/* Home — phones only (desktop stays in component Tailwind, same as d91c560) */
+/* Home type: 21px body, 32px statement. Phones are 25% smaller. */
+.gabos-home {
+  font-size: 1.3125rem;
+}
+
+.gabos-home h1 {
+  font-size: 2rem;
+}
+
 .gabos-hero-nav-follow {
   display: none;
 }
@@ -284,7 +292,15 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     overflow: visible;
   }
 
-  .gabos-home,
+  .gabos-home {
+    font-size: calc(1.3125rem * 0.75);
+    background: transparent;
+  }
+
+  .gabos-home h1 {
+    font-size: calc(2rem * 0.75);
+  }
+
   .gabos-hero {
     background: transparent;
   }
@@ -378,19 +394,13 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     margin: 0 0 5vh;
     text-align: center;
     color: #fff;
-    font-size: 1rem;
+    font-size: inherit;
     font-weight: 400;
     line-height: 1.2;
   }
 
-  .landing-panel-skirt {
-    top: 1.25rem;
-    width: min(300px, 68vw);
-    --tw-translate-y: 0;
-  }
-
   .landing-panel-inner {
-    padding-top: calc(min(300px, 68vw) * 0.66 + 3rem);
+    padding-top: calc(min(450px, 72vw) * 0.55 + 2rem);
   }
 }
 

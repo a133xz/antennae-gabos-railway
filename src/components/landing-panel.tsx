@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { LandingHuellas } from './landing-huellas'
 
 const BURGUNDY = [0x65, 0x0f, 0x0a] as const
 
@@ -46,15 +47,8 @@ export function LandingPanel({ children }: { children: React.ReactNode }) {
 
   return (
     <section ref={ref} className="landing-panel relative bg-[#650f0a] text-center text-white">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/brand/table-skirt.svg"
-        alt=""
-        width={578}
-        height={379}
-        className="landing-panel-skirt pointer-events-none absolute left-1/2 top-0 z-10 h-auto w-[min(578px,72vw)] -translate-x-1/2 md:-translate-y-[38%]"
-      />
-      <div className="landing-panel-inner px-[var(--gutter)] pb-[var(--gutter-bottom)] pt-[clamp(188px,22vw,340px)]">
+      <LandingHuellas />
+      <div className="landing-panel-inner px-[var(--gutter)] pb-[var(--gutter-bottom)] pt-[clamp(120px,16vw,280px)]">
         {children}
       </div>
     </section>
