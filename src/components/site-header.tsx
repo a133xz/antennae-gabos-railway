@@ -12,7 +12,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
   ]
 
   return (
-    <header className="flex items-center justify-between gap-6 px-[var(--gutter)] py-5 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+    <header className="flex items-center justify-between gap-6 px-[var(--gutter-inline)] pt-[var(--gutter-top)] pb-[var(--gutter-top)] lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center">
       <Logo />
       <nav className="hidden items-center justify-center gap-12 lg:flex" aria-label="Primary">
         {items.map((item) => (

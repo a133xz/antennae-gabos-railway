@@ -9,7 +9,7 @@ export default async function AboutPage() {
 
   return (
     <PageShell>
-      <div className="mx-auto flex min-h-[68vh] max-w-[58rem] items-center px-[var(--gutter)] py-24">
+      <div className="mx-auto flex min-h-[68vh] max-w-[58rem] items-center px-[var(--gutter-inline)] py-24">
         <h1 className="mx-auto max-w-[28em] text-center text-[32px]">{settings.statement}</h1>
       </div>
     </PageShell>

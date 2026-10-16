@@ -17,8 +17,10 @@
 :root {
   --color-burgundy: #650f0a;
   --color-curtain: #6e0001;
-  --gutter: 40px;
-  --gutter-bottom: 32px;
+  /* Page inset — adjust independently for client layouts */
+  --gutter-top: 20px;
+  --gutter-inline: 20px;
+  --gutter-bottom: 20px;
   --font-gabos: 'estilo', Palatino, 'Palatino Linotype', Georgia, serif;
   --body: 1rem;
 }
