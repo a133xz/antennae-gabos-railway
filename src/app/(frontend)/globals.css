@@ -21,6 +21,9 @@
   --gutter-top: 20px;
   --gutter-inline: 20px;
   --gutter-bottom: 20px;
+  /* Shop — space below header before product grid / PDP info */
+  --shop-list-top: 40px;
+  --shop-detail-info-top: 40px;
   --font-gabos: 'estilo', Palatino, 'Palatino Linotype', Georgia, serif;
   --body: 1rem;
 }

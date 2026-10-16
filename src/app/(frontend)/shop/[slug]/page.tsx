@@ -46,7 +46,7 @@ export default async function ProductPage({ params }: Props) {
             <CroppedPhoto key={frame.src} crop={frame} aspect={frame.aspect} alt={frame.alt} />
           ))}
         </div>
-        <div className="lg:sticky lg:top-0 lg:pt-[234px]">
+        <div className="lg:sticky lg:top-0 lg:pt-[var(--shop-detail-info-top)]">
           <h1 className="text-center text-[32px] uppercase leading-none">{product.title}</h1>
           <AddToCartForm product={product} description={look?.description} />
         </div>
