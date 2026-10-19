@@ -27,7 +27,11 @@ export function GabosHero({ settings }: { settings: SiteSettings }) {
               download
               className={`${navLink} gabos-hero-nav-menu`}
             />
-            <GabosNavLink href="/shop" label="shop" className={`${navLink} gabos-hero-nav-shop`} />
+            <GabosNavLink
+              href="/shop"
+              label="shop"
+              className={`${navLink} gabos-hero-nav-shop max-[758px]:hidden`}
+            />
           </div>
           <Link href="/" className="gabos-hero-logo shrink-0" aria-label="Gabos home">
             {/* eslint-disable-next-line @next/next/no-img-element */}

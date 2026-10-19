@@ -23,7 +23,8 @@ export function StoreNav({ items }: { items: Item[] }) {
         const active = item.activePrefix
           ? pathname === item.activePrefix || pathname.startsWith(`${item.activePrefix}/`)
           : false
-        const className = `text-[21px] uppercase transition-opacity hover:opacity-70${active ? ' underline' : ''}`
+        const hideShop = item.label.toLowerCase() === 'shop' ? ' max-[758px]:hidden' : ''
+        const className = `text-[21px] uppercase transition-opacity hover:opacity-70${hideShop}${active ? ' underline' : ''}`
         if (item.external || item.download || item.href.startsWith('http')) {
           return (
             <a

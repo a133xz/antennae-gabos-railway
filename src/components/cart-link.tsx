@@ -9,7 +9,11 @@ export function CartLink({ className }: { className?: string }) {
   const classes = `${className ?? ''}${onCart ? ' underline' : ''}`
 
   return (
-    <Link href="/cart" className={classes} aria-current={onCart ? 'page' : undefined}>
+    <Link
+      href="/cart"
+      className={`gabos-cart-link ${classes}`.trim()}
+      aria-current={onCart ? 'page' : undefined}
+    >
       cart
     </Link>
   )

@@ -24,7 +24,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
             label={item.label}
             download={item.label === 'Menu'}
             external={item.label === 'book'}
-            className="text-[19px] uppercase transition-opacity hover:opacity-70"
+            className={`text-[19px] uppercase transition-opacity hover:opacity-70${item.label === 'shop' ? ' max-[758px]:hidden' : ''}`}
           />
         ))}
       </nav>
