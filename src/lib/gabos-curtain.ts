@@ -1,3 +1,6 @@
+/** Match home mobile nav / theme curtain.js (≤720 there; we use 767). */
+const CURTAIN_MOBILE_MAX_PX = 767
+
 /**
  * Port of public/curtain/curtain.js (Gabos theme).
  * Scoped to a `.wrapper` root so home and contact share the same animation.
@@ -41,10 +44,11 @@ export function runGabosCurtainAnimation(
     fixedRight.style.pointerEvents = 'none'
 
     if (scrollable) {
-      const phone = window.innerWidth <= 767
+      const phone = window.innerWidth <= CURTAIN_MOBILE_MAX_PX
       nav.style.zIndex = phone ? '4' : '1'
-      fixedLeft.style.zIndex = phone ? '3' : '5'
-      fixedRight.style.zIndex = phone ? '3' : '5'
+      // Phone: drapes must sit above full-width `.gabos-home` (inline beats CSS).
+      fixedLeft.style.zIndex = phone ? '10' : '5'
+      fixedRight.style.zIndex = phone ? '10' : '5'
     } else {
       nav.style.zIndex = '4'
       fixedLeft.style.zIndex = '3'
@@ -58,10 +62,11 @@ export function runGabosCurtainAnimation(
       return
     }
     mobileCurtain.style.display = 'block'
-    mobileCurtain.style.position = 'absolute'
+    mobileCurtain.style.position = scrollable ? 'fixed' : 'absolute'
     mobileCurtain.style.top = '0'
     mobileCurtain.style.left = '0'
     mobileCurtain.style.width = '100%'
+    mobileCurtain.style.transform = 'translateY(0)'
     mobileCurtain.style.transition = 'transform 1.5s ease-in-out'
 
     timers.push(
@@ -121,7 +126,9 @@ export function runGabosCurtainAnimation(
   fixedRight.style.pointerEvents = 'auto'
   document.body.classList.add('gabos-curtain-active')
 
-  if (curtainLeft && curtainRight) {
+  if (window.innerWidth <= CURTAIN_MOBILE_MAX_PX) {
+    animateMobileCurtain()
+  } else if (curtainLeft && curtainRight) {
     animateDesktopCurtains()
   } else {
     animateMobileCurtain()

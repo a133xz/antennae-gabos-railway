@@ -469,7 +469,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
   .gabos-home {
     font-size: calc(1.3125rem * 0.75);
-    background: transparent;
+    background: var(--color-curtain);
   }
 
   .gabos-home h1 {
@@ -477,11 +477,8 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   }
 
   .gabos-hero {
-    background: transparent;
-  }
-
-  .gabos-hero {
     min-height: 100vh;
+    background: transparent;
   }
 
   .wrapper--scroll.wrapper--opened .navWrapper {
@@ -490,7 +487,8 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
   .wrapper--scroll.wrapper--opened .fixedCurtainLeft,
   .wrapper--scroll.wrapper--opened .fixedCurtainRight {
-    z-index: 3;
+    z-index: 10;
+    pointer-events: none;
   }
 
   .gabos-hero-photo {
