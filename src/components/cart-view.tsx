@@ -13,11 +13,11 @@ const cartStoreGrid =
   'flex min-h-0 flex-1 flex-col md:grid md:grid-cols-[1fr_auto_1fr] md:grid-rows-[1fr_auto] md:gap-x-6'
 const cartLineList = 'md:col-span-3 md:row-start-1 md:min-h-0'
 /**
- * md–1300: 421 | 1fr | auto — detail centered between photo and price.
- * 1301+: 1fr | auto | 1fr — detail viewport-centered (same as footer / checkout row).
+ * md–1469: 421 | 1fr | auto — detail centered between photo and price.
+ * 1470+: 1fr | auto | 1fr — detail viewport-centered (same as footer / checkout row).
  */
 const cartLineRow =
-  'md:grid md:items-center md:gap-x-6 md:max-[1300px]:grid-cols-[minmax(0,421px)_1fr_auto] min-[1301px]:grid-cols-[1fr_auto_1fr]'
+  'md:grid md:items-center md:gap-x-6 md:max-[1469px]:grid-cols-[minmax(0,421px)_1fr_auto] min-[1470px]:grid-cols-[1fr_auto_1fr]'
 const cartActionsRow =
   'mt-[42px] flex flex-col items-center gap-6 text-center md:col-span-3 md:row-start-2 md:grid md:grid-cols-subgrid md:items-center'
 

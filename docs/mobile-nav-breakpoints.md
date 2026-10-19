@@ -94,7 +94,7 @@ There is **no** hamburger overlay on shop; `src/components/mobile-nav.tsx` is un
 
 Parent grid: `md:grid-rows-[1fr_auto]` — line list in row 1; action row in row 2 (**42px** top margin, `md:gap-x-6` only).
 
-**768–1300px** line row: `421px 1fr auto` — detail centered **between photo and price**. **1301px+** line row: `1fr auto 1fr` — detail **viewport-centered** (matches footer / checkout). Action row always uses footer subgrid.
+**768–1469px** line row: `421px 1fr auto` — detail centered **between photo and price**. **1470px+** line row: `1fr auto 1fr` — detail **viewport-centered** (matches footer / checkout). Action row always uses footer subgrid.
 
 ---
 
