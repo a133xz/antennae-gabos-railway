@@ -9,7 +9,7 @@ export function GabosHero({ settings }: { settings: SiteSettings }) {
   const hero = settings.hero[0]
 
   return (
-    <section className="gabos-hero relative grid min-h-svh place-items-center bg-[var(--color-curtain)] text-white">
+    <section className="gabos-hero relative grid min-h-[100vh] place-items-center bg-[var(--color-curtain)] text-white">
       {hero ? (
         <div className="gabos-hero-photo absolute inset-0">
           <Image src={hero.src} alt="" fill priority sizes="100vw" className="object-cover" />

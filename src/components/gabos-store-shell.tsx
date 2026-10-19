@@ -32,7 +32,7 @@ export async function GabosStoreShell({
       >
         {children}
       </main>
-      <LandingFooter settings={settings} />
+      <LandingFooter settings={settings} logo="black" />
     </div>
   )
 }

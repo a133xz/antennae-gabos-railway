@@ -17,6 +17,8 @@
 :root {
   --color-burgundy: #6e0001;
   --color-curtain: #6e0001;
+  --curtain-height: 100vh;
+  --landing-darken-span: 30vh;
   /* Page inset — adjust independently for client layouts */
   --gutter-top: 20px;
   --gutter-inline: 20px;
@@ -378,6 +380,39 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 /* Home type: 21px body, 32px statement. Phones are 25% smaller. */
 .gabos-home {
   font-size: 1.3125rem;
+}
+
+/* First viewport stays curtain red; lower section darkens after the drapes (100vh). */
+@keyframes gabos-landing-scroll-darken {
+  from {
+    background-color: var(--color-curtain);
+  }
+
+  to {
+    background-color: #000;
+  }
+}
+
+.gabos-home .gabos-hero {
+  background-color: var(--color-curtain);
+}
+
+.gabos-home .gabos-hero-stage {
+  background-color: var(--color-curtain);
+}
+
+.gabos-home .landing-panel {
+  background-color: var(--color-curtain);
+  animation: gabos-landing-scroll-darken linear both;
+  animation-timeline: scroll(root block);
+  animation-range: var(--curtain-height) calc(var(--curtain-height) + var(--landing-darken-span));
+}
+
+@supports not (animation-timeline: scroll()) {
+  .gabos-home .landing-panel {
+    animation: none;
+    background-color: #000;
+  }
 }
 
 .gabos-home h1 {
