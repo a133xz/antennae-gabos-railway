@@ -58,7 +58,7 @@
     var(--shop-detail-text-offset-max)
   );
   /*
-   * Cart only (mainTop="cart", lg+) — nav to first list line.
+   * Cart only (mainTop="cart") — nav to first list line.
    * Scales with viewport height: ~113px (~13") → 242px (~27"). Not --shop-after-nav.
    */
   --cart-top-min: 113px;
@@ -546,11 +546,12 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
 @media screen and (max-width: 500px) {
   .gabos-page-shop header nav a:not([href='/shop']),
-  .gabos-page-shop .gabos-cart-link {
+  .gabos-page-shop header .gabos-cart-link {
     font-size: calc(21px * 0.7);
   }
 
-  .gabos-page-white header nav a:not([href='/shop']) {
+  .gabos-page-white header nav a:not([href='/shop']),
+  .gabos-page-white header .gabos-cart-link {
     font-size: calc(19px * 0.7);
   }
 

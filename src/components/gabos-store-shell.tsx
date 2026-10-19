@@ -9,7 +9,7 @@ export async function GabosStoreShell({
 }: {
   children: React.ReactNode
   surface?: 'white' | 'shop'
-  /** Cart uses --cart-top on lg+; shop/PDP use --shop-after-nav. */
+  /** Cart uses --cart-top; shop/PDP use --shop-after-nav. */
   mainTop?: 'shop' | 'cart'
 }) {
   const settings = await getSettings()
@@ -26,7 +26,7 @@ export async function GabosStoreShell({
       <main
         className={
           mainTop === 'cart'
-            ? 'flex flex-1 flex-col pb-[var(--shop-before-footer)] lg:pt-[var(--cart-top)]'
+            ? 'flex flex-1 flex-col pt-[var(--cart-top)] pb-[var(--shop-before-footer)]'
             : 'flex flex-1 flex-col pt-[var(--shop-after-nav)] pb-[var(--shop-before-footer)]'
         }
       >

@@ -39,9 +39,10 @@ Base nav sizes (above 500px):
 
 `src/app/(frontend)/globals.css` — block `@media screen and (max-width: 500px)`:
 
-- `.gabos-page-shop header nav a:not([href='/shop'])` → `font-size: calc(21px * 0.7);`
-- `.gabos-page-shop .gabos-cart-link` → same (cart uses class on `CartLink` in `src/components/cart-link.tsx`).
-- `.gabos-page-white header nav a:not([href='/shop'])` → `calc(19px * 0.7)`.
+- `.gabos-page-shop header nav a:not([href='/shop'])` and `.gabos-page-shop header .gabos-cart-link` → `calc(21px * 0.7)`.
+- `.gabos-page-white header nav a:not([href='/shop'])` and `.gabos-page-white header .gabos-cart-link` → `calc(19px * 0.7)` (cart page uses `gabos-page-white` + `GabosStoreHeader`; cart must use the same rule as nav or it stays at 21px from Tailwind).
+
+Cart link class: `src/components/cart-link.tsx` → `.gabos-cart-link`.
 - `.gabos-hero-nav-menu`, `.gabos-hero-nav-book`, `.gabos-hero-nav-contact` → `font-size: 70%;`
 
 **To change breakpoint:** Rename `500px` in that `@media` rule.
