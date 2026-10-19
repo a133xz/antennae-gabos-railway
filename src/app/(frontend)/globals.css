@@ -15,7 +15,7 @@
 }
 
 :root {
-  --color-burgundy: #650f0a;
+  --color-burgundy: #6e0001;
   --color-curtain: #6e0001;
   /* Page inset — adjust independently for client layouts */
   --gutter-top: 20px;
@@ -96,6 +96,24 @@
     var(--shop-card-width),
     calc((100% - 3 * var(--shop-card-gap)) / 4)
   );
+}
+
+/* ≤4 products: one row centered in the viewport between header and footer. */
+.gabos-page-shop:has(.shop-product-row--fits-viewport) {
+  height: 100vh;
+  min-height: 100vh;
+}
+
+.gabos-page-shop:has(.shop-product-row--fits-viewport) main {
+  flex: 1 1 0;
+  min-height: 0;
+  justify-content: center;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.gabos-page-shop:has(.shop-product-row--fits-viewport) footer {
+  margin-top: 0;
 }
 
 .shop-detail-photos {

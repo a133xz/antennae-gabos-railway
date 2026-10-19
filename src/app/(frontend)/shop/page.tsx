@@ -11,11 +11,17 @@ export default async function ShopPage() {
     .filter((product) => shopCatalogSlugs.has(product.slug))
     .sort((a, b) => shopOrder(a.slug) - shopOrder(b.slug) || a.order - b.order)
 
+  const fitsViewport = products.length <= 4
+
   return (
     <GabosStoreShell surface="shop">
       <>
         <h1 className="sr-only">Shop</h1>
-        <ul className="shop-product-row">
+        <ul
+          className={
+            fitsViewport ? 'shop-product-row shop-product-row--fits-viewport' : 'shop-product-row'
+          }
+        >
           {products.map((product) => (
             <li key={product.slug}>
               <ProductCard product={product} />

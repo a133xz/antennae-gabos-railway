@@ -47,7 +47,7 @@ export function LandingPanel({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <section ref={ref} className="landing-panel relative bg-[#650f0a] text-center text-white">
+    <section ref={ref} className="landing-panel relative bg-[var(--color-curtain)] text-center text-white">
       <LandingHuellas />
       <div className="landing-panel-inner px-[var(--gutter-inline)] pb-[var(--gutter-bottom)]">
         {children}
