@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   },
   description:
     "Gabo's is a New York-inspired supper club and cocktail bar in Madrid offering late-night dining, vinyl music, and classic American bites.",
+  icons: {
+    icon: '/favicon.jpg',
+    apple: '/apple-favicon.jpg',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
