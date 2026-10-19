@@ -150,9 +150,9 @@ export function CartView() {
           type="button"
           disabled={pending}
           onClick={() => void checkout()}
-          className="flex h-[38px] w-[157px] items-center justify-center border border-black text-[19px] uppercase leading-none transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-40 lg:mx-auto lg:justify-self-center"
+          className="box-border block h-[38px] w-[157px] border border-black bg-transparent p-0 text-center text-[19px] uppercase leading-[38px] transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-40 lg:mx-auto lg:justify-self-center"
         >
-          checkout &gt;
+          checkout&nbsp;&gt;
         </button>
         <p className="text-[21px] uppercase leading-none lg:justify-self-end lg:text-right">
           subtotal {formatPrice(subtotal, 2)}
