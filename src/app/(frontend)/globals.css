@@ -27,9 +27,7 @@
    *   PDP copy column — 234px
    *   card title overlap on photo — 27px
    */
-  --shop-after-nav: 20px;
-  /* Extra inset below nav on /shop only (127px total ≈ after-nav + list-top). */
-  --shop-list-top: 0px;
+  --shop-after-nav: 0px;
   /* /shop: pull title + price toward photo (negative margin on card caption). */
   --shop-card-caption-overlap: 27px;
   /* PDP: shift photo inside crop frame (0 = none; negative moves image up). */
