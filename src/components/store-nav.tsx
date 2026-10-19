@@ -16,7 +16,7 @@ export function StoreNav({ items }: { items: Item[] }) {
 
   return (
     <nav
-      className="flex flex-wrap items-center justify-end gap-4 lg:justify-center lg:gap-12"
+      className="flex flex-wrap items-center justify-end gap-4 min-[759px]:justify-center min-[759px]:gap-12"
       aria-label="Primary"
     >
       {items.map((item) => {

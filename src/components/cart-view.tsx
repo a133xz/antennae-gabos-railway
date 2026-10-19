@@ -158,11 +158,6 @@ export function CartView() {
           subtotal {formatPrice(subtotal, 2)}
         </p>
       </div>
-      {!canCheckout && lines.length > 0 ? (
-        <p className="mt-4 text-center text-sm font-normal normal-case opacity-70">
-          Cart preview — add and remove items freely. Connect Stripe to enable checkout.
-        </p>
-      ) : null}
       {error ? <p className="mt-4 text-center text-sm font-normal normal-case text-red-700">{error}</p> : null}
     </div>
   )
