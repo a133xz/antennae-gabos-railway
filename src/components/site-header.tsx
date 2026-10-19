@@ -1,7 +1,6 @@
 import type { SiteSettings } from '@/content/types'
 import { GabosNavLink } from './gabos-nav-link'
 import { Logo } from './logo'
-import { MobileNav } from './mobile-nav'
 
 export function SiteHeader({ settings }: { settings: SiteSettings }) {
   const items = [
@@ -14,7 +13,10 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
   return (
     <header className="flex items-center justify-between gap-6 px-[var(--gutter-inline)] pt-[var(--gutter-top)] pb-[var(--gutter-top)] lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center">
       <Logo />
-      <nav className="hidden items-center justify-center gap-12 lg:flex" aria-label="Primary">
+      <nav
+        className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-8 lg:gap-x-12"
+        aria-label="Primary"
+      >
         {items.map((item) => (
           <GabosNavLink
             key={item.href}
@@ -27,7 +29,6 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
         ))}
       </nav>
       <div className="hidden lg:block" aria-hidden />
-      <MobileNav items={items} />
     </header>
   )
 }

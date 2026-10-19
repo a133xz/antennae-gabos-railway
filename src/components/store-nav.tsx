@@ -15,7 +15,10 @@ export function StoreNav({ items }: { items: Item[] }) {
   const pathname = usePathname()
 
   return (
-    <nav className="hidden items-center justify-center gap-12 lg:flex" aria-label="Primary">
+    <nav
+      className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-8 lg:gap-x-12"
+      aria-label="Primary"
+    >
       {items.map((item) => {
         const active = item.activePrefix
           ? pathname === item.activePrefix || pathname.startsWith(`${item.activePrefix}/`)
