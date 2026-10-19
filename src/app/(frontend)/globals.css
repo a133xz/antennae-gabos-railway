@@ -345,6 +345,14 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   font-size: 2rem;
 }
 
+.landing-panel {
+  --landing-huella-width: min(382.5px, 61.2vw); /* 85% of 450px / 72vw */
+}
+
+.landing-huellas {
+  width: var(--landing-huella-width);
+}
+
 .landing-panel-inner {
   padding-top: clamp(300px, 28vw, 580px);
 }
@@ -466,7 +474,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   }
 
   .landing-panel-inner {
-    padding-top: calc(min(450px, 72vw) * 0.55 + 4rem);
+    padding-top: calc(var(--landing-huella-width) * 0.55 + 4rem);
   }
 }
 

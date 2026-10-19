@@ -70,7 +70,7 @@ export function LandingHuellas() {
 
   return (
     <div
-      className="landing-huellas pointer-events-none absolute left-1/2 top-0 z-10 w-[min(450px,72vw)] -translate-x-1/2 md:-translate-y-[28%]"
+      className="landing-huellas pointer-events-none absolute left-1/2 top-0 z-10 -translate-x-1/2 md:-translate-y-[28%]"
       style={{ aspectRatio: '450.263 / 554.006' }}
       aria-hidden
     >
