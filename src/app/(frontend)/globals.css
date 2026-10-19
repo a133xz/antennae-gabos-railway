@@ -41,6 +41,10 @@
   --shop-detail-crop-nudge: -10px;
   /* PDP: extra inset on photo stack (on top of --shop-after-nav). */
   --shop-detail-image-start: 0px;
+  /* PDP: space under nav (main padding-top); default shop uses --shop-after-nav. */
+  --shop-after-nav-pdp: 24px;
+  /* PDP: shift visible image up inside the crop frame. */
+  --shop-detail-crop-nudge-pdp: -72px;
   /*
    * PDP copy column top inset on lg+ (was 234px fixed).
    * Scales with viewport height (dvh): ~12vh on ~13" laptop, up to 25vh on tall displays.
@@ -135,6 +139,11 @@
 
 .gabos-page-white:has(.shop-detail-photos) {
   --shop-before-footer: var(--shop-before-footer-pdp);
+  --shop-detail-crop-nudge: var(--shop-detail-crop-nudge-pdp);
+}
+
+.gabos-page-white:has(.shop-detail-photos) main {
+  padding-top: var(--shop-after-nav-pdp);
 }
 
 .gabos-page-white:has(.shop-detail-photos) footer {
