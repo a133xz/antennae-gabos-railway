@@ -61,6 +61,12 @@ Not nav-related; listed here because it was set with the same mobile pass as hom
 
 ---
 
+## Store header layout below `lg` (1024px)
+
+`src/components/gabos-store-header.tsx` — **gabos** stays left; Menu, book, contact, and **cart** sit in one row **aligned right** with **`gap-4`** between every item (nav uses `justify-end gap-4`; cart is in the same flex group). From **`lg` up**, the 3-column grid returns (center nav, cart in the right column).
+
+---
+
 ## Nav always visible (no 1024px hide)
 
 Center nav is **not** gated on `lg` anymore:
