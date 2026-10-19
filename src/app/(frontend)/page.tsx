@@ -18,9 +18,11 @@ export default async function HomePage() {
         <GabosHero settings={settings} />
 
         <LandingPanel>
-          <h1 className="mx-auto max-w-[910px] leading-[normal]">{settings.statement}</h1>
+          <div className="landing-statement mx-auto max-w-[910px]">
+            <h1 className="leading-[normal]">{settings.statement}</h1>
+          </div>
 
-          <div className="mx-auto mt-[clamp(96px,10vw,180px)] aspect-[2250/2813] w-full max-w-[910px] lg:w-[47.4%]">
+          <div className="mx-auto aspect-[2250/2813] w-full max-w-[910px] lg:w-[47.4%]">
             <video
               src="/media/video.mp4"
               poster={editorial.src}

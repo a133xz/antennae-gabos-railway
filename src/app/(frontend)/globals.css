@@ -446,6 +446,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
 .landing-panel {
   --landing-huella-width: min(382.5px, 61.2vw); /* 85% of 450px / 72vw */
+  --landing-statement-gap: clamp(96px, 10vw, 180px);
 }
 
 .landing-huellas {
@@ -453,7 +454,13 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 }
 
 .landing-panel-inner {
-  padding-top: clamp(300px, 28vw, 580px);
+  /* Room for huellas only; statement block owns vertical rhythm above/below copy. */
+  padding-top: calc(var(--landing-huella-width) * (554 / 450.263) * 0.72);
+}
+
+.landing-statement {
+  padding-top: var(--landing-statement-gap);
+  padding-bottom: var(--landing-statement-gap);
 }
 
 .gabos-hero-nav-follow {
@@ -570,7 +577,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
   .landing-panel-inner {
     /* Follow the footprints, which are shifted up by 18vh on this breakpoint. */
-    padding-top: calc(var(--landing-huella-width) * 1.05 - 18vh + 2.5rem);
+    padding-top: calc(var(--landing-huella-width) * 1.05 - 18vh);
   }
 
   /* /shop: stack product cards vertically (same breakpoint as home nav). */
