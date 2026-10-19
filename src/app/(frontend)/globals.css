@@ -534,6 +534,27 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     /* Follow the footprints, which are shifted up by 18vh on this breakpoint. */
     padding-top: calc(var(--landing-huella-width) * 1.05 - 18vh + 2.5rem);
   }
+
+  /* /shop: stack product cards vertically (same breakpoint as home nav). */
+  .shop-product-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .shop-product-row > li {
+    width: min(var(--shop-card-width), 100%);
+  }
+
+  .gabos-page-shop:has(.shop-product-row--fits-viewport) {
+    height: auto;
+  }
+
+  .gabos-page-shop:has(.shop-product-row--fits-viewport) main {
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    padding-top: var(--shop-after-nav);
+    padding-bottom: var(--shop-before-footer);
+  }
 }
 
 /*
