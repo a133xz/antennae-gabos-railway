@@ -45,6 +45,7 @@
   --shop-after-nav-pdp: 24px;
   /* PDP: shift visible image up inside the crop frame. */
   --shop-detail-crop-nudge-pdp: -72px;
+  --shop-detail-sticky-top: 1.25rem;
   /*
    * PDP copy column top inset on lg+ (was 234px fixed).
    * Scales with viewport height (dvh): ~12vh on ~13" laptop, up to 25vh on tall displays.
