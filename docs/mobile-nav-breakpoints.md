@@ -82,6 +82,20 @@ There is **no** hamburger overlay on shop; `src/components/mobile-nav.tsx` is un
 
 ---
 
+## Cart desktop layout (`lg`+)
+
+`src/components/cart-view.tsx` — line row and footer (continue / **checkout** / subtotal) use the **same** grid: `lg:grid-cols-[minmax(0,421px)_1fr_auto]`.
+
+| Column | Line row | Footer |
+|--------|----------|--------|
+| 1 | Image (left) | continue shopping |
+| 2 | Product detail (`lg:justify-self-center`) | checkout button (`lg:justify-self-center`) |
+| 3 | Line price | subtotal |
+
+No `position: fixed` or `50dvh` — detail aligns **horizontally** with checkout in column 2. Single-item cart uses `lg:flex-1` on the shell so detail/price can sit vertically centered in the area above the footer.
+
+---
+
 ## Prompt cheat sheet (for you or the agent)
 
 Examples:

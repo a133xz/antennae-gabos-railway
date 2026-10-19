@@ -8,12 +8,16 @@ import { formatPrice } from '@/lib/format-price'
 import { checkoutAvailable } from '@/lib/shop-demo'
 import { CroppedPhoto } from './cropped-photo'
 
+/** Desktop lg: line row + footer share grid-cols-[421px_1fr_auto] — detail and checkout in column 2. */
+const cartDesktopCols = 'lg:grid-cols-[minmax(0,421px)_1fr_auto]'
+
 export function CartView() {
   const { lines, subtotal, ready, setQuantity, removeLine, clear } = useCart()
   const [revealed, setRevealed] = useState(false)
   const [pending, setPending] = useState(false)
   const [error, setError] = useState('')
   const canCheckout = checkoutAvailable() && lines.every((line) => line.stripePriceId)
+  const singleLine = lines.length === 1
 
   useEffect(() => {
     if (!ready) {
@@ -83,15 +87,22 @@ export function CartView() {
   }
 
   return (
-    <div className={fade}>
-      <ul className="border-y border-black">
+    <div className={`flex flex-col ${fade} lg:min-h-0 lg:flex-1`}>
+      <ul
+        className={`border-y border-black lg:flex lg:flex-col ${singleLine ? 'lg:min-h-0 lg:flex-1' : ''}`}
+      >
         {lines.map((line) => {
           const look = shopLook(line.slug)
           const color = look?.color
           return (
-            <li key={line.key} className="border-b border-black py-0 last:border-b-0">
-              <div className="flex flex-col items-center gap-8 py-8 lg:grid lg:grid-cols-[minmax(0,421px)_1fr_auto] lg:items-start lg:gap-6 lg:py-0">
-                <div className="w-full max-w-[421px]">
+            <li
+              key={line.key}
+              className={`cart-line border-b border-black py-0 last:border-b-0 ${singleLine ? 'lg:flex lg:min-h-0 lg:flex-1 lg:flex-col' : ''}`}
+            >
+              <div
+                className={`cart-line-grid flex flex-col items-center gap-8 py-8 lg:grid ${cartDesktopCols} lg:justify-items-stretch lg:items-center lg:gap-6 lg:py-0 ${singleLine ? 'lg:min-h-0 lg:flex-1' : ''}`}
+              >
+                <div className="w-full max-w-[421px] lg:justify-self-start lg:self-start">
                   {look ? (
                     <CroppedPhoto crop={look.card} aspect="421 / 545" alt={look.card.alt} />
                   ) : (
@@ -101,7 +112,7 @@ export function CartView() {
                     </div>
                   )}
                 </div>
-                <div className="flex w-full flex-col items-center text-center text-[21px] uppercase leading-none lg:items-stretch lg:pt-[var(--cart-line-text-offset-lg)]">
+                <div className="flex w-full flex-col items-center text-center text-[21px] uppercase leading-none lg:justify-self-center lg:px-4">
                   <p>{line.title}</p>
                   {color ? (
                     <>
@@ -130,7 +141,7 @@ export function CartView() {
                     {formatPrice(line.price * line.quantity, 2)}
                   </p>
                 </div>
-                <p className="hidden text-right text-[21px] uppercase leading-none lg:block lg:pt-[var(--cart-line-text-offset-lg)]">
+                <p className="hidden text-right text-[21px] uppercase leading-none lg:block lg:justify-self-end lg:self-center">
                   {formatPrice(line.price * line.quantity, 2)}
                 </p>
               </div>
@@ -139,7 +150,9 @@ export function CartView() {
         })}
       </ul>
 
-      <div className="mt-[42px] flex flex-col items-center gap-6 text-center lg:grid lg:grid-cols-3 lg:items-center lg:text-left">
+      <div
+        className={`mt-[42px] flex flex-col items-center gap-6 text-center lg:grid ${cartDesktopCols} lg:items-center lg:text-left`}
+      >
         <Link
           href="/shop"
           className="text-[19px] uppercase leading-none transition-opacity hover:opacity-70 lg:justify-self-start"
@@ -150,7 +163,7 @@ export function CartView() {
           type="button"
           disabled={pending}
           onClick={() => void checkout()}
-          className="box-border block h-[38px] w-[157px] border border-black bg-transparent p-0 text-center text-[19px] uppercase leading-[38px] transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-40 lg:mx-auto lg:justify-self-center"
+          className="box-border block h-[38px] w-[157px] border border-black bg-transparent p-0 text-center text-[19px] uppercase leading-[38px] transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-40 lg:justify-self-center"
         >
           checkout&nbsp;&gt;
         </button>
