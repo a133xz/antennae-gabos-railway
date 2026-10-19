@@ -20,7 +20,9 @@ export async function GabosStoreShell({
       className={`${page} flex min-h-screen flex-col px-[var(--gutter-inline)] pb-[var(--gutter-bottom)] font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[normal]`}
     >
       <GabosStoreHeader settings={settings} />
-      <main className="flex flex-1 flex-col pt-[var(--shop-after-nav)]">{children}</main>
+      <main className="flex flex-1 flex-col pt-[var(--shop-after-nav)] pb-[var(--shop-before-footer)]">
+        {children}
+      </main>
       <GabosStoreFooter settings={settings} />
     </div>
   )

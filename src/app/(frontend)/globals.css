@@ -28,8 +28,10 @@
    *   card title overlap on photo — 27px
    */
   --shop-after-nav: 0px;
+  /* Gap between main content (e.g. product grid) and store footer (was footer pt-10 / 40px). */
+  --shop-before-footer: 150px;
   /* /shop: pull title + price toward photo (negative margin on card caption). */
-  --shop-card-caption-overlap: 27px;
+  --shop-card-caption-overlap: 25px;
   /* PDP: shift photo inside crop frame (0 = none; negative moves image up). */
   --shop-detail-crop-nudge: 0px;
   /* PDP: extra inset on photo stack (on top of --shop-after-nav). */
