@@ -139,19 +139,24 @@ export function CartView() {
         })}
       </ul>
 
-      <div className="mt-[42px] grid items-center gap-6 sm:grid-cols-3">
-        <Link href="/shop" className="text-[19px] uppercase leading-none transition-opacity hover:opacity-70">
+      <div className="mt-[42px] flex flex-col items-center gap-6 text-center lg:grid lg:grid-cols-3 lg:items-center lg:text-left">
+        <Link
+          href="/shop"
+          className="text-[19px] uppercase leading-none transition-opacity hover:opacity-70 lg:justify-self-start"
+        >
           continue shopping &gt;
         </Link>
         <button
           type="button"
           disabled={pending}
           onClick={() => void checkout()}
-          className="mx-auto flex h-[38px] w-[157px] items-center justify-center border border-black text-[19px] uppercase leading-none transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex h-[38px] w-[157px] items-center justify-center border border-black text-[19px] uppercase leading-none transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-40 lg:mx-auto lg:justify-self-center"
         >
           checkout &gt;
         </button>
-        <p className="text-right text-[21px] uppercase leading-none">subtotal {formatPrice(subtotal, 2)}</p>
+        <p className="text-[21px] uppercase leading-none lg:justify-self-end lg:text-right">
+          subtotal {formatPrice(subtotal, 2)}
+        </p>
       </div>
       {!canCheckout && lines.length > 0 ? (
         <p className="mt-4 text-center text-sm font-normal normal-case opacity-70">
