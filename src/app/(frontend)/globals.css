@@ -37,7 +37,7 @@
   /* PDP: extra inset on photo stack (on top of --shop-after-nav). */
   --shop-detail-image-start: 0px;
   /* PDP copy column top inset on lg+ only (was 234px) */
-  --shop-detail-text-offset: calc(15vh);
+  --shop-detail-text-offset: calc(12vh);
   --font-gabos: 'estilo', Palatino, 'Palatino Linotype', Georgia, serif;
   --body: 1rem;
 }

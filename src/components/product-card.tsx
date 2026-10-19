@@ -10,27 +10,23 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <article>
-      {look ? (
-        <ProductCardPhoto
-          card={look.card}
-          cardAlt={look.cardAlt}
-          href={href}
-          aspect="445 / 545"
-        />
-      ) : (
-        <Link href={href} className="block">
+      <Link
+        href={href}
+        className="group/card block transition-opacity hover:opacity-70"
+        aria-label={product.title}
+      >
+        {look ? (
+          <ProductCardPhoto card={look.card} cardAlt={look.cardAlt} aspect="445 / 545" />
+        ) : (
           <div className="relative aspect-[445/545] w-full overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={product.image.src} alt={product.image.alt} className="h-full w-full object-contain" />
           </div>
-        </Link>
-      )}
-      <Link
-        href={href}
-        className="relative z-10 -mt-[var(--shop-card-caption-overlap)] block text-center text-[21px] uppercase leading-none transition-opacity hover:opacity-70"
-      >
-        <h2>{product.title}</h2>
-        <p className="mt-0">{formatPrice(product.price)}</p>
+        )}
+        <div className="relative z-10 -mt-[var(--shop-card-caption-overlap)] text-center text-[21px] uppercase leading-none">
+          <h2>{product.title}</h2>
+          <p className="mt-0">{formatPrice(product.price)}</p>
+        </div>
       </Link>
     </article>
   )
