@@ -54,6 +54,14 @@
     ),
     var(--shop-detail-text-offset-max)
   );
+  /*
+   * Cart — gap from store nav to first line (top of line list). Design: 64px / 242px lg.
+   * Added on top of --shop-after-nav on GabosStoreShell main.
+   */
+  --cart-after-nav: 0px;
+  --cart-after-nav-lg: 113px;
+  /* Cart line row: title/qty column inset on lg (aligns with photo; was 225px). */
+  --cart-line-text-offset-lg: 225px;
   --font-gabos: 'estilo', Palatino, 'Palatino Linotype', Georgia, serif;
   --body: 1rem;
 }

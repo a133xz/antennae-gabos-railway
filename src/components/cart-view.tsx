@@ -59,7 +59,7 @@ export function CartView() {
   }
 
   return (
-    <div className="pt-16 lg:pt-[242px]">
+    <div className="pt-[var(--cart-after-nav)] lg:pt-[var(--cart-after-nav-lg)]">
       <ul className="border-y border-black">
         {lines.map((line) => {
           const look = shopLook(line.slug)
@@ -77,7 +77,7 @@ export function CartView() {
                     </div>
                   )}
                 </div>
-                <div className="text-center text-[21px] uppercase leading-none lg:pt-[225px]">
+                <div className="text-center text-[21px] uppercase leading-none lg:pt-[var(--cart-line-text-offset-lg)]">
                   <p>{line.title}</p>
                   {color ? (
                     <>
@@ -103,7 +103,9 @@ export function CartView() {
                     remove
                   </button>
                 </div>
-                <p className="text-right text-[21px] uppercase leading-none lg:pt-[225px]">{formatPrice(line.price * line.quantity, 2)}</p>
+                <p className="text-right text-[21px] uppercase leading-none lg:pt-[var(--cart-line-text-offset-lg)]">
+                  {formatPrice(line.price * line.quantity, 2)}
+                </p>
               </div>
             </li>
           )
