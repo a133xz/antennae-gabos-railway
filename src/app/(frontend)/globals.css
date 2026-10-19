@@ -345,6 +345,10 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   font-size: 2rem;
 }
 
+.landing-panel-inner {
+  padding-top: clamp(300px, 28vw, 580px);
+}
+
 .gabos-hero-nav-follow {
   display: none;
 }
@@ -462,7 +466,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   }
 
   .landing-panel-inner {
-    padding-top: calc(min(450px, 72vw) * 0.55 + 2rem);
+    padding-top: calc(min(450px, 72vw) * 0.55 + 4rem);
   }
 }
 
