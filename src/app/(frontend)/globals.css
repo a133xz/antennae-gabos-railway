@@ -15,7 +15,6 @@
 }
 
 :root {
-  --color-burgundy: #650f0a;
   --color-curtain: #6e0001;
   /* Page inset — adjust independently for client layouts */
   --gutter-top: 20px;
@@ -330,11 +329,47 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   letter-spacing: normal;
 }
 
-/* Contact: match theme — narrow column centered in the stage (not full-width linkContainer) */
+/* Contact: details stay in the stage; footer sits full width at the bottom. */
+.page-contact .navWrapper {
+  align-items: stretch;
+  height: 100%;
+  min-height: 0;
+}
+
 .page-contact .linkContainer {
-  width: auto;
+  width: 100%;
   max-width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.page-contact-main {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.page-contact-footer {
+  flex: 0 0 auto;
+  width: 100%;
+  padding: 0 var(--gutter-inline) var(--gutter-bottom);
+  color: #fff;
+  font-size: 1.3125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.page-contact-footer footer {
+  margin-top: clamp(48px, 6vh, 96px);
 }
 
 .page-contact .linkContainer .details,
@@ -368,6 +403,8 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
 .landing-panel {
   --landing-huella-width: min(382.5px, 61.2vw); /* 85% of 450px / 72vw */
+  /* Same ratio as the footprint frame (450.263 / 554.006). */
+  --landing-huella-height: calc(var(--landing-huella-width) * 554.006 / 450.263);
 }
 
 .landing-huellas {
@@ -375,7 +412,14 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 }
 
 .landing-panel-inner {
-  padding-top: clamp(300px, 28vw, 580px);
+  /* 20px under the footprints. Phones keep the full frame; md+ shifts it up 28%. */
+  padding-top: calc(var(--landing-huella-height) + 20px);
+}
+
+@media screen and (min-width: 768px) {
+  .landing-panel-inner {
+    padding-top: calc(var(--landing-huella-height) * 0.72 + 20px);
+  }
 }
 
 .gabos-hero-nav-follow {
@@ -387,8 +431,12 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     overflow: visible;
   }
 
-  .gabos-home {
+  .gabos-home,
+  .page-contact-footer {
     font-size: calc(1.3125rem * 0.75);
+  }
+
+  .gabos-home {
     background: transparent;
   }
 
@@ -492,10 +540,6 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     font-size: inherit;
     font-weight: 400;
     line-height: 1.2;
-  }
-
-  .landing-panel-inner {
-    padding-top: calc(var(--landing-huella-width) * 0.55 + 4rem);
   }
 }
 
