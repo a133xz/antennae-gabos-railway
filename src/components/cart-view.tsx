@@ -8,8 +8,12 @@ import { formatPrice } from '@/lib/format-price'
 import { checkoutAvailable } from '@/lib/shop-demo'
 import { CroppedPhoto } from './cropped-photo'
 
-/** Desktop lg: line row + footer share grid-cols-[421px_1fr_auto] — detail and checkout in column 2. */
-const cartDesktopCols = 'lg:grid-cols-[minmax(0,421px)_1fr_auto]'
+/** Same 3-column grid as `LandingFooter` (md+) — center track is viewport-centered. */
+const cartStoreGrid =
+  'flex min-h-0 flex-1 flex-col md:grid md:grid-cols-[1fr_auto_1fr] md:grid-rows-[1fr_auto] md:gap-x-6'
+const cartLineGrid = 'md:col-span-3 md:row-start-1 md:grid md:grid-cols-subgrid md:min-h-0'
+const cartActionsRow =
+  'mt-[42px] flex flex-col items-center gap-6 text-center md:col-span-3 md:row-start-2 md:grid md:grid-cols-subgrid md:items-center'
 
 export function CartView() {
   const { lines, subtotal, ready, setQuantity, removeLine, clear } = useCart()
@@ -87,9 +91,9 @@ export function CartView() {
   }
 
   return (
-    <div className={`flex flex-col ${fade} lg:min-h-0 lg:flex-1`}>
+    <div className={`${fade} ${cartStoreGrid}`}>
       <ul
-        className={`border-y border-black lg:flex lg:flex-col ${singleLine ? 'lg:min-h-0 lg:flex-1' : ''}`}
+        className={`flex flex-col border-y border-black ${cartLineGrid} ${singleLine ? 'md:flex-1 md:justify-center' : ''}`}
       >
         {lines.map((line) => {
           const look = shopLook(line.slug)
@@ -97,12 +101,10 @@ export function CartView() {
           return (
             <li
               key={line.key}
-              className={`cart-line border-b border-black py-0 last:border-b-0 ${singleLine ? 'lg:flex lg:min-h-0 lg:flex-1 lg:flex-col' : ''}`}
+              className={`cart-line border-b border-black py-0 last:border-b-0 ${cartLineGrid} md:items-center`}
             >
-              <div
-                className={`cart-line-grid flex flex-col items-center gap-8 py-8 lg:grid ${cartDesktopCols} lg:justify-items-stretch lg:items-center lg:gap-6 lg:py-0 ${singleLine ? 'lg:min-h-0 lg:flex-1' : ''}`}
-              >
-                <div className="w-full max-w-[421px] lg:justify-self-start lg:self-start">
+              <div className="cart-line-grid flex flex-col items-center gap-8 py-8 md:contents md:py-0">
+                <div className="w-full max-w-[421px] md:justify-self-start md:self-start">
                   {look ? (
                     <CroppedPhoto crop={look.card} aspect="421 / 545" alt={look.card.alt} />
                   ) : (
@@ -112,7 +114,7 @@ export function CartView() {
                     </div>
                   )}
                 </div>
-                <div className="flex w-full flex-col items-center text-center text-[21px] uppercase leading-none lg:justify-self-center lg:px-4">
+                <div className="flex w-full flex-col items-center text-center text-[21px] uppercase leading-none md:w-auto md:justify-self-center">
                   <p>{line.title}</p>
                   {color ? (
                     <>
@@ -137,11 +139,11 @@ export function CartView() {
                   >
                     remove
                   </button>
-                  <p className="mt-[23px] text-[21px] uppercase leading-none lg:hidden">
+                  <p className="mt-[23px] text-[21px] uppercase leading-none md:hidden">
                     {formatPrice(line.price * line.quantity, 2)}
                   </p>
                 </div>
-                <p className="hidden text-right text-[21px] uppercase leading-none lg:block lg:justify-self-end lg:self-center">
+                <p className="hidden text-right text-[21px] uppercase leading-none md:block md:justify-self-end md:self-center">
                   {formatPrice(line.price * line.quantity, 2)}
                 </p>
               </div>
@@ -150,12 +152,10 @@ export function CartView() {
         })}
       </ul>
 
-      <div
-        className={`mt-[42px] flex flex-col items-center gap-6 text-center lg:grid ${cartDesktopCols} lg:items-center lg:text-left`}
-      >
+      <div className={cartActionsRow}>
         <Link
           href="/shop"
-          className="text-[19px] uppercase leading-none transition-opacity hover:opacity-70 lg:justify-self-start"
+          className="text-[19px] uppercase leading-none transition-opacity hover:opacity-70 md:justify-self-start md:self-center md:text-left"
         >
           continue shopping &gt;
         </Link>
@@ -163,11 +163,11 @@ export function CartView() {
           type="button"
           disabled={pending}
           onClick={() => void checkout()}
-          className="box-border block h-[38px] w-[157px] border border-black bg-transparent p-0 text-center text-[19px] uppercase leading-[38px] transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-40 lg:justify-self-center"
+          className="box-border block h-[38px] w-[157px] border border-black bg-transparent p-0 text-center text-[19px] uppercase leading-[38px] transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-40 md:justify-self-center md:self-center"
         >
           checkout&nbsp;&gt;
         </button>
-        <p className="text-[21px] uppercase leading-none lg:justify-self-end lg:text-right">
+        <p className="text-[21px] uppercase leading-none md:justify-self-end md:self-center md:text-right">
           subtotal {formatPrice(subtotal, 2)}
         </p>
       </div>

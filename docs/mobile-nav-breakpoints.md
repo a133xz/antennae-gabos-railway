@@ -82,17 +82,17 @@ There is **no** hamburger overlay on shop; `src/components/mobile-nav.tsx` is un
 
 ---
 
-## Cart desktop layout (`lg`+)
+## Cart desktop layout (`md`+)
 
-`src/components/cart-view.tsx` — line row and footer (continue / **checkout** / subtotal) use the **same** grid: `lg:grid-cols-[minmax(0,421px)_1fr_auto]`.
+`src/components/cart-view.tsx` — one parent grid matches **`LandingFooter`**: `md:grid-cols-[1fr_auto_1fr]` (center track is viewport-centered, same as “From NewYork”). Line rows use **subgrid**; continue / checkout / subtotal are the next row on that same grid.
 
-| Column | Line row | Footer |
-|--------|----------|--------|
-| 1 | Image (left) | continue shopping |
-| 2 | Product detail (`lg:justify-self-center`) | checkout button (`lg:justify-self-center`) |
-| 3 | Line price | subtotal |
+| Column | Line row | Actions row |
+|--------|----------|-------------|
+| 1 | Image (`md:justify-self-start`, max 421px) | continue shopping |
+| 2 | Product detail (`md:justify-self-center`) | checkout |
+| 3 | Line price (`md:justify-self-end`) | subtotal |
 
-No `position: fixed` or `50dvh` — detail aligns **horizontally** with checkout in column 2. Single-item cart uses `lg:flex-1` on the shell so detail/price can sit vertically centered in the area above the footer.
+Parent grid: `md:grid-rows-[1fr_auto]` — line list grows in row 1 (single line: `md:justify-center` on the list); action row in row 2 with **42px** top margin only (`md:gap-x-6`, no extra row gap).
 
 ---
 
