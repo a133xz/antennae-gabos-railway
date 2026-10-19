@@ -23,16 +23,24 @@ export function runGabosCurtainAnimation(
   const fixedRight = fixedCurtainRight
 
   const timers: number[] = []
+  let finished = false
+  let cancelled = false
 
-  function afterOpen() {
+  function finishOpen() {
+    if (finished) return
+    finished = true
+
     root.classList.add('wrapper--opened')
     document.body.classList.remove('gabos-curtain-active')
+
+    if (mobileCurtain) mobileCurtain.style.display = 'none'
+    if (curtainLeft) curtainLeft.style.display = 'none'
+    if (curtainRight) curtainRight.style.display = 'none'
+
     fixedLeft.style.pointerEvents = 'none'
     fixedRight.style.pointerEvents = 'none'
 
     if (scrollable) {
-      // Phones match the original theme: the mark and links sit above the drapes,
-      // so the stack stays in the middle of the opening.
       const phone = window.innerWidth <= 767
       nav.style.zIndex = phone ? '4' : '1'
       fixedLeft.style.zIndex = phone ? '3' : '5'
@@ -45,7 +53,10 @@ export function runGabosCurtainAnimation(
   }
 
   function animateMobileCurtain() {
-    if (!mobileCurtain) return
+    if (!mobileCurtain) {
+      finishOpen()
+      return
+    }
     mobileCurtain.style.display = 'block'
     mobileCurtain.style.position = 'absolute'
     mobileCurtain.style.top = '0'
@@ -55,25 +66,31 @@ export function runGabosCurtainAnimation(
 
     timers.push(
       window.setTimeout(() => {
+        if (cancelled) return
         mobileCurtain.style.transform = 'translateY(-100%)'
       }, 500),
     )
 
     timers.push(
       window.setTimeout(() => {
-        mobileCurtain.style.display = 'none'
-        afterOpen()
+        if (cancelled) return
+        finishOpen()
       }, 2000),
     )
   }
 
   function animateDesktopCurtains() {
-    if (!curtainLeft || !curtainRight) return
+    if (!curtainLeft || !curtainRight) {
+      finishOpen()
+      return
+    }
+
+    const curtainPosition = scrollable ? 'fixed' : 'absolute'
 
     curtainLeft.style.display = 'block'
     curtainRight.style.display = 'block'
-    curtainLeft.style.position = 'absolute'
-    curtainRight.style.position = 'absolute'
+    curtainLeft.style.position = curtainPosition
+    curtainRight.style.position = curtainPosition
     curtainLeft.style.top = '0'
     curtainRight.style.top = '0'
     curtainLeft.style.left = '0'
@@ -85,6 +102,7 @@ export function runGabosCurtainAnimation(
 
     timers.push(
       window.setTimeout(() => {
+        if (cancelled) return
         curtainLeft.style.transform = 'translateX(-100%)'
         curtainRight.style.transform = 'translateX(100%)'
       }, 500),
@@ -92,9 +110,8 @@ export function runGabosCurtainAnimation(
 
     timers.push(
       window.setTimeout(() => {
-        curtainLeft.style.display = 'none'
-        curtainRight.style.display = 'none'
-        afterOpen()
+        if (cancelled) return
+        finishOpen()
       }, 2000),
     )
   }
@@ -104,7 +121,6 @@ export function runGabosCurtainAnimation(
   fixedRight.style.pointerEvents = 'auto'
   document.body.classList.add('gabos-curtain-active')
 
-  // Same side-drape open as desktop (vertical nav breakpoint is 767px, not the old 720 mobile sheet).
   if (curtainLeft && curtainRight) {
     animateDesktopCurtains()
   } else {
@@ -112,7 +128,9 @@ export function runGabosCurtainAnimation(
   }
 
   return () => {
+    cancelled = true
     timers.forEach((id) => window.clearTimeout(id))
     document.body.classList.remove('gabos-curtain-active')
+    if (!finished) finishOpen()
   }
 }

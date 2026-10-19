@@ -226,8 +226,11 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
 .wrapper .fixedCurtainLeft {
   position: absolute;
+  left: 0;
   height: 100vh;
   z-index: 3;
+  object-fit: cover;
+  object-position: right center;
 }
 
 .wrapper .fixedCurtainRight {
@@ -235,6 +238,8 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   height: 100vh;
   right: 0;
   z-index: 3;
+  object-fit: cover;
+  object-position: left center;
 }
 
 /* Home: side drapes belong to the first screen and scroll away into the lower section. */
@@ -242,12 +247,14 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 .wrapper--scroll .fixedCurtainRight {
   position: absolute;
   top: 0;
+  pointer-events: none;
 }
 
 .wrapper--scroll .mobileCurtain,
 .wrapper--scroll .curtainLeft,
 .wrapper--scroll .curtainRight {
   position: fixed;
+  max-width: 100vw;
 }
 
 .wrapper .mobileCurtain,
@@ -595,14 +602,17 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 }
 
 @media screen and (max-width: 1350px) {
+  /* ~35% visible per side without translate (avoids horizontal document scroll). */
   .wrapper .fixedCurtainLeft {
-    width: 70%;
-    transform: translateX(-50%);
+    left: 0;
+    width: 35%;
+    transform: none;
   }
 
   .wrapper .fixedCurtainRight {
-    width: 70%;
-    transform: translateX(50%);
+    right: 0;
+    width: 35%;
+    transform: none;
   }
 
   .wrapper .linkContainer .item {
@@ -631,24 +641,5 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   .page-contact .linkContainer .heading {
     width: min(100%, 80vw);
     max-width: 80vw;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  /* Side drapes on phones — after ≤1350px rules so these win. */
-  .wrapper .fixedCurtainLeft {
-    left: 0;
-    width: 58%;
-    transform: translateX(-22%);
-    object-fit: cover;
-    object-position: right center;
-  }
-
-  .wrapper .fixedCurtainRight {
-    right: 0;
-    width: 58%;
-    transform: translateX(22%);
-    object-fit: cover;
-    object-position: left center;
   }
 }
