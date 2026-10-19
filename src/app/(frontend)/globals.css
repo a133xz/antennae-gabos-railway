@@ -21,11 +21,33 @@
   --gutter-top: 20px;
   --gutter-inline: 20px;
   --gutter-bottom: 20px;
-  /* Shop — space below header (shop grid was 127px; PDP sticky info was 234px) */
-  --shop-list-top: 40px;
-  --shop-detail-info-top: 40px;
+  /*
+   * Design reference (Figma / legacy code):
+   *   /shop grid below nav — 127px
+   *   PDP copy column — 234px
+   *   card title overlap on photo — 27px
+   */
+  --shop-after-nav: 20px;
+  /* Extra inset below nav on /shop only (127px total ≈ after-nav + list-top). */
+  --shop-list-top: 0px;
+  /* /shop: pull title + price toward photo (negative margin on card caption). */
+  --shop-card-caption-overlap: 27px;
+  /* PDP: shift photo inside crop frame (0 = none; negative moves image up). */
+  --shop-detail-crop-nudge: 0px;
+  /* PDP: extra inset on photo stack (on top of --shop-after-nav). */
+  --shop-detail-image-start: 0px;
+  /* PDP copy column top inset on lg+ only (was 234px) */
+  --shop-detail-text-offset: calc(15vh);
   --font-gabos: 'estilo', Palatino, 'Palatino Linotype', Georgia, serif;
   --body: 1rem;
+}
+
+.shop-detail-photos {
+  padding-top: var(--shop-detail-image-start);
+}
+
+.shop-detail-photos .cropped-photo__img {
+  translate: 0 var(--shop-detail-crop-nudge);
 }
 
 html {

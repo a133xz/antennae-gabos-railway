@@ -25,7 +25,10 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
         </Link>
       )}
-      <Link href={href} className="-mt-[27px] block text-center text-[21px] uppercase leading-none transition-opacity hover:opacity-70">
+      <Link
+        href={href}
+        className="relative z-10 -mt-[var(--shop-card-caption-overlap)] block text-center text-[21px] uppercase leading-none transition-opacity hover:opacity-70"
+      >
         <h2>{product.title}</h2>
         <p className="mt-0">{formatPrice(product.price)}</p>
       </Link>

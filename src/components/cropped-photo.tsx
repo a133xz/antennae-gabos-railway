@@ -15,7 +15,7 @@ export function CroppedPhoto({
       <img
         src={crop.src}
         alt={alt}
-        className="absolute max-w-none"
+        className="cropped-photo__img absolute max-w-none"
         style={{ top: crop.top, left: crop.left, width: crop.width, height: crop.height }}
       />
     </div>
