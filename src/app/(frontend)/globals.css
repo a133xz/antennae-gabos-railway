@@ -538,12 +538,6 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   /* /shop: stack product cards vertically (same breakpoint as home nav). */
 }
 
-@media screen and (max-width: 758px) {
-  .gabos-hero-nav-shop {
-    display: none !important;
-  }
-}
-
 @media screen and (max-width: 500px) {
   .gabos-page-shop header nav a:not([href='/shop']),
   .gabos-page-shop header .gabos-cart-link {
@@ -556,6 +550,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   }
 
   .gabos-hero-nav-menu,
+  .gabos-hero-nav-shop,
   .gabos-hero-nav-book,
   .gabos-hero-nav-contact {
     font-size: 70%;

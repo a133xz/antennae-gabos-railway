@@ -6,8 +6,8 @@ Quick reference for responsive nav and shop tweaks. When you want a change, say 
 
 | Viewport | Behavior |
 |----------|----------|
-| **≤ 758px** | **shop** link hidden in nav (Menu, book, contact, cart stay visible). |
-| **≤ 500px** | Menu, book, contact, and **cart** text **30% smaller** (70% of base size). |
+| **≤ 758px** | **shop** hidden only in **shop / cart / PDP / about headers** (`StoreNav`, `SiteHeader`). **Home hero always keeps shop.** |
+| **≤ 500px** | Menu, book, contact, **shop** (home hero), and **cart** text **30% smaller** (70% of base size). |
 | **≤ 767px** | `/shop` product grid stacks **vertically** (same breakpoint family as home mobile nav). |
 
 Base nav sizes (above 500px):
@@ -17,23 +17,20 @@ Base nav sizes (above 500px):
 
 ---
 
-## Hide **shop** at 758px
+## Hide **shop** at 758px (headers only — not home)
 
-**Shop header & about header (Tailwind)**
+**Do not hide shop on the home page.** Home nav is `src/components/gabos-hero.tsx` + mobile stack rules in `globals.css` (≤767px); **shop** stays in the stack (order 5: logo → book → menu → contact → shop).
+
+**Shop / about headers (Tailwind only)**
 
 - `src/components/store-nav.tsx` — `max-[758px]:hidden` when `item.label === 'shop'`.
 - `src/components/site-header.tsx` — same class on the shop `GabosNavLink`.
 
-**Home hero**
-
-- `src/components/gabos-hero.tsx` — `max-[758px]:hidden` on the shop link.
-- `src/app/(frontend)/globals.css` — `@media (max-width: 758px)` sets `.gabos-hero-nav-shop { display: none !important; }` so the **767px** mobile stack CSS does not force shop visible.
-
-**To change:** Replace `758` / `758px` / `max-[758px]` everywhere above with your new width (keep Tailwind arbitrary value and CSS media query in sync).
+**To change:** Replace `758` / `max-[758px]` in those two files only. Do **not** add hide rules to `.gabos-hero-nav-shop`.
 
 ---
 
-## Smaller Menu / book / contact / cart at 500px
+## Smaller Menu / book / contact / shop / cart at 500px
 
 **CSS (main place to edit scale or breakpoint)**
 
@@ -41,15 +38,15 @@ Base nav sizes (above 500px):
 
 - `.gabos-page-shop header nav a:not([href='/shop'])` and `.gabos-page-shop header .gabos-cart-link` → `calc(21px * 0.7)`.
 - `.gabos-page-white header nav a:not([href='/shop'])` and `.gabos-page-white header .gabos-cart-link` → `calc(19px * 0.7)` (cart page uses `gabos-page-white` + `GabosStoreHeader`; cart must use the same rule as nav or it stays at 21px from Tailwind).
+- `.gabos-hero-nav-menu`, `.gabos-hero-nav-shop`, `.gabos-hero-nav-book`, `.gabos-hero-nav-contact` → `font-size: 70%;`
 
 Cart link class: `src/components/cart-link.tsx` → `.gabos-cart-link`.
-- `.gabos-hero-nav-menu`, `.gabos-hero-nav-book`, `.gabos-hero-nav-contact` → `font-size: 70%;`
 
 **To change breakpoint:** Rename `500px` in that `@media` rule.
 
 **To change amount smaller:** `0.7` = 30% smaller. Use `0.8` for 20% smaller, etc. For hero, match with `%` (e.g. `80%`).
 
-**To include or exclude links:** Adjust selectors (e.g. drop `:not([href='/shop'])` if shop should scale too when visible).
+**To include or exclude links:** Adjust selectors (e.g. drop `:not([href='/shop'])` on store headers if shop should scale when visible).
 
 ---
 
@@ -79,7 +76,7 @@ There is **no** hamburger overlay on shop; `src/components/mobile-nav.tsx` is un
 
 Examples:
 
-- “At **600px** hide shop” → update **758** → **600** in files under [Hide shop](#hide-shop-at-758px).
+- “At **600px** hide shop on **shop header only**” → update **758** → **600** in `store-nav.tsx` and `site-header.tsx` only — **not** `gabos-hero.tsx`.
 - “Below **480px** make menu/book/contact/cart **40% smaller**” → `@media (max-width: 480px)` and `calc(21px * 0.6)` / hero `60%`.
-- “Show shop again on mobile” → remove `max-[758px]:hidden` and the `.gabos-hero-nav-shop` 758px CSS block.
+- “Show shop on mobile shop header again” → remove `max-[758px]:hidden` from store-nav / site-header.
 - “Stack products at **800px**” → change `767px` in `.shop-product-row` media query.

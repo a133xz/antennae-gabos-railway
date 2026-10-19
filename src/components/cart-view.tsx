@@ -90,7 +90,7 @@ export function CartView() {
           const color = look?.color
           return (
             <li key={line.key} className="border-b border-black py-0 last:border-b-0">
-              <div className="grid items-start gap-8 py-8 lg:grid-cols-[minmax(0,421px)_1fr_auto] lg:gap-6 lg:py-0">
+              <div className="flex flex-col items-center gap-8 py-8 lg:grid lg:grid-cols-[minmax(0,421px)_1fr_auto] lg:items-start lg:gap-6 lg:py-0">
                 <div className="w-full max-w-[421px]">
                   {look ? (
                     <CroppedPhoto crop={look.card} aspect="421 / 545" alt={look.card.alt} />
@@ -101,7 +101,7 @@ export function CartView() {
                     </div>
                   )}
                 </div>
-                <div className="text-center text-[21px] uppercase leading-none lg:pt-[var(--cart-line-text-offset-lg)]">
+                <div className="flex w-full flex-col items-center text-center text-[21px] uppercase leading-none lg:items-stretch lg:pt-[var(--cart-line-text-offset-lg)]">
                   <p>{line.title}</p>
                   {color ? (
                     <>
@@ -126,8 +126,11 @@ export function CartView() {
                   >
                     remove
                   </button>
+                  <p className="mt-[23px] text-[21px] uppercase leading-none lg:hidden">
+                    {formatPrice(line.price * line.quantity, 2)}
+                  </p>
                 </div>
-                <p className="text-right text-[21px] uppercase leading-none lg:pt-[var(--cart-line-text-offset-lg)]">
+                <p className="hidden text-right text-[21px] uppercase leading-none lg:block lg:pt-[var(--cart-line-text-offset-lg)]">
                   {formatPrice(line.price * line.quantity, 2)}
                 </p>
               </div>
