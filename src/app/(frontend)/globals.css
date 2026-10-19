@@ -33,11 +33,27 @@
   /* /shop: pull title + price toward photo (negative margin on card caption). */
   --shop-card-caption-overlap: 25px;
   /* PDP: shift photo inside crop frame (0 = none; negative moves image up). */
-  --shop-detail-crop-nudge: 0px;
+  --shop-detail-crop-nudge: -80px;
   /* PDP: extra inset on photo stack (on top of --shop-after-nav). */
   --shop-detail-image-start: 0px;
-  /* PDP copy column top inset on lg+ only (was 234px) */
-  --shop-detail-text-offset: calc(12vh);
+  /*
+   * PDP copy column top inset on lg+ (was 234px fixed).
+   * Scales with viewport height (dvh): ~12vh on ~13" laptop, up to 25vh on tall displays.
+   */
+  --shop-detail-text-offset-min: 14vh;
+  --shop-detail-text-offset-max: 25vh;
+  /* Viewport heights where min/max apply (~800px / ~1600px at 16px root). */
+  --shop-detail-text-offset-height-min: 50rem;
+  --shop-detail-text-offset-height-max: 100rem;
+  --shop-detail-text-offset: clamp(
+    var(--shop-detail-text-offset-min),
+    calc(
+      var(--shop-detail-text-offset-min) + (var(--shop-detail-text-offset-max) - var(--shop-detail-text-offset-min)) *
+        (100dvh - var(--shop-detail-text-offset-height-min)) /
+        (var(--shop-detail-text-offset-height-max) - var(--shop-detail-text-offset-height-min))
+    ),
+    var(--shop-detail-text-offset-max)
+  );
   --font-gabos: 'estilo', Palatino, 'Palatino Linotype', Georgia, serif;
   --body: 1rem;
 }
