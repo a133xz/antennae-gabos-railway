@@ -27,7 +27,7 @@ Postgres must be running. `.env` should point at `postgres://antonio@localhost:5
 
 `npm run seed` creates the admin user, initial globals/media (first run), V2 nav links, and demo products. It does not overwrite existing product rows.
 
-Stripe setup: see **[docs/stripe-setup.md](docs/stripe-setup.md)**.
+Stripe setup: see **[docs/stripe-setup.md](docs/stripe-setup.md)**. Deploy for design review without CMS: **[docs/design-preview-deploy.md](docs/design-preview-deploy.md)**.
 
 ## Where things live
 
@@ -45,4 +45,6 @@ Stripe setup: see **[docs/stripe-setup.md](docs/stripe-setup.md)**.
 
 ## Deploy later
 
-Use hosted Postgres, blob storage for uploads, a strong `PAYLOAD_SECRET`, seed once, then edit in `/admin`.
+Preview on Vercel without Payload: **[docs/design-preview-deploy.md](docs/design-preview-deploy.md)**.
+
+Full stack: hosted Postgres, blob storage for uploads, a strong `PAYLOAD_SECRET`, seed once, then edit in `/admin`. Checkout: **[docs/stripe-setup.md](docs/stripe-setup.md)**.

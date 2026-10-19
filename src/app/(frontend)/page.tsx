@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { GabosCurtainShell } from '@/components/gabos-curtain-shell'
 import { GabosHero } from '@/components/gabos-hero'
-import { LandingFooter } from '@/components/landing-footer'
 import { LandingPanel } from '@/components/landing-panel'
 import { getSettings } from '@/content/site'
 
@@ -46,8 +45,6 @@ export default async function HomePage() {
               </p>
             )}
           </div>
-
-          <LandingFooter settings={settings} />
         </LandingPanel>
       </div>
     </GabosCurtainShell>

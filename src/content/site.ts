@@ -2,6 +2,12 @@ import { cache } from 'react'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import type { Media, Product as PayloadProduct, SiteSetting } from '@/payload-types'
+import {
+  getStaticProduct,
+  getStaticProducts,
+  getStaticSettings,
+  useStaticContent,
+} from './static-content'
 import type { Picture, Product, SiteSettings } from './types'
 
 async function cms() {
@@ -64,12 +70,14 @@ function toSettings(doc: SiteSetting): SiteSettings {
 }
 
 export const getSettings = cache(async () => {
+  if (useStaticContent()) return getStaticSettings()
   const payload = await cms()
   const doc = await payload.findGlobal({ slug: 'site-settings', depth: 1 })
   return toSettings(doc)
 })
 
 export const getProducts = cache(async () => {
+  if (useStaticContent()) return getStaticProducts()
   const payload = await cms()
   const result = await payload.find({
     collection: 'products',
@@ -82,6 +90,7 @@ export const getProducts = cache(async () => {
 })
 
 export const getProduct = cache(async (slug: string) => {
+  if (useStaticContent()) return getStaticProduct(slug)
   const payload = await cms()
   const result = await payload.find({
     collection: 'products',
