@@ -499,6 +499,43 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   }
 }
 
+/*
+ * Ultrawide: wrapper was capped at 1920px and centered, so drapes sat in the middle band.
+ * Full-width stage + vw-scaled side curtains anchored to the viewport edges.
+ */
+@media screen and (min-width: 1921px) {
+  .wrapper {
+    max-width: none;
+  }
+
+  .wrapper .fixedCurtainLeft,
+  .wrapper .fixedCurtainRight {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: clamp(954px, 32vw, 1400px);
+    object-fit: cover;
+  }
+
+  .wrapper .fixedCurtainLeft {
+    left: 0;
+    transform: none;
+    object-position: right center;
+  }
+
+  .wrapper .fixedCurtainRight {
+    right: 0;
+    transform: none;
+    object-position: left center;
+  }
+
+  /* Home hero: drapes scroll away with the first screen, not the whole document */
+  .wrapper--scroll .fixedCurtainLeft,
+  .wrapper--scroll .fixedCurtainRight {
+    position: absolute;
+  }
+}
+
 @media screen and (max-width: 1350px) {
   .wrapper .fixedCurtainLeft {
     width: 70%;
