@@ -20,6 +20,8 @@ type CartContextValue = {
   lines: CartLine[]
   count: number
   subtotal: number
+  /** false until cart has been read from localStorage (avoids empty-state flash on /cart). */
+  ready: boolean
   addLine: (line: Omit<CartLine, 'key' | 'quantity'>, quantity?: number) => void
   setQuantity: (key: string, quantity: number) => void
   removeLine: (key: string) => void
@@ -93,8 +95,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   )
 
   const value = useMemo(
-    () => ({ lines, count, subtotal, addLine, setQuantity, removeLine, clear }),
-    [lines, count, subtotal, addLine, setQuantity, removeLine, clear],
+    () => ({ lines, count, subtotal, ready, addLine, setQuantity, removeLine, clear }),
+    [lines, count, subtotal, ready, addLine, setQuantity, removeLine, clear],
   )
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

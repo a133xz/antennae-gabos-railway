@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { shopLook } from '@/content/shop-looks'
 import { useCart } from '@/lib/cart'
 import { formatPrice } from '@/lib/format-price'
@@ -9,20 +9,20 @@ import { checkoutAvailable } from '@/lib/shop-demo'
 import { CroppedPhoto } from './cropped-photo'
 
 export function CartView() {
-  const { lines, subtotal, setQuantity, removeLine, clear } = useCart()
+  const { lines, subtotal, ready, setQuantity, removeLine, clear } = useCart()
+  const [revealed, setRevealed] = useState(false)
   const [pending, setPending] = useState(false)
   const [error, setError] = useState('')
   const canCheckout = checkoutAvailable() && lines.every((line) => line.stripePriceId)
 
-  if (lines.length === 0) {
-    return (
-      <div className="flex-1">
-        <p className="fixed left-1/2 top-1/2 w-[min(909px,90vw)] -translate-x-1/2 -translate-y-1/2 text-center text-[32px] uppercase leading-none">
-          your cart is empty
-        </p>
-      </div>
-    )
-  }
+  useEffect(() => {
+    if (!ready) {
+      setRevealed(false)
+      return
+    }
+    const id = requestAnimationFrame(() => setRevealed(true))
+    return () => cancelAnimationFrame(id)
+  }, [ready])
 
   async function checkout() {
     if (!canCheckout) {
@@ -58,8 +58,32 @@ export function CartView() {
     }
   }
 
+  if (!ready) {
+    return (
+      <div
+        className="min-h-[50vh] lg:min-h-[34rem]"
+        aria-busy="true"
+        aria-label="Loading cart"
+      />
+    )
+  }
+
+  const fade =
+    'transition-opacity duration-500 ease-out motion-reduce:transition-none ' +
+    (revealed ? 'opacity-100' : 'opacity-0')
+
+  if (lines.length === 0) {
+    return (
+      <div className={`flex-1 ${fade}`}>
+        <p className="fixed left-1/2 top-1/2 w-[min(909px,90vw)] -translate-x-1/2 -translate-y-1/2 text-center text-[32px] uppercase leading-none">
+          your cart is empty
+        </p>
+      </div>
+    )
+  }
+
   return (
-    <div>
+    <div className={fade}>
       <ul className="border-y border-black">
         {lines.map((line) => {
           const look = shopLook(line.slug)
