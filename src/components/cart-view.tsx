@@ -8,10 +8,16 @@ import { formatPrice } from '@/lib/format-price'
 import { checkoutAvailable } from '@/lib/shop-demo'
 import { CroppedPhoto } from './cropped-photo'
 
-/** Same 3-column grid as `LandingFooter` (md+) — center track is viewport-centered. */
+/** Action row uses footer grid; line rows use their own column template (see cartLineRow). */
 const cartStoreGrid =
   'flex min-h-0 flex-1 flex-col md:grid md:grid-cols-[1fr_auto_1fr] md:grid-rows-[1fr_auto] md:gap-x-6'
-const cartLineGrid = 'md:col-span-3 md:row-start-1 md:grid md:grid-cols-subgrid md:min-h-0'
+const cartLineList = 'md:col-span-3 md:row-start-1 md:min-h-0'
+/**
+ * md–1300: 421 | 1fr | auto — detail centered between photo and price.
+ * 1301+: 1fr | auto | 1fr — detail viewport-centered (same as footer / checkout row).
+ */
+const cartLineRow =
+  'md:grid md:items-center md:gap-x-6 md:max-[1300px]:grid-cols-[minmax(0,421px)_1fr_auto] min-[1301px]:grid-cols-[1fr_auto_1fr]'
 const cartActionsRow =
   'mt-[42px] flex flex-col items-center gap-6 text-center md:col-span-3 md:row-start-2 md:grid md:grid-cols-subgrid md:items-center'
 
@@ -93,7 +99,7 @@ export function CartView() {
   return (
     <div className={`${fade} ${cartStoreGrid}`}>
       <ul
-        className={`flex flex-col border-y border-black ${cartLineGrid} ${singleLine ? 'md:flex-1 md:justify-center' : ''}`}
+        className={`flex flex-col border-y border-black ${cartLineList} ${singleLine ? 'md:flex-1 md:justify-center' : ''}`}
       >
         {lines.map((line) => {
           const look = shopLook(line.slug)
@@ -101,10 +107,10 @@ export function CartView() {
           return (
             <li
               key={line.key}
-              className={`cart-line border-b border-black py-0 last:border-b-0 ${cartLineGrid} md:items-center`}
+              className={`cart-line border-b border-black py-0 last:border-b-0 ${cartLineRow} ${singleLine ? 'md:min-h-0 md:flex-1' : ''}`}
             >
               <div className="cart-line-grid flex flex-col items-center gap-8 py-8 md:contents md:py-0">
-                <div className="w-full max-w-[421px] md:justify-self-start md:self-start">
+                <div className="cart-line-photo w-full max-w-[421px] md:justify-self-start md:self-center">
                   {look ? (
                     <CroppedPhoto crop={look.card} aspect="421 / 545" alt={look.card.alt} />
                   ) : (
@@ -114,7 +120,7 @@ export function CartView() {
                     </div>
                   )}
                 </div>
-                <div className="flex w-full flex-col items-center text-center text-[21px] uppercase leading-none md:w-auto md:justify-self-center">
+                <div className="cart-line-detail flex w-full flex-col items-center text-center text-[21px] uppercase leading-none md:w-auto md:justify-self-center md:self-center">
                   <p>{line.title}</p>
                   {color ? (
                     <>
@@ -143,7 +149,7 @@ export function CartView() {
                     {formatPrice(line.price * line.quantity, 2)}
                   </p>
                 </div>
-                <p className="hidden text-right text-[21px] uppercase leading-none md:block md:justify-self-end md:self-center">
+                <p className="cart-line-price hidden text-right text-[21px] uppercase leading-none md:block md:justify-self-end md:self-center">
                   {formatPrice(line.price * line.quantity, 2)}
                 </p>
               </div>

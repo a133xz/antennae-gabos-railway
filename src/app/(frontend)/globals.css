@@ -36,14 +36,14 @@
   --shop-card-width: 445px;
   --shop-card-gap: 20px;
   /* PDP: shift photo inside crop frame (0 = none; negative moves image up). */
-  --shop-detail-crop-nudge: -80px;
+  --shop-detail-crop-nudge: -10px;
   /* PDP: extra inset on photo stack (on top of --shop-after-nav). */
   --shop-detail-image-start: 0px;
   /*
    * PDP copy column top inset on lg+ (was 234px fixed).
    * Scales with viewport height (dvh): ~12vh on ~13" laptop, up to 25vh on tall displays.
    */
-  --shop-detail-text-offset-min: 0vh;
+  --shop-detail-text-offset-min: 6vh;
   --shop-detail-text-offset-max: 25vh;
   /* Viewport heights where min/max apply (~800px / ~1600px at 16px root). */
   --shop-detail-text-offset-height-min: 50rem;
@@ -78,6 +78,12 @@
   --cart-line-text-offset-lg: 225px;
   --font-gabos: 'estilo', Palatino, 'Palatino Linotype', Georgia, serif;
   --body: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .gabos-page-white .cart-line:only-child {
+    min-height: min(545px, calc((100vw - 2 * var(--gutter-inline)) * 545 / 421));
+  }
 }
 
 .shop-product-row {
