@@ -531,7 +531,8 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   }
 
   .landing-panel-inner {
-    padding-top: calc(var(--landing-huella-width) * 0.55 + 4rem);
+    /* Follow the footprints, which are shifted up by 18vh on this breakpoint. */
+    padding-top: calc(var(--landing-huella-width) * 1.05 - 18vh + 2.5rem);
   }
 }
 
