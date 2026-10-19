@@ -15,7 +15,7 @@ export default async function ShopPage() {
     <GabosStoreShell surface="shop">
       <>
         <h1 className="sr-only">Shop</h1>
-        <ul className="grid grid-cols-4 gap-x-5">
+        <ul className="shop-product-row">
           {products.map((product) => (
             <li key={product.slug}>
               <ProductCard product={product} />

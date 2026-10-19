@@ -27,11 +27,13 @@
    *   PDP copy column — 234px
    *   card title overlap on photo — 27px
    */
-  --shop-after-nav: 0px;
-  /* Gap between main content (e.g. product grid) and store footer (was footer pt-10 / 40px). */
+  --shop-after-nav: 110px;
+  /* Gap between main content (e.g. product grid) and landing footer. */
   --shop-before-footer: 150px;
   /* /shop: pull title + price toward photo (negative margin on card caption). */
   --shop-card-caption-overlap: 25px;
+  --shop-card-width: 445px;
+  --shop-card-gap: 20px;
   /* PDP: shift photo inside crop frame (0 = none; negative moves image up). */
   --shop-detail-crop-nudge: -80px;
   /* PDP: extra inset on photo stack (on top of --shop-after-nav). */
@@ -75,6 +77,25 @@
   --cart-line-text-offset-lg: 225px;
   --font-gabos: 'estilo', Palatino, 'Palatino Linotype', Georgia, serif;
   --body: 1rem;
+}
+
+.shop-product-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--shop-card-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shop-product-row > li {
+  flex: 0 0 auto;
+  width: min(
+    var(--shop-card-width),
+    calc((100% - 3 * var(--shop-card-gap)) / 4)
+  );
 }
 
 .shop-detail-photos {

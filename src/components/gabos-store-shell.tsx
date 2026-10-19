@@ -1,5 +1,5 @@
 import { getSettings } from '@/content/site'
-import { GabosStoreFooter } from './gabos-store-footer'
+import { LandingFooter } from './landing-footer'
 import { GabosStoreHeader } from './gabos-store-header'
 
 export async function GabosStoreShell({
@@ -32,7 +32,7 @@ export async function GabosStoreShell({
       >
         {children}
       </main>
-      <GabosStoreFooter settings={settings} />
+      <LandingFooter settings={settings} />
     </div>
   )
 }
