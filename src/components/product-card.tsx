@@ -12,7 +12,7 @@ export function ProductCard({ product }: { product: Product }) {
     <article>
       <Link
         href={href}
-        className="group/card block transition-opacity hover:opacity-70"
+        className="group/card block"
         aria-label={product.title}
       >
         {look ? (

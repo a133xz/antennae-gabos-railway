@@ -17,7 +17,7 @@ export type ShopLook = {
   color?: string
   description?: string
   card: ImageCrop
-  /** Second shop-grid photo — toggled on image click (Figma Component 1 interaction). */
+  /** Second shop-grid photo — shown immediately on card hover. */
   cardAlt?: ImageCrop
   frames: ProductFrame[]
 }
@@ -57,7 +57,7 @@ export const shopLooks: ShopLook[] = [
     color: 'black',
     description: tankDescription,
     card: card('/shop/gabos-7.png', 'Black F1 tank top', '11.38%', '12.16%', '75.69%', '77.25%'),
-    cardAlt: card('/shop/gabos-7-back.png', 'Black F1 tank top, back', '-21.64%', '-9.76%', '113.82%', '134.34%'),
+    cardAlt: card('/shop/gabos-7-back.png', 'Black F1 tank top, back', '-12.03%', '1.02%', '95.28%', '116.41%'),
     frames: [
       {
         src: '/shop/gabos-7.png',
