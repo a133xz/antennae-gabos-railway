@@ -26,7 +26,8 @@ export function LandingPanel({ children }: { children: React.ReactNode }) {
       frame = 0
       const rect = section.getBoundingClientRect()
       const traveled = -rect.top
-      const span = Math.max(section.offsetHeight * 0.55, 1)
+      // Finish the fade within ~40vh of entering the panel (not half the full section height).
+      const span = Math.max(window.innerHeight * 0.3, 1)
       section.style.backgroundColor = mixToBlack(traveled / span)
     }
 
