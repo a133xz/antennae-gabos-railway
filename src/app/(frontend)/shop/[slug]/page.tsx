@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: Props) {
               width: '100%',
               height: '100%',
             }),
-            aspect: '910 / 1177',
+            aspect: '445 / 545',
           },
         ]
 

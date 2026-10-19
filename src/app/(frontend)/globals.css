@@ -31,6 +31,8 @@
   --shop-after-nav: 110px;
   /* Gap between main content (e.g. product grid) and landing footer. */
   --shop-before-footer: 150px;
+  /* PDP: tighter gap before footer (main padding-bottom uses this via :has). */
+  --shop-before-footer-pdp: 20px;
   /* /shop: pull title + price toward photo (negative margin on card caption). */
   --shop-card-caption-overlap: 25px;
   --shop-card-width: 445px;
@@ -129,6 +131,14 @@
 
 .shop-detail-photos .cropped-photo__img {
   translate: 0 var(--shop-detail-crop-nudge);
+}
+
+.gabos-page-white:has(.shop-detail-photos) {
+  --shop-before-footer: var(--shop-before-footer-pdp);
+}
+
+.gabos-page-white:has(.shop-detail-photos) footer {
+  margin-top: clamp(48px, 3vh, 112px);
 }
 
 html {
