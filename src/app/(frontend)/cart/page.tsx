@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Cart' }
 
 export default function CartPage() {
   return (
-    <GabosStoreShell>
+    <GabosStoreShell mainTop="cart">
       <CartView />
     </GabosStoreShell>
   )

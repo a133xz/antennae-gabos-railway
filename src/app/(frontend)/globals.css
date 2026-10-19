@@ -55,11 +55,22 @@
     var(--shop-detail-text-offset-max)
   );
   /*
-   * Cart — gap from store nav to first line (top of line list). Design: 64px / 242px lg.
-   * Added on top of --shop-after-nav on GabosStoreShell main.
+   * Cart only (mainTop="cart", lg+) — nav to first list line.
+   * Scales with viewport height: ~113px (~13") → 242px (~27"). Not --shop-after-nav.
    */
-  --cart-after-nav: 0px;
-  --cart-after-nav-lg: 113px;
+  --cart-top-min: 113px;
+  --cart-top-max: 242px;
+  --cart-top-height-min: 50rem;
+  --cart-top-height-max: 100rem;
+  --cart-top: clamp(
+    var(--cart-top-min),
+    calc(
+      var(--cart-top-min) + (var(--cart-top-max) - var(--cart-top-min)) *
+        (100dvh - var(--cart-top-height-min)) /
+        (var(--cart-top-height-max) - var(--cart-top-height-min))
+    ),
+    var(--cart-top-max)
+  );
   /* Cart line row: title/qty column inset on lg (aligns with photo; was 225px). */
   --cart-line-text-offset-lg: 225px;
   --font-gabos: 'estilo', Palatino, 'Palatino Linotype', Georgia, serif;
