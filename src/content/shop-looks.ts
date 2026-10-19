@@ -79,32 +79,10 @@ export const shopLooks: ShopLook[] = [
       },
     ],
   },
-  {
-    slug: 'f1-shorts-4',
-    order: 4,
-    card: card('/shop/gabos-8.png', 'Maroon Gabos cap', '-4.4%', '8.93%', '82.14%', '108.81%'),
-    frames: [],
-  },
-  {
-    slug: 'f1-shorts-6',
-    order: 5,
-    card: card('/shop/gabos-9.png', 'White F1 shorts', '10.15%', '5.92%', '86.82%', '88.61%'),
-    frames: [],
-  },
-  {
-    slug: 'f1-shorts-7',
-    order: 6,
-    card: card('/shop/gabos-10.png', 'Black F1 shorts with red stripes', '14.86%', '6.97%', '86.07%', '70.28%'),
-    frames: [],
-  },
-  {
-    slug: 'f1-shorts-red',
-    order: 7,
-    color: 'red',
-    card: card('/shop/gabos-11.png', 'Red F1 briefs', '23.77%', '4.27%', '91.46%', '56.23%'),
-    frames: [],
-  },
 ]
+
+/** Slugs shown on /shop — one row of four cards. */
+export const shopCatalogSlugs = new Set(shopLooks.map((look) => look.slug))
 
 const bySlug = new Map(shopLooks.map((look) => [look.slug, look]))
 

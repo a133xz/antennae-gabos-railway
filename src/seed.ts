@@ -115,7 +115,25 @@ if (existingProducts.totalDocs === 0) {
   }
   console.log(`Seeded ${products.length} shop products.`)
 } else {
-  console.log('Products already exist — skipped product seed.')
+  const seedSlugs = new Set(products.map((product) => product.slug))
+  const allProducts = await payload.find({ collection: 'products', limit: 100 })
+  let deactivated = 0
+  for (const doc of allProducts.docs) {
+    const active = seedSlugs.has(doc.slug)
+    if (doc.active !== active) {
+      await payload.update({
+        collection: 'products',
+        id: doc.id,
+        data: { active },
+      })
+      if (!active) deactivated += 1
+    }
+  }
+  console.log(
+    deactivated > 0
+      ? `Synced shop catalog: deactivated ${deactivated} product(s) not in seed.`
+      : 'Products already exist — catalog active flags match seed.',
+  )
 }
 
 console.log(`Payload ready. Admin: http://localhost:3000/admin`)
