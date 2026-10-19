@@ -41,7 +41,7 @@ export const shopLooks: ShopLook[] = [
   {
     slug: 'f1-shorts-2',
     order: 1,
-    card: card('/shop/gabos-5.png', 'Black Gabos cap', '-18%', '9.44%', '80.22%', '106.27%'),
+    card: card('/shop/gabos-5.png', 'Black Gabos cap', '-3.08%', '9.44%', '80.22%', '106.27%'),
     frames: [],
   },
   {
