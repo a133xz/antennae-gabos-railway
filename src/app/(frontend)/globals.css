@@ -63,6 +63,8 @@
     ),
     var(--shop-detail-text-offset-max)
   );
+  /* PDP copy column, 1024–1471px — extra inset under nav (right column only). */
+  --shop-detail-copy-inset-mid: clamp(9rem, 15vh, 17rem);
   /*
    * Cart only (mainTop="cart") — nav to first list line.
    * Scales with viewport height: ~113px (~13") → 242px (~27"). Not --shop-after-nav.
@@ -148,6 +150,18 @@
 
 .gabos-page-white:has(.shop-detail-photos) footer {
   margin-top: clamp(48px, 3vh, 112px);
+}
+
+@media screen and (min-width: 1024px) {
+  .shop-detail-copy {
+    padding-top: var(--shop-detail-text-offset);
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1471px) {
+  .gabos-page-white:has(.shop-detail-photos) .shop-detail-copy {
+    padding-top: var(--shop-detail-copy-inset-mid);
+  }
 }
 
 html {
