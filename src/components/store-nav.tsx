@@ -11,12 +11,12 @@ type Item = {
   activePrefix?: string
 }
 
-export function StoreNav({ items }: { items: Item[] }) {
+export function StoreNav({ items, className = '' }: { items: Item[]; className?: string }) {
   const pathname = usePathname()
 
   return (
     <nav
-      className="flex flex-wrap items-center justify-end gap-4 min-[759px]:justify-center min-[759px]:gap-12"
+      className={`flex flex-wrap items-center gap-x-4 gap-y-2 ${className}`.trim()}
       aria-label="Primary"
     >
       {items.map((item) => {

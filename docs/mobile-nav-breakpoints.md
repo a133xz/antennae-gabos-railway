@@ -63,11 +63,11 @@ Not nav-related; listed here because it was set with the same mobile pass as hom
 
 ## Store header layout **≤ 758px only** (desktop unchanged)
 
-**≥ 759px (desktop):** `grid-cols-[1fr_auto_1fr]` — **gabos** left, nav **centered**, **cart** right column (same as original). Uses `min-[759px]:contents` so nav and cart are separate grid children — **do not use `lg` here**.
+**≥ 759px:** Exact 3-column grid as always — `grid-cols-[1fr_auto_1fr]`, three siblings: **gabos** | centered `StoreNav` | **cart** in `justify-end` column. **No `display: contents`**, no `lg` breakpoint on this layout.
 
-**≤ 758px:** two columns — **gabos** left; Menu, book, contact, and **cart** in one **right-aligned** group with **`gap-4`**.
+**≤ 758px:** `grid-cols-[1fr_auto]`; desktop nav + cart rows are `max-[758px]:hidden`; a second block (same links, hidden on desktop) groups nav + cart on the **right** with **`gap-4`**.
 
-Files: `src/components/gabos-store-header.tsx`, `src/components/store-nav.tsx` (`justify-end` → `min-[759px]:justify-center`).
+Files: `src/components/gabos-store-header.tsx`, `src/components/store-nav.tsx` (optional `className` on nav).
 
 ---
 
