@@ -55,7 +55,8 @@ export const shopLooks: ShopLook[] = [
     order: 3,
     color: 'black',
     description: tankDescription,
-    card: card('/shop/gabos-7.png', 'Black F1 tank top', '11.38%', '12.16%', '75.69%', '77.25%'),
+    /* Shop grid crop — tuned to PNG content bbox (same CroppedPhoto path as other cards). */
+    card: card('/shop/gabos-7.png', 'Black F1 tank top', '6%', '0%', '94%', '83%'),
     cardAlt: card('/shop/gabos-7-back.png', 'Black F1 tank top, back', '-12.03%', '1.02%', '95.28%', '116.41%'),
     frames: [
       {

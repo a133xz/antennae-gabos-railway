@@ -114,6 +114,10 @@
   );
 }
 
+.shop-product-row--fits-viewport {
+  justify-content: center;
+}
+
 /* ≤4 products: one row centered in the viewport between header and footer. */
 .gabos-page-shop:has(.shop-product-row--fits-viewport) {
   height: 100vh;

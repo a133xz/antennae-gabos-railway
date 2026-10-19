@@ -15,7 +15,7 @@ export function ProductCardPhoto({
   }
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <CroppedPhoto crop={card} aspect={aspect} alt={card.alt} />
       <div
         className="absolute inset-0 opacity-0 group-hover/card:opacity-100"
