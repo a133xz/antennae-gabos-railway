@@ -104,10 +104,11 @@ export function runGabosCurtainAnimation(
   fixedRight.style.pointerEvents = 'auto'
   document.body.classList.add('gabos-curtain-active')
 
-  if (window.innerWidth <= 720) {
-    animateMobileCurtain()
-  } else {
+  // Same side-drape open as desktop (vertical nav breakpoint is 767px, not the old 720 mobile sheet).
+  if (curtainLeft && curtainRight) {
     animateDesktopCurtains()
+  } else {
+    animateMobileCurtain()
   }
 
   return () => {

@@ -445,6 +445,8 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 @media screen and (max-width: 767px) {
   .landing-panel {
     overflow: visible;
+    /* Vertical nav breakpoint (Tailwind md): smaller footprints only; position via component utilities. */
+    --landing-huella-width: min(calc(382.5px * 0.7), calc(61.2vw * 0.7));
   }
 
   .gabos-home {
@@ -499,7 +501,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   }
 
   .gabos-hero-logo {
-    order: 3;
+    order: 1;
     display: block;
     width: 15%;
     min-width: 200px;
@@ -519,20 +521,20 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     transform: translateX(4%);
   }
 
-  /* Same links and order as desktop: Menu, shop | logo | book, contact */
-  .gabos-hero-nav-menu {
-    order: 1;
-  }
-
-  .gabos-hero-nav-shop {
+  /* Mobile stack: logo → book → menu → contact → shop */
+  .gabos-hero-nav-book {
     order: 2;
   }
 
-  .gabos-hero-nav-book {
-    order: 4;
+  .gabos-hero-nav-menu {
+    order: 3;
   }
 
   .gabos-hero-nav-contact {
+    order: 4;
+  }
+
+  .gabos-hero-nav-shop {
     order: 5;
   }
 
@@ -629,5 +631,24 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   .page-contact .linkContainer .heading {
     width: min(100%, 80vw);
     max-width: 80vw;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  /* Side drapes on phones — after ≤1350px rules so these win. */
+  .wrapper .fixedCurtainLeft {
+    left: 0;
+    width: 58%;
+    transform: translateX(-22%);
+    object-fit: cover;
+    object-position: right center;
+  }
+
+  .wrapper .fixedCurtainRight {
+    right: 0;
+    width: 58%;
+    transform: translateX(22%);
+    object-fit: cover;
+    object-position: left center;
   }
 }
