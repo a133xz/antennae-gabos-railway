@@ -23,11 +23,13 @@ Local login after seeding, from `.env`:
 
 Postgres must be running. `.env` should point at `postgres://antonio@localhost:5432/gabos` (adjust user/host as needed).
 
+To inspect **live Railway data** locally: `npm run railway:sync-env`, set `GABOS_USE_LIVE_DATABASE=true`, restart `npm run dev`. Set back to `false` for local Postgres. Push admin login from `.env` to Railway: `npm run railway:sync-seed`.
+
 **Site settings** holds the statement, address, origin line, Instagram, hero and editorial images, and nav links (V2: Menu, shop, book, contact). **Products** powers `/shop` with Stripe Checkout. **Media** and **Users** are the other collections.
 
 `npm run seed` creates the admin user, initial globals/media (first run), V2 nav links, and demo products. It does not overwrite existing product rows.
 
-Stripe setup: see **[docs/stripe-setup.md](docs/stripe-setup.md)**. Deploy for design review without CMS: **[docs/design-preview-deploy.md](docs/design-preview-deploy.md)**.
+Stripe setup: see **[docs/stripe-setup.md](docs/stripe-setup.md)**. Deploy for design review without CMS: **[docs/design-preview-deploy.md](docs/design-preview-deploy.md)**. Client CMS on Railway (Vercel stays static): **[docs/railway-deploy.md](docs/railway-deploy.md)** — `npm run railway:login` to sign in.
 
 ## Where things live
 

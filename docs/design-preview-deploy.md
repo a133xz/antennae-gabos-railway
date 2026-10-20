@@ -4,6 +4,15 @@ La web pública puede desplegarse en Vercel **sin base de datos ni CMS** para qu
 
 Cuando conectes Payload y Stripe, el mismo código pasa al modo “producción” solo con variables de entorno.
 
+## Dos despliegues (recomendado: Vercel + Railway)
+
+| Plataforma | Uso | Variables clave |
+|------------|-----|-----------------|
+| **Vercel** | Preview estático para diseño | `GABOS_STATIC_PREVIEW=true` (sin CMS) |
+| **Railway** | Cliente con `/admin` y Postgres | `PAYLOAD_SECRET` + `DATABASE_URL` (Postgres en Railway); **no** `GABOS_STATIC_PREVIEW` |
+
+Guía paso a paso Railway (CLI, Postgres, seed, volumen media): **[railway-deploy.md](./railway-deploy.md)**.
+
 ## Modos de contenido
 
 | Modo | Cuándo | Fuente de datos |

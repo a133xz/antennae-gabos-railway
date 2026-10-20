@@ -10,7 +10,20 @@
     "payload": "payload",
     "seed": "payload run src/seed.ts",
     "generate:types": "payload generate:types",
-    "generate:importmap": "payload generate:importmap"
+    "generate:importmap": "payload generate:importmap",
+    "railway:login": "railway login",
+    "railway:link": "railway link",
+    "railway:seed": "railway run npm run seed",
+    "railway:logs": "railway logs",
+    "railway:open": "railway open",
+    "railway:secret": "node -e \"console.log(require('crypto').randomBytes(32).toString('base64'))\"",
+    "railway:setup": "node scripts/railway-setup.mjs",
+    "railway:setup:seed": "node scripts/railway-setup.mjs --seed",
+    "railway:sync-env": "node scripts/railway-sync-local-env.mjs",
+    "railway:sync-seed": "node scripts/railway-sync-seed.mjs"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.90.2",
@@ -26,6 +39,7 @@
     "stripe": "^17.7.0"
   },
   "devDependencies": {
+    "@railway/cli": "^5.71.0",
     "@tailwindcss/postcss": "^4.1.0",
     "@types/node": "^22.15.0",
     "@types/react": "^19.2.0",

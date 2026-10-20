@@ -1,0 +1,13 @@
+# Gabos on Railway: Next.js + Payload + Postgres (see docs/railway-deploy.md)
+# Vercel stays static preview via GABOS_STATIC_PREVIEW=true — no change here.
+
+[build]
+builder = "nixpacks"
+buildCommand = "npm run build"
+
+[deploy]
+startCommand = "npm run start"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+healthcheckPath = "/"
+healthcheckTimeout = 300

@@ -8,6 +8,7 @@ import { Media } from './collections/Media'
 import { Products } from './collections/Products'
 import { Users } from './collections/Users'
 import { SiteSettings } from './globals/SiteSettings'
+import { getDatabaseUrl, getPayloadSecret } from './lib/database-url'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,13 +23,13 @@ export default buildConfig({
   collections: [Users, Media, Products],
   globals: [SiteSettings],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: getPayloadSecret(),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || '',
+      connectionString: getDatabaseUrl(),
     },
   }),
   sharp,
