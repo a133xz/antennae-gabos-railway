@@ -1,13 +1,17 @@
 # Gabos
 
-Local Next.js site with Payload CMS for Gabo's (supper club & cocktail bar, Madrid). The public site reads from Postgres. Edit copy, hero, editorial image, and navigation in the admin.
+Next.js site with [Payload CMS](https://payloadcms.com/) and PostgreSQL.
 
-The previous Shopify theme is preserved in **`gabos-shopify`**.
+## Requirements
 
-## Run
+- Node 22+
+- PostgreSQL
+
+## Setup
 
 ```bash
 npm install
+cp .env.example .env
 createdb gabos   # if needed
 npm run seed
 npm run dev
@@ -16,37 +20,27 @@ npm run dev
 - Site: [http://localhost:3000](http://localhost:3000)
 - Admin: [http://localhost:3000/admin](http://localhost:3000/admin)
 
-Local login after seeding, from `.env`:
+Set `DATABASE_URL`, `PAYLOAD_SECRET`, `SEED_EMAIL`, and `SEED_PASSWORD` in `.env` before seeding. Admin login uses the seed email and password from `.env`.
 
-- Email: `editor@gabos.test`
-- Password: value of `SEED_PASSWORD` in `.env`
+## Scripts
 
-Postgres must be running. `.env` should point at `postgres://antonio@localhost:5432/gabos` (adjust user/host as needed).
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm run start` | Run production build |
+| `npm run seed` | Initial admin, site settings, demo products |
+| `npm run generate:types` | Regenerate Payload types after schema changes |
 
-To inspect **live Railway data** locally: `npm run railway:sync-env`, set `GABOS_USE_LIVE_DATABASE=true`, restart `npm run dev`. Set back to `false` for local Postgres. Push admin login from `.env` to Railway: `npm run railway:sync-seed`.
+## Structure
 
-**Site settings** holds the statement, address, origin line, Instagram, hero and editorial images, and nav links (V2: Menu, shop, book, contact). **Products** powers `/shop` with Stripe Checkout. **Media** and **Users** are the other collections.
+| Path | Purpose |
+|------|---------|
+| `src/payload.config.ts` | CMS config |
+| `src/collections/` | Media, products, users |
+| `src/globals/SiteSettings.ts` | Site copy, nav, imagery |
+| `src/content/site.ts` | CMS → frontend data |
+| `src/app/(frontend)/` | Public pages |
+| `public/media`, `public/brand` | Static assets |
 
-`npm run seed` creates the admin user, initial globals/media (first run), V2 nav links, and demo products. It does not overwrite existing product rows.
-
-Stripe setup: see **[docs/stripe-setup.md](docs/stripe-setup.md)**. Deploy for design review without CMS: **[docs/design-preview-deploy.md](docs/design-preview-deploy.md)**. Client CMS on Railway (Vercel stays static): **[docs/railway-deploy.md](docs/railway-deploy.md)** — `npm run railway:login` to sign in.
-
-## Where things live
-
-| Path | What it is |
-|---|---|
-| `src/payload.config.ts` | Payload config |
-| `src/collections` | Media, products, users |
-| `src/app/(frontend)/shop` | Shop grid and product pages |
-| `docs/stripe-setup.md` | Stripe keys, Price IDs, webhooks |
-| `src/globals/SiteSettings.ts` | Landing copy, nav, imagery |
-| `src/content/site.ts` | Payload → page data |
-| `src/content/records.ts` | First seed only |
-| `public/brand` | Monogram and wordmark SVGs |
-| `public/media` | Seed hero and editorial images |
-
-## Deploy later
-
-Preview on Vercel without Payload: **[docs/design-preview-deploy.md](docs/design-preview-deploy.md)**.
-
-Full stack: hosted Postgres, blob storage for uploads, a strong `PAYLOAD_SECRET`, seed once, then edit in `/admin`. Checkout: **[docs/stripe-setup.md](docs/stripe-setup.md)**.
+Content is edited in **Admin → Site Settings** and **Products**. Shop checkout uses Stripe when keys and Price IDs are configured in `.env` and the CMS.

@@ -41,7 +41,7 @@ export function CartView() {
 
   async function checkout() {
     if (!canCheckout) {
-      setError('Checkout is preview-only until Stripe keys and Price IDs are configured (see docs/stripe-setup.md).')
+      setError('Checkout is preview-only until Stripe keys and Price IDs are configured (see docs-internal/stripe-setup.md).')
       return
     }
     setPending(true)

@@ -13,7 +13,7 @@ type CheckoutItem = {
 export async function POST(request: Request) {
   const stripe = getStripe()
   if (!stripe) {
-    return NextResponse.json({ error: 'Stripe is not configured. See docs/stripe-setup.md.' }, { status: 503 })
+    return NextResponse.json({ error: 'Stripe is not configured. See docs-internal/stripe-setup.md.' }, { status: 503 })
   }
 
   const body = (await request.json()) as { items?: CheckoutItem[] }

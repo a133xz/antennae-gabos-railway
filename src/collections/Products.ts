@@ -6,7 +6,7 @@ export const Products: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'price', 'stripePriceId', 'order', 'active'],
     description:
-      'Shop products. Set Stripe Price ID after creating the product in Stripe (see docs/stripe-setup.md).',
+      'Shop products. Set Stripe Price ID after creating the product in Stripe (see docs-internal/stripe-setup.md).',
   },
   access: {
     read: () => true,

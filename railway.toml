@@ -1,4 +1,4 @@
-# Gabos on Railway: Next.js + Payload + Postgres (see docs/railway-deploy.md)
+# Gabos on Railway: Next.js + Payload + Postgres (see docs-internal/operations.md)
 # Vercel stays static preview via GABOS_STATIC_PREVIEW=true — no change here.
 
 [build]

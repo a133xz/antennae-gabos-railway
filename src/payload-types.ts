@@ -169,7 +169,7 @@ export interface Media {
   focalY?: number | null;
 }
 /**
- * Shop products. Set Stripe Price ID after creating the product in Stripe (see docs/stripe-setup.md).
+ * Shop products. Set Stripe Price ID after creating the product in Stripe (see docs-internal/stripe-setup.md).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products".
