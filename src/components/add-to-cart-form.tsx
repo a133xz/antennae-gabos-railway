@@ -18,7 +18,7 @@ export function AddToCartForm({ product, description }: { product: Product; desc
     <div className="mx-auto max-w-[444px] text-center">
       <p className="mt-[18px] text-[21px] leading-none">{formatPrice(product.price)}</p>
       <div className="shop-detail-meta">
-        <div className="mx-auto mt-11 flex w-full max-w-[444px] justify-between text-[21px] leading-none max-lg:order-2 max-lg:mt-0">
+        <div className="mx-auto mt-11 flex w-full max-w-[444px] justify-between text-[21px] leading-none">
           {product.sizes.map((option) => (
             <button
               key={option}
@@ -30,7 +30,7 @@ export function AddToCartForm({ product, description }: { product: Product; desc
             </button>
           ))}
         </div>
-        <p className="mx-auto mt-12 max-w-[444px] whitespace-pre-line text-center text-[21px] uppercase leading-[normal] max-lg:order-1 max-lg:mt-0">
+        <p className="mx-auto mt-12 max-w-[444px] whitespace-pre-line text-center text-[21px] uppercase leading-[normal]">
           {copy}
         </p>
       </div>

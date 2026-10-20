@@ -48,6 +48,8 @@
   /* Stacked PDP: space before footer (main pb is 0 on mobile; this is the footer band). */
   --shop-detail-mobile-footer-gap: 64px;
   --shop-detail-mobile-copy-pull: 50px;
+  /* Stacked PDP: gap photo→photo and photo→title (matches shop grid). */
+  --shop-detail-stack-gap: var(--shop-card-gap);
   /* PDP: shift visible image up inside the crop frame. */
   --shop-detail-crop-nudge-pdp: -72px;
   --shop-detail-sticky-top: 1.25rem;
@@ -183,12 +185,18 @@
   }
 
   .shop-detail-meta {
-    display: grid;
-    grid-template-rows: auto auto;
-    row-gap: 1.5rem;
     padding-left: 30px;
     padding-right: 30px;
-    margin-top: 2.75rem;
+  }
+
+  .shop-detail-layout {
+    row-gap: var(--shop-detail-stack-gap);
+  }
+
+  .shop-detail-photos {
+    display: flex;
+    flex-direction: column;
+    gap: var(--shop-detail-stack-gap);
   }
 
   .gabos-page-white:has(.shop-detail-photos) main {
@@ -197,7 +205,7 @@
   }
 
   .gabos-page-white:has(.shop-detail-photos) .shop-detail-copy {
-    margin-top: calc(-1 * var(--shop-detail-mobile-copy-pull));
+    margin-top: 0;
   }
 
   .gabos-page-white:has(.shop-detail-photos) footer {
