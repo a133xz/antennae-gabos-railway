@@ -73,7 +73,7 @@
     ),
     var(--shop-detail-text-offset-max)
   );
-  /* PDP copy column, lg–1469px — extra inset under nav (right column only; matches cart line band). */
+  /* PDP copy column lg+ — floor inset (pairs with --shop-detail-text-offset via max()). */
   --shop-detail-copy-inset-mid: clamp(9rem, 15vh, 17rem);
   /*
    * Cart only (mainTop="cart") — nav to first list line.
@@ -270,14 +270,9 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .shop-detail-copy {
-    padding-top: var(--shop-detail-text-offset);
-  }
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1469px) {
+  /* Avoid a jump at 1470px when the old mid-only band ended. */
   .gabos-page-white:has(.shop-detail-photos) .shop-detail-copy {
-    padding-top: var(--shop-detail-copy-inset-mid);
+    padding-top: max(var(--shop-detail-text-offset), var(--shop-detail-copy-inset-mid));
   }
 }
 
