@@ -43,10 +43,13 @@
   --shop-detail-image-start: 0px;
   /* PDP: space under nav (main padding-top); default shop uses --shop-after-nav. */
   --shop-after-nav-pdp: 24px;
-  /* Stacked PDP: extra main padding so nav→photo matches photo→footer (~175px). */
+  /*
+   * Stacked cart + PDP (≤1023px): one gap from header logo → content start
+   * and from last line (subtotal / add to cart) → footer Gabos logo.
+   */
+  --store-vertical-edge-gap: 104px;
+  /* Stacked PDP: legacy split of main padding-top (desktop / overrides). */
   --shop-detail-mobile-nav-gap-extra: 80px;
-  /* Stacked PDP: space before footer (main pb is 0 on mobile; this is the footer band). */
-  --shop-detail-mobile-footer-gap: 64px;
   --shop-detail-mobile-copy-pull: 50px;
   /* Stacked PDP: gap photo→photo and photo→title (matches shop grid). */
   --shop-detail-stack-gap: var(--shop-card-gap);
@@ -177,6 +180,10 @@
   margin-top: clamp(48px, 3vh, 112px);
 }
 
+.landing-footer {
+  margin-top: clamp(96px, 12vh, 200px);
+}
+
 @media screen and (max-width: 1023px) {
   .gabos-page-white:has(.shop-detail-photos) {
     --shop-before-footer: 0px;
@@ -199,17 +206,26 @@
     gap: var(--shop-detail-stack-gap);
   }
 
-  .gabos-page-white:has(.shop-detail-photos) main {
-    padding-top: calc(var(--shop-after-nav-pdp) + var(--shop-detail-mobile-nav-gap-extra));
+  .gabos-page-white:has(.shop-detail-photos) main,
+  .gabos-page-white:has(.store-cart) main {
     padding-bottom: 0;
+  }
+
+  .gabos-page-white:has(.shop-detail-photos) main {
+    padding-top: var(--store-vertical-edge-gap);
+  }
+
+  .gabos-page-white:has(.store-cart) main {
+    padding-top: var(--store-vertical-edge-gap);
   }
 
   .gabos-page-white:has(.shop-detail-photos) .shop-detail-copy {
     margin-top: 0;
   }
 
-  .gabos-page-white:has(.shop-detail-photos) footer {
-    margin-top: var(--shop-detail-mobile-footer-gap);
+  .gabos-page-white:has(.shop-detail-photos) .landing-footer,
+  .gabos-page-white:has(.store-cart) .landing-footer {
+    margin-top: var(--store-vertical-edge-gap);
   }
 }
 

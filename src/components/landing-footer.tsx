@@ -13,7 +13,7 @@ export function LandingFooter({
   const address = settings.storeAddress || 'Calle Prim 5, Madrid, Spain 28004'
 
   return (
-    <footer className="mt-[clamp(96px,12vh,200px)] grid grid-cols-1 items-end gap-10 text-center md:grid-cols-[1fr_auto_1fr] md:gap-6">
+    <footer className="landing-footer grid grid-cols-1 items-end gap-10 text-center md:grid-cols-[1fr_auto_1fr] md:gap-6">
       <Link href="/" className="justify-self-center md:justify-self-start">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
