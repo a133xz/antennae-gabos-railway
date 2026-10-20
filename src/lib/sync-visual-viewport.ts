@@ -2,8 +2,16 @@
  * iOS Safari (incl. bottom tab bar): keep full-bleed curtains aligned to the visible
  * viewport top via CSS vars consumed by `.curtain-viewport-cover`.
  */
+function isIosSafariLike(): boolean {
+  if (typeof navigator === 'undefined') return false
+  return (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  )
+}
+
 export function bindVisualViewportCurtainVars(): () => void {
-  if (typeof window === 'undefined') return () => {}
+  if (typeof window === 'undefined' || !isIosSafariLike()) return () => {}
 
   const root = document.documentElement
   const vv = window.visualViewport
