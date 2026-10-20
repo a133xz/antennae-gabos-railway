@@ -4,6 +4,7 @@ import { AddToCartForm } from '@/components/add-to-cart-form'
 import { GabosStoreShell } from '@/components/gabos-store-shell'
 import { ShopPhoto } from '@/components/shop-photo'
 import { getProduct } from '@/content/site'
+import { shopPdpPhotos } from '@/lib/shop-product-photos'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -19,19 +20,14 @@ export default async function ProductPage({ params }: Props) {
   const product = await getProduct(slug)
   if (!product) notFound()
 
-  const photos =
-    product.gallery.length > 0
-      ? product.gallery
-      : product.image.src
-        ? [product.image]
-        : []
+  const photos = shopPdpPhotos(product)
 
   return (
     <GabosStoreShell>
       <div className="shop-detail-layout grid items-start gap-x-5 lg:grid-cols-2">
         <div className="shop-detail-photos">
           {photos.map((photo) => (
-            <ShopPhoto key={photo.src} src={photo.src} alt={photo.alt} aspect="445 / 545" />
+            <ShopPhoto key={photo.src} src={photo.src} alt={photo.alt} layout="natural" />
           ))}
         </div>
         <div className="shop-detail-copy self-start lg:sticky lg:top-[var(--shop-detail-sticky-top)]">

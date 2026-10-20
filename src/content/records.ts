@@ -47,6 +47,9 @@ type SeedProduct = Omit<Product, 'id' | 'stripeProductId' | 'stripePriceId'> & {
   gallery?: { src: string; alt: string }[]
 }
 
+/** Pre-cropped shop frames — regenerate with `npm run design:shop-crops`. */
+const crop = (slug: string, id: string) => `/shop/cropped/${slug}__${id}.png`
+
 export const products: SeedProduct[] = [
   {
     title: 'f1 shorts',
@@ -55,8 +58,8 @@ export const products: SeedProduct[] = [
     description:
       'Lightweight race-day shorts with an easy fit. Pair with the F1 tank for a full grid look.',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    image: { src: '/shop/gabos-1.png', alt: 'Maroon F1 shorts' },
-    gallery: [{ src: '/shop/gabos-1.png', alt: 'Maroon F1 shorts' }],
+    image: { src: crop('f1-shorts-1', 'grid-card'), alt: 'Maroon F1 shorts' },
+    gallery: [{ src: crop('f1-shorts-1', 'grid-card'), alt: 'Maroon F1 shorts' }],
     active: true,
     order: 0,
   },
@@ -66,8 +69,8 @@ export const products: SeedProduct[] = [
     price: 40,
     description: 'Lightweight race-day shorts with an easy fit.',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    image: { src: '/shop/gabos-5.png', alt: 'Black Gabos cap' },
-    gallery: [{ src: '/shop/gabos-5.png', alt: 'Black Gabos cap' }],
+    image: { src: crop('f1-shorts-2', 'grid-card'), alt: 'Black Gabos cap' },
+    gallery: [{ src: crop('f1-shorts-2', 'grid-card'), alt: 'Black Gabos cap' }],
     active: true,
     order: 1,
   },
@@ -77,8 +80,8 @@ export const products: SeedProduct[] = [
     price: 40,
     description: 'Lightweight race-day shorts with an easy fit.',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    image: { src: '/shop/gabos-6.png', alt: 'White F1 briefs' },
-    gallery: [{ src: '/shop/gabos-6.png', alt: 'White F1 briefs' }],
+    image: { src: crop('f1-shorts-3', 'grid-card'), alt: 'White F1 briefs' },
+    gallery: [{ src: crop('f1-shorts-3', 'grid-card'), alt: 'White F1 briefs' }],
     active: true,
     order: 2,
   },
@@ -88,10 +91,11 @@ export const products: SeedProduct[] = [
     price: 40,
     description: 'Black F1 tank top with grid-ready fit.',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    image: { src: '/shop/gabos-7.png', alt: 'Black F1 tank top, front' },
+    image: { src: crop('f1-tank-top-black', 'grid-card'), alt: 'Black F1 tank top, front' },
     gallery: [
-      { src: '/shop/gabos-7.png', alt: 'Black F1 tank top, front' },
-      { src: '/shop/gabos-7-back.png', alt: 'Black F1 tank top, back' },
+      { src: crop('f1-tank-top-black', 'grid-card-hover'), alt: 'Black F1 tank top, back' },
+      { src: crop('f1-tank-top-black', 'pdp-front'), alt: 'Black F1 tank top, front' },
+      { src: crop('f1-tank-top-black', 'pdp-back'), alt: 'Black F1 tank top, back' },
     ],
     active: true,
     order: 3,

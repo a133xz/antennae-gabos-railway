@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import type { Product } from '@/content/types'
 import { formatPrice } from '@/lib/format-price'
+import { shopCardHover } from '@/lib/shop-product-photos'
 import { ShopPhoto } from './shop-photo'
 
 export function ProductCard({ product }: { product: Product }) {
   const href = `/shop/${product.slug}`
-  const hoverShot = product.gallery.length > 1 ? product.gallery[1] : null
+  const hoverShot = shopCardHover(product)
 
   return (
     <article>

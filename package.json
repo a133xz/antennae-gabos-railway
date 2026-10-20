@@ -10,6 +10,7 @@
     "payload": "payload",
     "seed": "payload run src/seed.ts",
     "seed:shop-images": "SEED_SYNC_PRODUCT_IMAGES=true payload run src/seed.ts",
+    "design:shop-crops": "node scripts/export-shop-crops.mjs",
     "export:records": "node --env-file=.env ./node_modules/payload/bin.js run src/export-records.ts",
     "export:records:live": "GABOS_USE_LIVE_DATABASE=true node --env-file=.env ./node_modules/payload/bin.js run src/export-records.ts",
     "generate:types": "payload generate:types",
