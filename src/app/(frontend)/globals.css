@@ -17,12 +17,6 @@
 :root {
   --color-burgundy: #6e0001;
   --color-curtain: #6e0001;
-  --curtain-height: 100vh;
-  --visual-viewport-offset-top: 0px;
-  --visual-viewport-bottom-chrome: 0px;
-  --curtain-cover-top: env(safe-area-inset-top, 0px);
-  --curtain-cover-extra-top: var(--visual-viewport-offset-top);
-  --curtain-cover-bottom: env(safe-area-inset-bottom, 0px);
   /* Page inset — adjust independently for client layouts */
   --gutter-top: 20px;
   --gutter-inline: 20px;
@@ -294,19 +288,9 @@
   }
 }
 
-@supports (height: 100dvh) {
-  :root {
-    --curtain-height: 100dvh;
-  }
-}
-
 html {
   background: var(--color-curtain);
   overscroll-behavior: none;
-}
-
-html:has(.wrapper) {
-  background-color: var(--color-curtain);
 }
 
 body {
@@ -347,34 +331,6 @@ html:has(.gabos-page-shop) {
 
 /* —— Curtain (from Gabos theme style.css + curtain.js) —— */
 
-/* Desktop: full-height drapes (pre–iOS Safari viewport work). */
-.wrapper .curtain-viewport-cover {
-  top: 0;
-  height: var(--curtain-height);
-  min-height: var(--curtain-height);
-}
-
-@media screen and (max-width: 767px) {
-  .wrapper .curtain-viewport-cover {
-    top: calc(-1 * var(--curtain-cover-top) - var(--curtain-cover-extra-top));
-    height: calc(
-      var(--curtain-height) + var(--curtain-cover-top) + var(--curtain-cover-extra-top) +
-        var(--curtain-cover-bottom) + var(--visual-viewport-bottom-chrome)
-    );
-    min-height: calc(
-      var(--curtain-height) + var(--curtain-cover-top) + var(--curtain-cover-extra-top) +
-        var(--curtain-cover-bottom)
-    );
-  }
-
-  html.ios-safari-bottom-toolbar .wrapper .curtain-viewport-cover {
-    --curtain-cover-extra-top: max(
-      var(--visual-viewport-offset-top),
-      calc(var(--visual-viewport-bottom-chrome) * 0.35)
-    );
-  }
-}
-
 body.gabos-curtain-active {
   overflow: hidden;
 }
@@ -398,8 +354,8 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   background-color: var(--color-curtain);
   width: 100%;
   max-width: 1920px;
-  min-height: var(--curtain-height);
-  height: var(--curtain-height);
+  min-height: 100vh;
+  height: 100vh;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
@@ -432,9 +388,8 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
 .wrapper .fixedCurtainLeft {
   position: absolute;
-  top: 0;
   left: 0;
-  height: var(--curtain-height);
+  height: 100vh;
   z-index: 3;
   object-fit: cover;
   object-position: right center;
@@ -442,9 +397,8 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
 .wrapper .fixedCurtainRight {
   position: absolute;
-  top: 0;
+  height: 100vh;
   right: 0;
-  height: var(--curtain-height);
   z-index: 3;
   object-fit: cover;
   object-position: left center;
@@ -469,7 +423,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 .wrapper .curtainLeft,
 .wrapper .curtainRight {
   display: none;
-  height: var(--curtain-height);
+  height: 100vh;
   z-index: 2;
 }
 

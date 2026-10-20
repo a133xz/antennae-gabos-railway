@@ -1,14 +1,8 @@
-import type { Metadata, Viewport } from 'next'
+import type { Metadata } from 'next'
 import { CartProvider } from '@/lib/cart'
 import './globals.css'
 
 export const dynamic = 'force-dynamic'
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  viewportFit: 'cover',
-}
 
 export const metadata: Metadata = {
   title: {
