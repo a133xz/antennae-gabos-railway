@@ -43,6 +43,11 @@
   --shop-detail-image-start: 0px;
   /* PDP: space under nav (main padding-top); default shop uses --shop-after-nav. */
   --shop-after-nav-pdp: 24px;
+  /* Stacked PDP: extra main padding so nav→photo matches photo→footer (~175px). */
+  --shop-detail-mobile-nav-gap-extra: 80px;
+  /* Stacked PDP: space before footer (main pb is 0 on mobile; this is the footer band). */
+  --shop-detail-mobile-footer-gap: 64px;
+  --shop-detail-mobile-copy-pull: 50px;
   /* PDP: shift visible image up inside the crop frame. */
   --shop-detail-crop-nudge-pdp: -72px;
   --shop-detail-sticky-top: 1.25rem;
@@ -155,6 +160,25 @@
 
 .gabos-page-white:has(.shop-detail-photos) footer {
   margin-top: clamp(48px, 3vh, 112px);
+}
+
+@media screen and (max-width: 1023px) {
+  .gabos-page-white:has(.shop-detail-photos) {
+    --shop-before-footer: 0px;
+  }
+
+  .gabos-page-white:has(.shop-detail-photos) main {
+    padding-top: calc(var(--shop-after-nav-pdp) + var(--shop-detail-mobile-nav-gap-extra));
+    padding-bottom: 0;
+  }
+
+  .gabos-page-white:has(.shop-detail-photos) .shop-detail-copy {
+    margin-top: calc(-1 * var(--shop-detail-mobile-copy-pull));
+  }
+
+  .gabos-page-white:has(.shop-detail-photos) footer {
+    margin-top: var(--shop-detail-mobile-footer-gap);
+  }
 }
 
 @media screen and (min-width: 1024px) {
