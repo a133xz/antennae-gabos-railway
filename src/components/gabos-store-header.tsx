@@ -12,22 +12,22 @@ export function GabosStoreHeader({ settings }: { settings: SiteSettings }) {
   ]
 
   return (
-    <header className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 pt-[var(--gutter-top)] pb-0 max-[758px]:grid-cols-[1fr_auto]">
+    <header className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 pt-[var(--gutter-top)] pb-0 max-md:grid-cols-[1fr_auto]">
       <Link href="/" className="text-[21px] uppercase transition-opacity hover:opacity-70">
         gabos
       </Link>
 
-      {/* Desktop (≥759px): unchanged 3-column — nav center, cart right */}
+      {/* Desktop (md+): 3-column — nav center, cart right */}
       <StoreNav
         items={navItems}
-        className="justify-center max-[758px]:hidden sm:gap-x-8 lg:gap-x-12"
+        className="justify-center max-md:hidden md:gap-x-8 lg:gap-x-12"
       />
-      <div className="flex items-center justify-end gap-4 max-[758px]:hidden">
+      <div className="flex items-center justify-end gap-4 max-md:hidden">
         <CartLink className="text-[21px] uppercase transition-opacity hover:opacity-70" />
       </div>
 
-      {/* ≤758px only: nav + cart grouped on the right */}
-      <div className="col-start-2 hidden max-w-full max-[758px]:flex max-[758px]:flex-wrap max-[758px]:items-center max-[758px]:justify-end max-[758px]:gap-4">
+      {/* max-md: nav + cart grouped on the right */}
+      <div className="col-start-2 hidden max-w-full max-md:flex max-md:flex-wrap max-md:items-center max-md:justify-end max-md:gap-4">
         <StoreNav items={navItems} className="justify-end gap-4" />
         <CartLink className="text-[21px] uppercase transition-opacity hover:opacity-70" />
       </div>

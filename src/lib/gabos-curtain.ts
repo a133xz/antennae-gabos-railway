@@ -1,4 +1,4 @@
-/** Match home mobile nav / theme curtain.js (≤720 there; we use 767). */
+/** Same as CSS `max-width: 767px` / Tailwind `max-md` (legacy theme used 720). */
 const CURTAIN_MOBILE_MAX_PX = 767
 
 /**

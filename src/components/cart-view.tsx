@@ -14,7 +14,7 @@ const cartStoreGrid =
 const cartLineList = 'md:col-span-3 md:row-start-1 md:min-h-0'
 /**
  * md–1469: 421 | 1fr | auto — detail centered between photo and price.
- * 1470+: 1fr | auto | 1fr — detail viewport-centered (same as footer / checkout row).
+ * min-[1470px]: 1fr | auto | 1fr — detail viewport-centered (same band as PDP copy inset).
  */
 const cartLineRow =
   'md:grid md:items-center md:gap-x-6 md:max-[1469px]:grid-cols-[minmax(0,421px)_1fr_auto] min-[1470px]:grid-cols-[1fr_auto_1fr]'

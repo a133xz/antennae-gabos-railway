@@ -1,3 +1,6 @@
+/** Match CSS home mobile / Tailwind max-md (767px). */
+const CURTAIN_MOBILE_MAX_PX = 767;
+
 document.addEventListener("DOMContentLoaded", function () {
     const mobileCurtain = document.querySelector(".mobileCurtain");
     const curtainLeft = document.querySelector(".curtainLeft");
@@ -75,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fixedCurtainLeft.style.pointerEvents = "auto"; // Reset on page load
         fixedCurtainRight.style.pointerEvents = "auto";
 
-        if (window.innerWidth <= 720) {
+        if (window.innerWidth <= CURTAIN_MOBILE_MAX_PX) {
             animateMobileCurtain();
         } else {
             animateDesktopCurtains();

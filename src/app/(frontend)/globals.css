@@ -73,7 +73,7 @@
     ),
     var(--shop-detail-text-offset-max)
   );
-  /* PDP copy column, 1024–1471px — extra inset under nav (right column only). */
+  /* PDP copy column, lg–1469px — extra inset under nav (right column only; matches cart line band). */
   --shop-detail-copy-inset-mid: clamp(9rem, 15vh, 17rem);
   /*
    * Cart only (mainTop="cart") — nav to first list line.
@@ -271,7 +271,7 @@
   }
 }
 
-@media screen and (min-width: 1024px) and (max-width: 1471px) {
+@media screen and (min-width: 1024px) and (max-width: 1469px) {
   .gabos-page-white:has(.shop-detail-photos) .shop-detail-copy {
     padding-top: var(--shop-detail-copy-inset-mid);
   }

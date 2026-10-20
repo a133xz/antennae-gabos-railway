@@ -5,7 +5,7 @@ const fieldClass = 'w-full border-b border-current bg-transparent py-2 outline-n
 export function ContactForm() {
   return (
     <form className="max-w-[78rem]" onSubmit={(event) => event.preventDefault()}>
-      <div className="grid gap-x-6 gap-y-8 sm:grid-cols-2">
+      <div className="grid gap-x-6 gap-y-8 md:grid-cols-2">
         <label className="block">
           <span className="text-sm uppercase">First Name</span>
           <input className={fieldClass} name="firstName" autoComplete="given-name" />
