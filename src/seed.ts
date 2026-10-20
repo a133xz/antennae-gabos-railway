@@ -30,8 +30,17 @@ async function mediaId(image: Picture) {
     limit: 1,
   })
   if (existing.docs[0]) {
-    uploaded.set(image.src, existing.docs[0].id)
-    return existing.docs[0].id
+    const id = existing.docs[0].id
+    if (process.env.SEED_SYNC_PRODUCT_IMAGES === 'true') {
+      await payload.update({
+        collection: 'media',
+        id,
+        data: { alt: image.alt || filename },
+        filePath: path.resolve('public', image.src.replace(/^\//, '')),
+      })
+    }
+    uploaded.set(image.src, id)
+    return id
   }
   const created = await payload.create({
     collection: 'media',

@@ -25,4 +25,4 @@ Cropped previews (same framing as the old in-browser crop) are generated into **
 
 `{product-slug}__{export-id}.png` — e.g. `f1-shorts-1__grid-card.png`, `f1-tank-top-black__grid-card-hover.png`, `f1-tank-top-black__pdp-front.png`.
 
-Grid exports use a **445×545** frame (×2 in file resolution). PDP exports use the aspects from `crops.json`. Background is shop gray `#f2f2f2`.
+Grid exports use a **445×545** frame (×2 in file resolution). PDP exports use the aspects from `crops.json`. PNGs are **transparent** outside the product; the shop page background (`#f2f2f2`) shows through in the browser.

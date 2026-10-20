@@ -16,11 +16,22 @@ export function ProductCard({ product }: { product: Product }) {
         aria-label={product.title}
       >
         {hoverShot ? (
-          <div className="relative w-full">
-            <ShopPhoto src={product.image.src} alt={product.image.alt} />
-            <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100" aria-hidden>
-              <ShopPhoto src={hoverShot.src} alt={hoverShot.alt} />
-            </div>
+          <div
+            className="relative w-full overflow-hidden"
+            style={{ aspectRatio: '445 / 545' }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={product.image.src}
+              alt={product.image.alt}
+              className="absolute inset-0 h-full w-full object-contain object-center group-hover/card:hidden"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={hoverShot.src}
+              alt={hoverShot.alt}
+              className="absolute inset-0 hidden h-full w-full object-contain object-center group-hover/card:block"
+            />
           </div>
         ) : (
           <ShopPhoto src={product.image.src} alt={product.image.alt} />

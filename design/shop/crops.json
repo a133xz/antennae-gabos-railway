@@ -62,7 +62,8 @@
           "top": "-12.03%",
           "left": "1.02%",
           "width": "95.28%",
-          "height": "116.41%"
+          "height": "116.41%",
+          "matchFillTo": "grid-card"
         },
         {
           "id": "pdp-front",
