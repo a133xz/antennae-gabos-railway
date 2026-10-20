@@ -111,7 +111,11 @@ export function CartView() {
               className={`cart-line border-b border-black py-0 last:border-b-0 ${cartLineRow} ${singleLine ? 'md:min-h-0 md:flex-1' : ''}`}
             >
               <div className="cart-line-grid flex flex-col items-center gap-8 py-8 md:contents md:py-0">
-                <div className="cart-line-photo w-full max-w-[421px] md:justify-self-start md:self-center">
+                <Link
+                  href={`/shop/${line.slug}`}
+                  aria-label={`View ${line.title}`}
+                  className="cart-line-photo block w-full max-w-[421px] transition-opacity hover:opacity-80 md:justify-self-start md:self-center"
+                >
                   {look ? (
                     <CroppedPhoto crop={look.card} aspect="421 / 545" alt={look.card.alt} />
                   ) : (
@@ -120,16 +124,21 @@ export function CartView() {
                       <img src={line.imageSrc} alt={line.imageAlt} className="h-full w-full object-contain" />
                     </div>
                   )}
-                </div>
+                </Link>
                 <div className="cart-line-detail flex w-full flex-col items-center text-center text-[21px] uppercase leading-none md:w-auto md:justify-self-center md:self-center">
-                  <p>{line.title}</p>
-                  {color ? (
-                    <>
-                      <p className="h-[21px]" aria-hidden="true" />
-                      <p>{color}</p>
-                    </>
-                  ) : null}
-                  <p>size {line.size}</p>
+                  <Link
+                    href={`/shop/${line.slug}`}
+                    className="flex flex-col items-center text-inherit no-underline transition-opacity hover:opacity-80"
+                  >
+                    <p>{line.title}</p>
+                    {color ? (
+                      <>
+                        <p className="h-[21px]" aria-hidden="true" />
+                        <p>{color}</p>
+                      </>
+                    ) : null}
+                    <p>size {line.size}</p>
+                  </Link>
                   <div className="mt-[23px] flex items-center justify-center gap-2">
                     <button type="button" aria-label="Decrease quantity" onClick={() => setQuantity(line.key, line.quantity - 1)}>
                       -
