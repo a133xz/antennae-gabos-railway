@@ -13,7 +13,7 @@
     "generate:importmap": "payload generate:importmap",
     "railway:login": "railway login",
     "railway:link": "railway link",
-    "railway:seed": "railway run npm run seed",
+    "railway:seed": "GABOS_USE_LIVE_DATABASE=true node --env-file=.env ./node_modules/payload/bin.js run src/seed.ts",
     "railway:logs": "railway logs",
     "railway:open": "railway open",
     "railway:secret": "node -e \"console.log(require('crypto').randomBytes(32).toString('base64'))\"",

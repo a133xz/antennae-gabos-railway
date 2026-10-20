@@ -8,7 +8,7 @@ import { Media } from './collections/Media'
 import { Products } from './collections/Products'
 import { Users } from './collections/Users'
 import { SiteSettings } from './globals/SiteSettings'
-import { getDatabaseUrl, getPayloadSecret } from './lib/database-url'
+import { getDatabaseUrl, getPayloadSecret, getPostgresPoolExtras } from './lib/database-url'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -30,6 +30,7 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: getDatabaseUrl(),
+      ...getPostgresPoolExtras(),
     },
   }),
   sharp,

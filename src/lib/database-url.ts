@@ -15,7 +15,8 @@ export function getDatabaseUrl(): string {
         'GABOS_USE_LIVE_DATABASE=true but DATABASE_URL_LIVE is empty. Copy it from Railway Postgres variables.',
       )
     }
-    return live
+    // pg + sslmode=require verifies the cert chain; Railway TCP proxy needs pool.ssl instead.
+    return live.replace(/([?&])sslmode=[^&]*&?/g, '$1').replace(/[?&]$/, '')
   }
   return trimEnv(process.env.DATABASE_URL)
 }
@@ -27,4 +28,13 @@ export function getPayloadSecret(): string {
     if (live) return live
   }
   return trimEnv(process.env.PAYLOAD_SECRET)
+}
+
+/** Railway public TCP proxy uses SSL; local Mac Node rejects the chain without this. */
+export function getPostgresPoolExtras(): { ssl?: { rejectUnauthorized: boolean } } {
+  const url = getDatabaseUrl()
+  if (url.includes('.proxy.rlwy.net') || url.includes('sslmode=require')) {
+    return { ssl: { rejectUnauthorized: false } }
+  }
+  return {}
 }
