@@ -63,7 +63,6 @@ export function runGabosCurtainAnimation(
     }
     mobileCurtain.style.display = 'block'
     mobileCurtain.style.position = scrollable ? 'fixed' : 'absolute'
-    mobileCurtain.style.top = '0'
     mobileCurtain.style.left = '0'
     mobileCurtain.style.width = '100%'
     mobileCurtain.style.transform = 'translateY(0)'
@@ -96,8 +95,6 @@ export function runGabosCurtainAnimation(
     curtainRight.style.display = 'block'
     curtainLeft.style.position = curtainPosition
     curtainRight.style.position = curtainPosition
-    curtainLeft.style.top = '0'
-    curtainRight.style.top = '0'
     curtainLeft.style.left = '0'
     curtainRight.style.right = '0'
     curtainLeft.style.width = '51%'

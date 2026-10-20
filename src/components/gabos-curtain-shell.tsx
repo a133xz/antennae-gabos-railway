@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef } from 'react'
 import { runGabosCurtainAnimation } from '@/lib/gabos-curtain'
+import { bindVisualViewportCurtainVars } from '@/lib/sync-visual-viewport'
 
 export function GabosCurtainShell({
   scrollable = false,
@@ -31,21 +32,31 @@ export function GabosCurtainShell({
     return runGabosCurtainAnimation(root, { scrollable })
   }, [scrollable])
 
+  useLayoutEffect(() => bindVisualViewportCurtainVars(), [])
+
   return (
     <div
       ref={rootRef}
       className={`wrapper ${scrollable ? 'wrapper--scroll' : 'page-contact'}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/curtain/mobile_curtain.png" alt="" className="mobileCurtain" />
+      <img src="/curtain/mobile_curtain.png" alt="" className="mobileCurtain curtain-viewport-cover" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/curtain/slider_left.png" alt="" className="curtainLeft" />
+      <img src="/curtain/slider_left.png" alt="" className="curtainLeft curtain-viewport-cover" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/curtain/slider_right.png" alt="" className="curtainRight" />
+      <img src="/curtain/slider_right.png" alt="" className="curtainRight curtain-viewport-cover" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/curtain/abierto_left.png" alt="" className="fixedCurtain fixedCurtainLeft" />
+      <img
+        src="/curtain/abierto_left.png"
+        alt=""
+        className="fixedCurtain fixedCurtainLeft curtain-viewport-cover"
+      />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/curtain/abierto_right.png" alt="" className="fixedCurtain fixedCurtainRight" />
+      <img
+        src="/curtain/abierto_right.png"
+        alt=""
+        className="fixedCurtain fixedCurtainRight curtain-viewport-cover"
+      />
 
       <div className="navWrapper">
         <div className={`linkContainer ${scrollable ? 'linkContainer--landing' : ''}`}>{children}</div>
