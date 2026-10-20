@@ -87,10 +87,6 @@ Build: root `not-found.tsx` is `force-dynamic` so static Vercel builds do not re
 
 ## Railway (CMS + Postgres)
 
-### Cost (~2k visits/month)
-
-Hobby **$5/mo** includes **$5 usage credit**. App + Postgres often totals **~$8–15/mo** depending on idle RAM. Fine for performance; budget slightly above $5.
-
 ### CLI
 
 ```bash
