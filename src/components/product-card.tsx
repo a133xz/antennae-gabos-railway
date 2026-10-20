@@ -1,12 +1,11 @@
 import Link from 'next/link'
-import { shopLook } from '@/content/shop-looks'
 import type { Product } from '@/content/types'
 import { formatPrice } from '@/lib/format-price'
-import { ProductCardPhoto } from './product-card-photo'
+import { ShopPhoto } from './shop-photo'
 
 export function ProductCard({ product }: { product: Product }) {
-  const look = shopLook(product.slug)
   const href = `/shop/${product.slug}`
+  const hoverShot = product.gallery.length > 1 ? product.gallery[1] : null
 
   return (
     <article>
@@ -15,13 +14,15 @@ export function ProductCard({ product }: { product: Product }) {
         className="group/card block"
         aria-label={product.title}
       >
-        {look ? (
-          <ProductCardPhoto card={look.card} cardAlt={look.cardAlt} aspect="445 / 545" />
-        ) : (
-          <div className="relative aspect-[445/545] w-full overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={product.image.src} alt={product.image.alt} className="h-full w-full object-contain" />
+        {hoverShot ? (
+          <div className="relative w-full">
+            <ShopPhoto src={product.image.src} alt={product.image.alt} />
+            <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100" aria-hidden>
+              <ShopPhoto src={hoverShot.src} alt={hoverShot.alt} />
+            </div>
           </div>
+        ) : (
+          <ShopPhoto src={product.image.src} alt={product.image.alt} />
         )}
         <div className="relative z-10 -mt-[var(--shop-card-caption-overlap)] text-center text-[21px] uppercase leading-none">
           <h2>{product.title}</h2>

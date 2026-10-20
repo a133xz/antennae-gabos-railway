@@ -2,11 +2,10 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { shopLook } from '@/content/shop-looks'
 import { useCart } from '@/lib/cart'
 import { formatPrice } from '@/lib/format-price'
 import { checkoutAvailable } from '@/lib/shop-demo'
-import { CroppedPhoto } from './cropped-photo'
+import { ShopPhoto } from './shop-photo'
 import { StoreVerticalStack } from './store-vertical-stack'
 
 /** Action row uses footer grid; line rows use their own column template (see cartLineRow). */
@@ -102,10 +101,7 @@ export function CartView() {
       <ul
         className={`flex flex-col border-y border-black ${cartLineList} ${singleLine ? 'md:flex-1 md:justify-center' : ''}`}
       >
-        {lines.map((line) => {
-          const look = shopLook(line.slug)
-          const color = look?.color
-          return (
+        {lines.map((line) => (
             <li
               key={line.key}
               className={`cart-line border-b border-black py-0 last:border-b-0 ${cartLineRow} ${singleLine ? 'md:min-h-0 md:flex-1' : ''}`}
@@ -116,14 +112,7 @@ export function CartView() {
                   aria-label={`View ${line.title}`}
                   className="cart-line-photo block w-full max-w-[421px] transition-opacity hover:opacity-80 md:justify-self-start md:self-center"
                 >
-                  {look ? (
-                    <CroppedPhoto crop={look.card} aspect="421 / 545" alt={look.card.alt} />
-                  ) : (
-                    <div className="relative aspect-[421/545] w-full overflow-hidden">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={line.imageSrc} alt={line.imageAlt} className="h-full w-full object-contain" />
-                    </div>
-                  )}
+                  <ShopPhoto src={line.imageSrc} alt={line.imageAlt} aspect="421 / 545" />
                 </Link>
                 <div className="cart-line-detail flex w-full flex-col items-center text-center text-[21px] uppercase leading-none md:w-auto md:justify-self-center md:self-center">
                   <Link
@@ -131,12 +120,6 @@ export function CartView() {
                     className="flex flex-col items-center text-inherit no-underline transition-opacity hover:opacity-80"
                   >
                     <p>{line.title}</p>
-                    {color ? (
-                      <>
-                        <p className="h-[21px]" aria-hidden="true" />
-                        <p>{color}</p>
-                      </>
-                    ) : null}
                     <p>size {line.size}</p>
                   </Link>
                   <div className="mt-[23px] flex items-center justify-center gap-2">
@@ -164,8 +147,7 @@ export function CartView() {
                 </p>
               </div>
             </li>
-          )
-        })}
+        ))}
       </ul>
 
       <StoreVerticalStack insetTop="wide" className={cartActionsRow}>

@@ -47,8 +47,6 @@ type SeedProduct = Omit<Product, 'id' | 'stripeProductId' | 'stripePriceId'> & {
   gallery?: { src: string; alt: string }[]
 }
 
-const productImage = { src: '/media/editorial.jpg', alt: 'Gabos apparel still life' }
-
 export const products: SeedProduct[] = [
   {
     title: 'f1 shorts',
@@ -57,8 +55,8 @@ export const products: SeedProduct[] = [
     description:
       'Lightweight race-day shorts with an easy fit. Pair with the F1 tank for a full grid look.',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    image: productImage,
-    gallery: [productImage],
+    image: { src: '/shop/gabos-1.png', alt: 'Maroon F1 shorts' },
+    gallery: [{ src: '/shop/gabos-1.png', alt: 'Maroon F1 shorts' }],
     active: true,
     order: 0,
   },
@@ -68,8 +66,8 @@ export const products: SeedProduct[] = [
     price: 40,
     description: 'Lightweight race-day shorts with an easy fit.',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    image: productImage,
-    gallery: [productImage],
+    image: { src: '/shop/gabos-5.png', alt: 'Black Gabos cap' },
+    gallery: [{ src: '/shop/gabos-5.png', alt: 'Black Gabos cap' }],
     active: true,
     order: 1,
   },
@@ -79,8 +77,8 @@ export const products: SeedProduct[] = [
     price: 40,
     description: 'Lightweight race-day shorts with an easy fit.',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    image: productImage,
-    gallery: [productImage],
+    image: { src: '/shop/gabos-6.png', alt: 'White F1 briefs' },
+    gallery: [{ src: '/shop/gabos-6.png', alt: 'White F1 briefs' }],
     active: true,
     order: 2,
   },
@@ -88,12 +86,13 @@ export const products: SeedProduct[] = [
     title: 'f1 tank top',
     slug: 'f1-tank-top-black',
     price: 40,
-    description: [
-      "Damson Madder Reversible Longline Jerry Trench in Chocolate offers two coats in one, reflecting the brand's playful, practical approach to outerwear.",
-    ].join('\n'),
+    description: 'Black F1 tank top with grid-ready fit.',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    image: productImage,
-    gallery: [productImage],
+    image: { src: '/shop/gabos-7.png', alt: 'Black F1 tank top, front' },
+    gallery: [
+      { src: '/shop/gabos-7.png', alt: 'Black F1 tank top, front' },
+      { src: '/shop/gabos-7-back.png', alt: 'Black F1 tank top, back' },
+    ],
     active: true,
     order: 3,
   },

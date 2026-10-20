@@ -93,38 +93,57 @@ if (existingMedia.totalDocs === 0) {
   console.log('Updated site settings (Echo nav, menu PDF, book URL, contact copy).')
 }
 
+async function productPayload(product: (typeof products)[number]) {
+  const imageId = await mediaId(product.image)
+  const galleryIds = await Promise.all(
+    (product.gallery ?? [product.image]).map((image) => mediaId(image)),
+  )
+  return {
+    title: product.title,
+    slug: product.slug,
+    price: product.price,
+    description: product.description,
+    sizes: product.sizes as ('XS' | 'S' | 'M' | 'L' | 'XL')[],
+    image: imageId,
+    gallery: galleryIds,
+    active: product.active,
+    order: product.order,
+  }
+}
+
 const existingProducts = await payload.find({ collection: 'products', limit: 1 })
 if (existingProducts.totalDocs === 0) {
   for (const product of products) {
-    const imageId = await mediaId(product.image)
-    const galleryIds = await Promise.all((product.gallery ?? [product.image]).map((image) => mediaId(image)))
     await payload.create({
       collection: 'products',
-      data: {
-        title: product.title,
-        slug: product.slug,
-        price: product.price,
-        description: product.description,
-        sizes: product.sizes as ('XS' | 'S' | 'M' | 'L' | 'XL')[],
-        image: imageId,
-        gallery: galleryIds,
-        active: product.active,
-        order: product.order,
-      },
+      data: await productPayload(product),
     })
   }
   console.log(`Seeded ${products.length} shop products.`)
 } else {
-  const seedSlugs = new Set(products.map((product) => product.slug))
+  const seedBySlug = new Map(products.map((product) => [product.slug, product]))
+  const seedSlugs = new Set(seedBySlug.keys())
   const allProducts = await payload.find({ collection: 'products', limit: 100 })
+  const syncProductImages = process.env.SEED_SYNC_PRODUCT_IMAGES === 'true'
   let deactivated = 0
+  let mediaSynced = 0
   for (const doc of allProducts.docs) {
+    const seed = seedBySlug.get(doc.slug)
     const active = seedSlugs.has(doc.slug)
-    if (doc.active !== active) {
+    const data: Record<string, unknown> = {}
+    if (doc.active !== active) data.active = active
+    if (seed && syncProductImages) {
+      const payloadData = await productPayload(seed)
+      data.image = payloadData.image
+      data.gallery = payloadData.gallery
+      data.order = payloadData.order
+      mediaSynced += 1
+    }
+    if (Object.keys(data).length > 0) {
       await payload.update({
         collection: 'products',
         id: doc.id,
-        data: { active },
+        data,
       })
       if (!active) deactivated += 1
     }
@@ -134,6 +153,9 @@ if (existingProducts.totalDocs === 0) {
       ? `Synced shop catalog: deactivated ${deactivated} product(s) not in seed.`
       : 'Products already exist — catalog active flags match seed.',
   )
+  if (syncProductImages) {
+    console.log(`Synced images from records.ts for ${mediaSynced} seed product(s).`)
+  }
 }
 
 console.log(`Payload ready. Admin: http://localhost:3000/admin`)

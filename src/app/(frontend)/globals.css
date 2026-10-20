@@ -36,8 +36,6 @@
   --shop-card-caption-overlap: 25px;
   --shop-card-width: 445px;
   --shop-card-gap: 20px;
-  /* PDP: shift photo inside crop frame (0 = none; negative moves image up). */
-  --shop-detail-crop-nudge: -10px;
   /* PDP: extra inset on photo stack (on top of --shop-after-nav). */
   --shop-detail-image-start: 0px;
   /* PDP: space under nav (main padding-top); default shop uses --shop-after-nav. */
@@ -56,8 +54,6 @@
   --shop-detail-mobile-copy-pull: 50px;
   /* Stacked PDP: gap photo→photo and photo→title (matches shop grid). */
   --shop-detail-stack-gap: var(--shop-card-gap);
-  /* PDP: shift visible image up inside the crop frame. */
-  --shop-detail-crop-nudge-pdp: -72px;
   --shop-detail-sticky-top: 1.25rem;
   /*
    * PDP copy column top inset on lg+ (was 234px fixed).
@@ -166,13 +162,8 @@
   padding-top: var(--shop-detail-image-start);
 }
 
-.shop-detail-photos .cropped-photo__img {
-  translate: 0 var(--shop-detail-crop-nudge);
-}
-
 .gabos-page-white:has(.shop-detail-photos) {
   --shop-before-footer: var(--shop-before-footer-pdp);
-  --shop-detail-crop-nudge: var(--shop-detail-crop-nudge-pdp);
 }
 
 .gabos-page-white:has(.shop-detail-photos) main {
@@ -234,8 +225,6 @@
 @media screen and (max-width: 1023px) {
   .gabos-page-white:has(.shop-detail-photos) {
     --shop-before-footer: 0px;
-    /* -72px is tuned for a wide frame; on a short stacked frame it clips the back photo. */
-    --shop-detail-crop-nudge: 0px;
   }
 
   .shop-detail-meta {

@@ -2,18 +2,15 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { shopLook } from '@/content/shop-looks'
 import type { Product } from '@/content/types'
 import { useCart } from '@/lib/cart'
 import { formatPrice } from '@/lib/format-price'
 import { StoreVerticalStack } from './store-vertical-stack'
 
-export function AddToCartForm({ product, description }: { product: Product; description?: string }) {
+export function AddToCartForm({ product }: { product: Product }) {
   const { addLine } = useCart()
   const router = useRouter()
   const [size, setSize] = useState(product.sizes[0] ?? 'XS')
-  const look = shopLook(product.slug)
-  const copy = description || product.description
 
   return (
     <div className="mx-auto max-w-[444px] text-center">
@@ -32,7 +29,7 @@ export function AddToCartForm({ product, description }: { product: Product; desc
           ))}
         </div>
         <p className="mx-auto max-w-[444px] whitespace-pre-line text-center text-[21px] uppercase leading-[normal] lg:mt-12">
-          {copy}
+          {product.description}
         </p>
         <button
           type="button"
@@ -43,8 +40,8 @@ export function AddToCartForm({ product, description }: { product: Product; desc
                 slug: product.slug,
                 title: product.title,
                 price: product.price,
-                imageSrc: look?.card.src ?? product.image.src,
-                imageAlt: look?.card.alt ?? product.image.alt,
+                imageSrc: product.image.src,
+                imageAlt: product.image.alt,
                 size,
                 stripePriceId: product.stripePriceId,
               },
