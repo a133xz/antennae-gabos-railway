@@ -551,12 +551,17 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   font-size: 1.3125rem;
 }
 
+/* Let side drapes read through; static/CMS hero photos must not paint a flat center slab. */
 .gabos-home .gabos-hero {
-  background-color: var(--color-curtain);
+  background-color: transparent;
 }
 
 .gabos-home .gabos-hero-stage {
-  background-color: var(--color-curtain);
+  background-color: transparent;
+}
+
+.gabos-home .gabos-hero-photo {
+  display: none;
 }
 
 .gabos-home .landing-panel {
@@ -619,10 +624,6 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   .wrapper--scroll.wrapper--opened .fixedCurtainRight {
     z-index: 10;
     pointer-events: none;
-  }
-
-  .gabos-hero-photo {
-    display: none;
   }
 
   .gabos-hero-nav {

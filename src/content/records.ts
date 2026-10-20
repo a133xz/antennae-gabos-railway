@@ -27,7 +27,8 @@ export const settings: SiteSettings = {
     { label: 'RESERVAS', address: 'reservas@gabosnewyork.com' },
     { label: 'ADMINISTRACION Y PR', address: 'sala@gabosnewyork.com' },
   ],
-  hero: [{ src: '/media/hero-curtain.png', alt: 'Velvet curtain at the entrance' }],
+  /** Home hero is the curtain shell — no full-bleed photo in static preview. */
+  hero: [],
   originKicker: 'From',
   originPlace: 'New York',
   storeAddress: 'Calle Prim 5, Madrid, Spain 28004',
