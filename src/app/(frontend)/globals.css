@@ -49,8 +49,8 @@
    */
   --store-vertical-edge-gap: 104px;
   /* Stacked copy / cart actions / footer groups (≤1023px). */
-  --store-vertical-stack-gap: 28px;
-  --store-vertical-stack-gap-wide: 44px;
+  --store-vertical-stack-gap: 40px;
+  --store-vertical-stack-gap-wide: 72px;
   --store-vertical-stack-gap-tight: 8px;
   /* Stacked PDP: legacy split of main padding-top (desktop / overrides). */
   --shop-detail-mobile-nav-gap-extra: 80px;
