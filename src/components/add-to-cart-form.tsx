@@ -17,21 +17,23 @@ export function AddToCartForm({ product, description }: { product: Product; desc
   return (
     <div className="mx-auto max-w-[444px] text-center">
       <p className="mt-[18px] text-[21px] leading-none">{formatPrice(product.price)}</p>
-      <div className="mx-auto mt-11 flex w-full max-w-[444px] justify-between text-[21px] leading-none">
-        {product.sizes.map((option) => (
-          <button
-            key={option}
-            type="button"
-            onClick={() => setSize(option)}
-            className={size === option ? 'underline' : 'transition-opacity hover:opacity-70'}
-          >
-            {option}
-          </button>
-        ))}
+      <div className="shop-detail-meta">
+        <div className="mx-auto mt-11 flex w-full max-w-[444px] justify-between text-[21px] leading-none max-lg:order-2 max-lg:mt-0">
+          {product.sizes.map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => setSize(option)}
+              className={size === option ? 'underline' : 'transition-opacity hover:opacity-70'}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+        <p className="mx-auto mt-12 max-w-[444px] whitespace-pre-line text-center text-[21px] uppercase leading-[normal] max-lg:order-1 max-lg:mt-0">
+          {copy}
+        </p>
       </div>
-      <p className="mx-auto mt-12 max-w-[444px] whitespace-pre-line text-center text-[21px] uppercase leading-[normal]">
-        {copy}
-      </p>
       <button
         type="button"
         onClick={() => {

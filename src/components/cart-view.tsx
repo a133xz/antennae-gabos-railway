@@ -88,8 +88,8 @@ export function CartView() {
 
   if (lines.length === 0) {
     return (
-      <div className={`flex-1 ${fade}`}>
-        <p className="fixed left-1/2 top-1/2 w-[min(909px,90vw)] -translate-x-1/2 -translate-y-1/2 text-center text-[32px] uppercase leading-none">
+      <div className={`cart-empty flex min-h-0 flex-1 flex-col ${fade}`}>
+        <p className="mx-auto w-[min(909px,90vw)] text-center text-[32px] uppercase leading-none max-md:flex max-md:min-h-0 max-md:flex-1 max-md:items-center max-md:justify-center md:fixed md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
           your cart is empty
         </p>
       </div>

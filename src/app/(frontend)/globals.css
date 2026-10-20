@@ -100,6 +100,19 @@
   }
 }
 
+/* Empty cart ≤767px: in-flow center between header and footer (no fixed viewport lock). */
+@media screen and (max-width: 767px) {
+  .gabos-page-white:has(.cart-empty) main {
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 0;
+  }
+
+  .gabos-page-white:has(.cart-empty) footer {
+    margin-top: 0;
+  }
+}
+
 .shop-product-row {
   display: flex;
   flex-wrap: nowrap;
@@ -165,6 +178,17 @@
 @media screen and (max-width: 1023px) {
   .gabos-page-white:has(.shop-detail-photos) {
     --shop-before-footer: 0px;
+    /* -72px is tuned for a wide frame; on a short stacked frame it clips the back photo. */
+    --shop-detail-crop-nudge: 0px;
+  }
+
+  .shop-detail-meta {
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 1.5rem;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 2.75rem;
   }
 
   .gabos-page-white:has(.shop-detail-photos) main {
@@ -599,7 +623,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     margin: 0 0 5vh;
     text-align: center;
     color: #fff;
-    font-size: inherit;
+    font-size: 1.3125rem;
     line-height: 1.2;
   }
 
@@ -620,13 +644,6 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   .gabos-page-white header nav a:not([href='/shop']),
   .gabos-page-white header .gabos-cart-link {
     font-size: calc(19px * 0.7);
-  }
-
-  .gabos-hero-nav-menu,
-  .gabos-hero-nav-shop,
-  .gabos-hero-nav-book,
-  .gabos-hero-nav-contact {
-    font-size: 70%;
   }
 }
 
