@@ -6,6 +6,7 @@ import { shopLook } from '@/content/shop-looks'
 import type { Product } from '@/content/types'
 import { useCart } from '@/lib/cart'
 import { formatPrice } from '@/lib/format-price'
+import { StoreVerticalStack } from './store-vertical-stack'
 
 export function AddToCartForm({ product, description }: { product: Product; description?: string }) {
   const { addLine } = useCart()
@@ -17,8 +18,8 @@ export function AddToCartForm({ product, description }: { product: Product; desc
   return (
     <div className="mx-auto max-w-[444px] text-center">
       <p className="mt-[18px] text-[21px] leading-none">{formatPrice(product.price)}</p>
-      <div className="shop-detail-meta">
-        <div className="mx-auto mt-11 flex w-full max-w-[444px] justify-between text-[21px] leading-none">
+      <StoreVerticalStack insetTop="wide" className="shop-detail-meta">
+        <div className="mx-auto flex w-full max-w-[444px] justify-between text-[21px] leading-none lg:mt-11">
           {product.sizes.map((option) => (
             <button
               key={option}
@@ -30,32 +31,32 @@ export function AddToCartForm({ product, description }: { product: Product; desc
             </button>
           ))}
         </div>
-        <p className="mx-auto mt-12 max-w-[444px] whitespace-pre-line text-center text-[21px] uppercase leading-[normal]">
+        <p className="mx-auto max-w-[444px] whitespace-pre-line text-center text-[21px] uppercase leading-[normal] lg:mt-12">
           {copy}
         </p>
-      </div>
-      <button
-        type="button"
-        onClick={() => {
-          addLine(
-            {
-              productId: product.id,
-              slug: product.slug,
-              title: product.title,
-              price: product.price,
-              imageSrc: look?.card.src ?? product.image.src,
-              imageAlt: look?.card.alt ?? product.image.alt,
-              size,
-              stripePriceId: product.stripePriceId,
-            },
-            1,
-          )
-          router.push('/cart')
-        }}
-        className="mx-auto mt-7 flex h-[38px] w-[157px] items-center justify-center border border-black text-[19px] uppercase leading-none transition-opacity hover:opacity-70"
-      >
-        add to cart
-      </button>
+        <button
+          type="button"
+          onClick={() => {
+            addLine(
+              {
+                productId: product.id,
+                slug: product.slug,
+                title: product.title,
+                price: product.price,
+                imageSrc: look?.card.src ?? product.image.src,
+                imageAlt: look?.card.alt ?? product.image.alt,
+                size,
+                stripePriceId: product.stripePriceId,
+              },
+              1,
+            )
+            router.push('/cart')
+          }}
+          className="mx-auto flex h-[38px] w-[157px] items-center justify-center border border-black text-[19px] uppercase leading-none transition-opacity hover:opacity-70 lg:mt-7"
+        >
+          add to cart
+        </button>
+      </StoreVerticalStack>
     </div>
   )
 }

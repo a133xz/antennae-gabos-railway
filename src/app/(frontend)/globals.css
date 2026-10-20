@@ -48,6 +48,10 @@
    * and from last line (subtotal / add to cart) → footer Gabos logo.
    */
   --store-vertical-edge-gap: 104px;
+  /* Stacked copy / cart actions / footer groups (≤1023px). */
+  --store-vertical-stack-gap: 28px;
+  --store-vertical-stack-gap-wide: 44px;
+  --store-vertical-stack-gap-tight: 8px;
   /* Stacked PDP: legacy split of main padding-top (desktop / overrides). */
   --shop-detail-mobile-nav-gap-extra: 80px;
   --shop-detail-mobile-copy-pull: 50px;
@@ -182,6 +186,50 @@
 
 .landing-footer {
   margin-top: clamp(96px, 12vh, 200px);
+}
+
+@media screen and (max-width: 1023px) {
+  .store-vertical-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--store-vertical-stack-gap);
+  }
+
+  .store-vertical-stack--tight {
+    gap: var(--store-vertical-stack-gap-tight);
+  }
+
+  .store-vertical-stack--inset-top-wide {
+    margin-top: var(--store-vertical-stack-gap-wide);
+  }
+
+  .store-vertical-stack > * {
+    margin-top: 0;
+  }
+
+  .store-vertical-stack.cart-actions {
+    align-items: center;
+  }
+
+  .landing-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--store-vertical-stack-gap-wide);
+  }
+
+  .landing-footer__brand-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--store-vertical-stack-gap-tight);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .landing-footer__brand-group {
+    display: contents;
+  }
 }
 
 @media screen and (max-width: 1023px) {

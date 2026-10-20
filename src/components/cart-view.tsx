@@ -7,6 +7,7 @@ import { useCart } from '@/lib/cart'
 import { formatPrice } from '@/lib/format-price'
 import { checkoutAvailable } from '@/lib/shop-demo'
 import { CroppedPhoto } from './cropped-photo'
+import { StoreVerticalStack } from './store-vertical-stack'
 
 /** Action row uses footer grid; line rows use their own column template (see cartLineRow). */
 const cartStoreGrid =
@@ -19,7 +20,7 @@ const cartLineList = 'md:col-span-3 md:row-start-1 md:min-h-0'
 const cartLineRow =
   'md:grid md:items-center md:gap-x-6 md:max-[1469px]:grid-cols-[minmax(0,421px)_1fr_auto] min-[1470px]:grid-cols-[1fr_auto_1fr]'
 const cartActionsRow =
-  'mt-[42px] flex flex-col items-center gap-6 text-center md:col-span-3 md:row-start-2 md:grid md:grid-cols-subgrid md:items-center'
+  'cart-actions text-center lg:mt-[42px] md:col-span-3 md:row-start-2 md:grid md:grid-cols-subgrid md:items-center'
 
 export function CartView() {
   const { lines, subtotal, ready, setQuantity, removeLine, clear } = useCart()
@@ -158,7 +159,7 @@ export function CartView() {
         })}
       </ul>
 
-      <div className={cartActionsRow}>
+      <StoreVerticalStack insetTop="wide" className={cartActionsRow}>
         <Link
           href="/shop"
           className="text-[19px] uppercase leading-none transition-opacity hover:opacity-70 md:justify-self-start md:self-center md:text-left"
@@ -176,7 +177,7 @@ export function CartView() {
         <p className="text-[21px] uppercase leading-none md:justify-self-end md:self-center md:text-right">
           subtotal {formatPrice(subtotal, 2)}
         </p>
-      </div>
+      </StoreVerticalStack>
       {error ? <p className="mt-4 text-center text-sm font-normal normal-case text-red-700">{error}</p> : null}
     </div>
   )
