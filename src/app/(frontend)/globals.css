@@ -119,8 +119,8 @@
 
 .shop-product-row {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: flex-start;
   gap: var(--shop-card-gap);
   margin: 0;
@@ -136,8 +136,12 @@
   );
 }
 
+/* ≤4 products: full content width, cards at 445px with space-between (matches header span). */
 .shop-product-row--fits-viewport {
-  justify-content: center;
+  flex-wrap: nowrap;
+  width: 100%;
+  justify-content: space-between;
+  gap: 0;
 }
 
 /* ≤4 products: one row centered in the viewport between header and footer. */
@@ -717,6 +721,11 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
 
   .shop-product-row > li {
     width: min(var(--shop-card-width), 100%);
+  }
+
+  .shop-product-row--fits-viewport {
+    justify-content: flex-start;
+    gap: var(--shop-card-gap);
   }
 
   .gabos-page-shop:has(.shop-product-row--fits-viewport) {
