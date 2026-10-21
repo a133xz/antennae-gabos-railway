@@ -98,6 +98,10 @@
   --body: 1rem;
 }
 
+.cart-line-detail {
+  gap: var(--store-vertical-stack-gap);
+}
+
 @media screen and (min-width: 768px) {
   .gabos-page-white .cart-line:only-child {
     min-height: min(545px, calc((100vw - 2 * var(--gutter-inline)) * 545 / 421));
@@ -203,6 +207,11 @@
 
   .store-vertical-stack.cart-actions {
     align-items: center;
+    margin-top: var(--store-vertical-stack-gap);
+  }
+
+  .cart-line-grid {
+    gap: var(--store-vertical-stack-gap);
   }
 
   .landing-footer {

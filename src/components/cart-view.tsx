@@ -19,7 +19,7 @@ const cartLineList = 'md:col-span-3 md:row-start-1 md:min-h-0'
 const cartLineRow =
   'md:grid md:items-center md:gap-x-6 md:max-[1469px]:grid-cols-[minmax(0,421px)_1fr_auto] min-[1470px]:grid-cols-[1fr_auto_1fr]'
 const cartActionsRow =
-  'cart-actions text-center lg:mt-[42px] md:col-span-3 md:row-start-2 md:grid md:grid-cols-subgrid md:items-center'
+  'cart-actions text-center md:col-span-3 md:row-start-2 md:grid md:grid-cols-subgrid md:items-center lg:mt-[var(--store-vertical-stack-gap)]'
 
 export function CartView() {
   const { lines, subtotal, ready, setQuantity, removeLine, clear } = useCart()
@@ -106,7 +106,7 @@ export function CartView() {
               key={line.key}
               className={`cart-line border-b border-black py-0 last:border-b-0 ${cartLineRow} ${singleLine ? 'md:min-h-0 md:flex-1' : ''}`}
             >
-              <div className="cart-line-grid flex flex-col items-center gap-8 py-8 md:contents md:py-0">
+              <div className="cart-line-grid flex flex-col items-center py-8 md:contents md:py-0">
                 <Link
                   href={`/shop/${line.slug}`}
                   aria-label={`View ${line.title}`}
@@ -117,12 +117,17 @@ export function CartView() {
                 <div className="cart-line-detail flex w-full flex-col items-center text-center text-[21px] uppercase leading-none md:w-auto md:justify-self-center md:self-center">
                   <Link
                     href={`/shop/${line.slug}`}
-                    className="flex flex-col items-center text-inherit no-underline transition-opacity hover:opacity-80"
+                    className="text-inherit no-underline transition-opacity hover:opacity-80"
                   >
-                    <p>{line.title}</p>
-                    <p>size {line.size}</p>
+                    {line.title}
                   </Link>
-                  <div className="mt-[23px] flex items-center justify-center gap-2">
+                  <Link
+                    href={`/shop/${line.slug}`}
+                    className="text-inherit no-underline transition-opacity hover:opacity-80"
+                  >
+                    size {line.size}
+                  </Link>
+                  <div className="flex items-center justify-center gap-2">
                     <button type="button" aria-label="Decrease quantity" onClick={() => setQuantity(line.key, line.quantity - 1)}>
                       -
                     </button>
@@ -134,11 +139,11 @@ export function CartView() {
                   <button
                     type="button"
                     onClick={() => removeLine(line.key)}
-                    className="mt-3 text-[19px] normal-case opacity-60 transition-opacity hover:opacity-100"
+                    className="text-[19px] normal-case opacity-60 transition-opacity hover:opacity-100"
                   >
                     remove
                   </button>
-                  <p className="mt-[23px] text-[21px] uppercase leading-none md:hidden">
+                  <p className="text-[21px] uppercase leading-none md:hidden">
                     {formatPrice(line.price * line.quantity, 2)}
                   </p>
                 </div>
@@ -150,7 +155,7 @@ export function CartView() {
         ))}
       </ul>
 
-      <StoreVerticalStack insetTop="wide" className={cartActionsRow}>
+      <StoreVerticalStack className={cartActionsRow}>
         <Link
           href="/shop"
           className="text-[19px] uppercase leading-none transition-opacity hover:opacity-70 md:justify-self-start md:self-center md:text-left"
