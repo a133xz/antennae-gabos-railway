@@ -739,7 +739,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   .gabos-page-shop:has(.shop-product-row--fits-viewport) main {
     flex: 1 1 auto;
     justify-content: flex-start;
-    padding-top: var(--shop-after-nav);
+    padding-top: 50px;
     padding-bottom: var(--shop-before-footer);
   }
 }
