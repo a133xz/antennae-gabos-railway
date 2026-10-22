@@ -74,7 +74,7 @@ export function StoreMobileMenu({
           {bar}
           <StoreNav
             items={items}
-            className="mt-12 flex-col items-start gap-10 text-[21px] leading-none"
+            className="store-mobile-menu-nav mt-12 flex-col flex-nowrap items-start gap-0 text-[21px] leading-none"
           />
         </div>
       ) : null}

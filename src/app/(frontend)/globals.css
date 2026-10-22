@@ -121,6 +121,14 @@
   }
 }
 
+.store-mobile-menu-nav {
+  row-gap: 0;
+}
+
+.store-mobile-menu-nav > :not(:first-child) {
+  margin-top: 1.125rem;
+}
+
 .shop-product-row {
   display: flex;
   flex-wrap: wrap;
