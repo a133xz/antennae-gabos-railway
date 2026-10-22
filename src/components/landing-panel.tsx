@@ -26,21 +26,20 @@ function getViewportHeight() {
   return window.visualViewport?.height ?? document.documentElement.clientHeight ?? window.innerHeight ?? 1
 }
 
-function scrollFadeProgress(section: HTMLElement, scrollY: number) {
+function scrollFadeProgress(section: HTMLElement) {
+  const vh = getViewportHeight()
+  const top = section.getBoundingClientRect().top
   const mobile = window.matchMedia('(max-width: 767px)').matches
 
   if (mobile) {
-    const vh = getViewportHeight()
-    const top = section.getBoundingClientRect().top
-    // Fade over one vh as the landing block moves up through the viewport (not document scrollY).
+    // Fade over one vh as the landing block rises through the viewport.
     if (top >= vh) return 0
     return Math.min(1, Math.max(0, (vh - top) / vh))
   }
 
-  // Desktop — unchanged: first viewport of scroll stays red, then one vh fade to black.
-  const vh = window.innerHeight || 1
-  if (scrollY <= vh) return 0
-  return Math.min(1, Math.max(0, (scrollY - vh) / vh))
+  // Desktop: red until the panel hits the top edge; then one vh of scroll through the section → black.
+  if (top > 0) return 0
+  return Math.min(1, Math.max(0, -top / vh))
 }
 
 export function LandingPanel({ children }: { children: ReactNode }) {
@@ -59,7 +58,7 @@ export function LandingPanel({ children }: { children: ReactNode }) {
 
     const update = () => {
       frame = 0
-      const progress = scrollFadeProgress(section, window.scrollY)
+      const progress = scrollFadeProgress(section)
       const bg = mixToBlack(curtain, progress)
       section.style.backgroundColor = bg
 
@@ -75,22 +74,17 @@ export function LandingPanel({ children }: { children: ReactNode }) {
       frame = window.requestAnimationFrame(update)
     }
 
-    const onViewportChange = () => {
-      if (!window.matchMedia('(max-width: 767px)').matches) return
-      onScroll()
-    }
-
     update()
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onScroll)
-    window.visualViewport?.addEventListener('resize', onViewportChange)
-    window.visualViewport?.addEventListener('scroll', onViewportChange)
+    window.visualViewport?.addEventListener('resize', onScroll)
+    window.visualViewport?.addEventListener('scroll', onScroll)
     return () => {
       window.cancelAnimationFrame(frame)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
-      window.visualViewport?.removeEventListener('resize', onViewportChange)
-      window.visualViewport?.removeEventListener('scroll', onViewportChange)
+      window.visualViewport?.removeEventListener('resize', onScroll)
+      window.visualViewport?.removeEventListener('scroll', onScroll)
       document.body.style.backgroundColor = ''
       if (home?.classList.contains('gabos-home')) home.style.backgroundColor = ''
     }
