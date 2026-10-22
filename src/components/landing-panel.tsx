@@ -38,10 +38,11 @@ function scrollFadeProgress(section: HTMLElement) {
     return Math.min(1, Math.max(0, (fadeStartTop - top) / fadeStartTop))
   }
 
-  // Desktop: red until the panel reaches the top edge; then fade to black over ~85% of one vh scroll.
+  // Desktop: tiny lead before the panel hits the top (avoids a hard line); full black in ~85% of one vh scroll.
+  const fadeBeginTop = vh * 0.09
   const fadeScroll = vh * 0.85
-  if (top > 0) return 0
-  return Math.min(1, Math.max(0, -top / fadeScroll))
+  if (top > fadeBeginTop) return 0
+  return Math.min(1, Math.max(0, (fadeBeginTop - top) / fadeScroll))
 }
 
 export function LandingPanel({ children }: { children: ReactNode }) {
