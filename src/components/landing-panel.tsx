@@ -28,7 +28,6 @@ export function LandingPanel({ children }: { children: ReactNode }) {
     const section = ref.current
     if (!section) return
 
-    const hero = section.parentElement?.querySelector<HTMLElement>('.gabos-hero') ?? null
     const curtain = curtainRgb(
       getComputedStyle(document.documentElement).getPropertyValue('--color-curtain') || '#6e0001',
     )
@@ -36,10 +35,14 @@ export function LandingPanel({ children }: { children: ReactNode }) {
 
     const update = () => {
       frame = 0
-      const viewport = window.innerHeight || 1
-      const heroBottom = hero ? hero.getBoundingClientRect().bottom : viewport
-      const progress = Math.min(1, Math.max(0, 1 - heroBottom / viewport))
-      section.style.backgroundColor = mixToBlack(curtain, progress)
+      const vh = window.innerHeight || 1
+      const scrollY = window.scrollY
+      // First screen stays curtain red; after one viewport of scroll, ease into black.
+      const progress =
+        scrollY <= vh ? 0 : Math.min(1, Math.max(0, (scrollY - vh) / vh))
+      const bg = mixToBlack(curtain, progress)
+      section.style.backgroundColor = bg
+      document.body.style.backgroundColor = progress >= 1 ? '#000' : ''
     }
 
     const onScroll = () => {
@@ -54,6 +57,7 @@ export function LandingPanel({ children }: { children: ReactNode }) {
       window.cancelAnimationFrame(frame)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
+      document.body.style.backgroundColor = ''
     }
   }, [])
 

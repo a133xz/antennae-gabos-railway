@@ -18,9 +18,14 @@ export async function GabosStoreShell({
       ? 'gabos-page-shop bg-[#f2f2f2] text-[#251f1f]'
       : 'gabos-page-white bg-white text-black'
 
+  const pageLayout =
+    surface === 'shop'
+      ? 'flex flex-col'
+      : 'flex min-h-screen flex-col'
+
   return (
     <div
-      className={`${page} flex min-h-screen flex-col px-[var(--gutter-inline)] pb-[var(--gutter-bottom)] font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[normal]`}
+      className={`${page} ${pageLayout} px-[var(--gutter-inline)] pb-[var(--gutter-bottom)] font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[normal]`}
     >
       <GabosStoreHeader settings={settings} />
       <main

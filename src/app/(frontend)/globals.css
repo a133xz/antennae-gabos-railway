@@ -148,22 +148,10 @@
   gap: 0;
 }
 
-/* ≤4 products: one row centered in the viewport between header and footer. */
-.gabos-page-shop:has(.shop-product-row--fits-viewport) {
-  height: 100vh;
-  min-height: 100vh;
-}
-
-.gabos-page-shop:has(.shop-product-row--fits-viewport) main {
-  flex: 1 1 0;
-  min-height: 0;
-  justify-content: center;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.gabos-page-shop:has(.shop-product-row--fits-viewport) footer {
-  margin-top: 0;
+/* /shop: main fills at least one viewport so the footer sits below the fold. */
+.gabos-page-shop main {
+  flex: 0 1 auto;
+  min-height: calc(100dvh - var(--gutter-top) - var(--gutter-bottom) - 2.5rem);
 }
 
 .shop-detail-photos {
@@ -732,16 +720,6 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     gap: var(--shop-card-gap);
   }
 
-  .gabos-page-shop:has(.shop-product-row--fits-viewport) {
-    height: auto;
-  }
-
-  .gabos-page-shop:has(.shop-product-row--fits-viewport) main {
-    flex: 1 1 auto;
-    justify-content: flex-start;
-    padding-top: 50px;
-    padding-bottom: var(--shop-before-footer);
-  }
 }
 
 /*
