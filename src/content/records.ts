@@ -15,13 +15,13 @@ export const settings: SiteSettings = {
     "Gabo's is a New York-inspired supper club and cocktail bar in Madrid offering late-night dining, vinyl music, and classic American bites",
   contactIntro: [
     'Opening hours:',
-    'Tuesday - Wednesday: 19:30-02:00',
-    'Thursday - Friday: 13:00-02:00',
-    'Saturday: 12:30-02:00',
+    'Tuesday -- Wednesday 19.30 a 02.00',
+    'Thursday -- Friday 13.00 a 02.00',
+    'Saturday 12.30 a 02.00',
     '',
   ].join('\n'),
   contactPhone: '91 639 1343',
-  contactPhoneHours: 'Tue-Sat 17.00-22.00',
+  contactPhoneHours: 'Tue -- Sat 17.00-22.00',
   menuPdfUrl: MENU_PDF_URL,
   bookUrl: BOOK_URL,
   emails: [

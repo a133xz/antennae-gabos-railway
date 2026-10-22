@@ -497,6 +497,29 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   text-align: center;
 }
 
+.wrapper .details .hours-line {
+  display: block;
+}
+
+.wrapper .details .hours-days,
+.wrapper .details .hours-time {
+  white-space: nowrap;
+}
+
+.wrapper .details .hours-time::before {
+  content: '\00a0';
+}
+
+@media screen and (max-width: 767px) {
+  .wrapper .details .hours-time {
+    display: block;
+  }
+
+  .wrapper .details .hours-time::before {
+    content: none;
+  }
+}
+
 .wrapper .heading {
   font-family: 'renner', sans-serif;
   font-size: 0.7rem;
