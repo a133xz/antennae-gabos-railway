@@ -2,6 +2,9 @@ import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  experimental: {
+    agentUpgrade: 'security',
+  },
   agentRules: false,
   images: {
     localPatterns: [{ pathname: '/media/**' }, { pathname: '/brand/**' }, { pathname: '/api/media/file/**' }],
