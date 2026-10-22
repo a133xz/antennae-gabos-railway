@@ -605,7 +605,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   }
 
   .gabos-hero {
-    min-height: 100vh;
+    min-height: 100dvh;
     background: transparent;
   }
 
