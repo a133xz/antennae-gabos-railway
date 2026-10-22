@@ -32,14 +32,16 @@ function scrollFadeProgress(section: HTMLElement) {
   const mobile = window.matchMedia('(max-width: 767px)').matches
 
   if (mobile) {
-    // Fade over one vh as the landing block rises through the viewport.
-    if (top >= vh) return 0
-    return Math.min(1, Math.max(0, (vh - top) / vh))
+    // Wait until the panel is well into view before fading.
+    const fadeStartTop = vh * 0.86
+    if (top >= fadeStartTop) return 0
+    return Math.min(1, Math.max(0, (fadeStartTop - top) / fadeStartTop))
   }
 
-  // Desktop: red until the panel hits the top edge; then one vh of scroll through the section → black.
+  // Desktop: red until the panel reaches the top edge; then fade to black over ~85% of one vh scroll.
+  const fadeScroll = vh * 0.85
   if (top > 0) return 0
-  return Math.min(1, Math.max(0, -top / vh))
+  return Math.min(1, Math.max(0, -top / fadeScroll))
 }
 
 export function LandingPanel({ children }: { children: ReactNode }) {
