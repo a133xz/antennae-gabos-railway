@@ -6,8 +6,8 @@ const navLink = 'uppercase text-white transition-opacity hover:opacity-70'
 
 export function GabosHero({ settings }: { settings: SiteSettings }) {
   return (
-    <section className="gabos-hero relative grid min-h-[100vh] place-items-center text-white">
-      <div className="gabos-hero-stage relative grid w-[min(748px,calc(100%-32px))] min-h-[315px] place-items-center px-7 py-12">
+    <section className="gabos-hero relative grid min-h-[100vh] place-items-start justify-items-center pt-[clamp(40px,9vh,72px)] md:place-items-center md:pt-0 text-white">
+      <div className="gabos-hero-stage relative grid w-[min(748px,calc(100%-32px))] min-h-[315px] place-items-center px-7 pb-12 pt-0 md:py-12">
         <nav
           className="gabos-hero-nav flex items-center justify-center gap-[clamp(28px,4vw,72px)]"
           aria-label="Primary"

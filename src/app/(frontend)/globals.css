@@ -616,7 +616,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
     z-index: 6;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0;
     width: 100%;
   }
