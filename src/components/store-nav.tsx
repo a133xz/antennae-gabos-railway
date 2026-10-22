@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-type Item = {
+export type StoreNavItem = {
   href: string
   label: string
   external?: boolean
@@ -11,7 +11,7 @@ type Item = {
   activePrefix?: string
 }
 
-export function StoreNav({ items, className = '' }: { items: Item[]; className?: string }) {
+export function StoreNav({ items, className = '' }: { items: StoreNavItem[]; className?: string }) {
   const pathname = usePathname()
 
   return (
@@ -23,8 +23,7 @@ export function StoreNav({ items, className = '' }: { items: Item[]; className?:
         const active = item.activePrefix
           ? pathname === item.activePrefix || pathname.startsWith(`${item.activePrefix}/`)
           : false
-        const hideShop = item.label.toLowerCase() === 'shop' ? ' max-md:hidden' : ''
-        const className = `text-[21px] uppercase transition-opacity hover:opacity-70${hideShop}${active ? ' underline' : ''}`
+        const className = `text-[21px] uppercase transition-opacity hover:opacity-70${active ? ' underline' : ''}`
         if (item.external || item.download || item.href.startsWith('http')) {
           return (
             <a

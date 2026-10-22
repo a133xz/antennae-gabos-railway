@@ -692,19 +692,12 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   /* /shop: stack product cards vertically (same breakpoint as home nav). */
 }
 
-@media screen and (max-width: 500px) {
-  .gabos-page-shop header nav a:not([href='/shop']),
-  .gabos-page-shop header .gabos-cart-link {
-    font-size: calc(21px * 0.7);
-  }
-
-  .gabos-page-white header nav a:not([href='/shop']),
-  .gabos-page-white header .gabos-cart-link {
-    font-size: calc(19px * 0.7);
-  }
-}
-
 @media screen and (max-width: 767px) {
+  .gabos-page-shop,
+  .gabos-page-white {
+    --shop-after-nav: 72px;
+  }
+
   .shop-product-row {
     flex-direction: column;
     align-items: center;

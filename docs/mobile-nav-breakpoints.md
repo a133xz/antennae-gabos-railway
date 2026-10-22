@@ -5,7 +5,7 @@ When requesting a change: **token or px**, **what**, **file**.
 | Token / px | Role |
 |------------|------|
 | **500** (`globals.css`) | Header/cart link type → 70% on very small phones (not home hero layout). |
-| **`max-md` / ≤767** | Mobile layout: home stack, shop grid, empty cart, store header compact, hide shop in store/about headers, curtain JS (`gabos-curtain.ts` = 767). Home hero **shop** stays visible. |
+| **`max-md` / ≤767** | Mobile layout: home stack, shop grid, empty cart, store header burger + cart bar with links in overlay (`store-mobile-menu.tsx`), curtain JS (`gabos-curtain.ts` = 767). Home hero **shop** stays visible. |
 | **`md` / ≥768** | Desktop-ish: hero monogram, cart/footer grids, nav `gap-x-8`, contact 2-col. |
 | **`max-lg` / ≤1023** | Stacked store pages (cart, PDP, footer rhythm). |
 | **`lg` / ≥1024** | PDP 2-col, about header grid, nav `gap-x-12`. |

@@ -27,7 +27,7 @@ export async function GabosStoreShell({
     <div
       className={`${page} ${pageLayout} px-[var(--gutter-inline)] pb-[var(--gutter-bottom)] font-[family-name:var(--font-gabos)] text-[21px] font-bold uppercase leading-[normal]`}
     >
-      <GabosStoreHeader settings={settings} />
+      <GabosStoreHeader settings={settings} surface={surface} />
       <main
         className={
           mainTop === 'cart'
