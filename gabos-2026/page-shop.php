@@ -3,11 +3,6 @@ $post_id = gabos_2026_front_id();
 $menu_url = gabos_2026_url('menu', $post_id, GABOS_2026_MENU_URL);
 $book_url = gabos_2026_url('book', $post_id, GABOS_2026_BOOK_URL);
 $contact_url = gabos_2026_contact_url();
-$kicker = gabos_2026_text('origin_kicker', $post_id, GABOS_2026_ORIGIN_KICKER);
-$place = preg_replace('/\s+/', '', gabos_2026_text('origin_place', $post_id, GABOS_2026_ORIGIN_PLACE));
-$copyright = gabos_2026_text('copyright', $post_id, GABOS_2026_COPYRIGHT);
-$address = gabos_2026_text('store_address', $post_id, GABOS_2026_ADDRESS);
-
 $gabos_plain = true;
 require get_template_directory() . '/template-parts/document-open.php';
 ?>
@@ -43,20 +38,9 @@ require get_template_directory() . '/template-parts/document-open.php';
     <main class="shop-coming-soon">
         <p>coming soon</p>
     </main>
-    <footer class="landing-footer landing-footer--store">
-        <div class="landing-footer__brand">
-            <a href="<?php echo esc_url(home_url('/')); ?>">
-                <img src="<?php echo esc_url(gabos_2026_asset('logo-gabos.svg')); ?>" alt="Gabos" width="234" height="175">
-            </a>
-            <p>
-                <span><?php echo esc_html($kicker); ?></span>
-                <span class="landing-footer__place"><?php echo esc_html($place); ?></span>
-            </p>
-        </div>
-        <p class="landing-footer__legal">
-            <span><?php echo esc_html($copyright); ?></span>
-            <span><?php echo esc_html($address); ?></span>
-        </p>
-    </footer>
+    <?php
+    $gabos_footer_on_light = true;
+    require get_template_directory() . '/template-parts/landing-footer.php';
+    ?>
 </div>
 <?php require get_template_directory() . '/template-parts/document-close.php'; ?>

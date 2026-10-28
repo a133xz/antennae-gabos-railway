@@ -30,11 +30,14 @@ add_filter('template_include', function ($template) {
 });
 
 add_filter('show_admin_bar', function ($show) {
-    if (is_admin() || is_customize_preview()) {
+    if (is_admin()) {
         return $show;
     }
     return false;
 });
+
+remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');
 
 add_action('after_switch_theme', function () {
     flush_rewrite_rules(false);
@@ -48,6 +51,11 @@ add_filter('upload_mimes', function ($mimes) {
 });
 
 add_action('wp_enqueue_scripts', function () {
+    wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('wp-block-library-theme');
+    wp_dequeue_style('classic-theme-styles');
+    wp_dequeue_style('global-styles');
+
     $dir = get_template_directory();
     $uri = get_template_directory_uri();
 

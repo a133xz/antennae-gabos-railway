@@ -18,10 +18,6 @@ $poster_url = $poster ? $poster['url'] : gabos_2026_asset('editorial.jpg');
 $poster_alt = ($poster && $poster['alt'] !== '') ? $poster['alt'] : 'Close-up of a cocktail glass';
 $ig_label = gabos_2026_text('instagram_label', $post_id, GABOS_2026_IG_LABEL);
 $ig_handle = gabos_2026_text('instagram_handle', $post_id, GABOS_2026_IG_HANDLE);
-$address = gabos_2026_text('store_address', $post_id, GABOS_2026_ADDRESS);
-$kicker = gabos_2026_text('origin_kicker', $post_id, GABOS_2026_ORIGIN_KICKER);
-$place = preg_replace('/\s+/', '', gabos_2026_text('origin_place', $post_id, GABOS_2026_ORIGIN_PLACE));
-$copyright = gabos_2026_text('copyright', $post_id, GABOS_2026_COPYRIGHT);
 $contact_url = gabos_2026_contact_url();
 
 $huellas = array(
@@ -90,21 +86,7 @@ require get_template_directory() . '/template-parts/document-open.php';
                             <span><?php echo esc_html($ig_label); ?></span>
                             <span><?php echo esc_html($ig_handle); ?></span>
                         </a>
-                        <footer class="landing-footer">
-                            <div class="landing-footer__brand">
-                                <a href="<?php echo esc_url(home_url('/')); ?>">
-                                    <img src="<?php echo esc_url(gabos_2026_asset('logo-gabos.svg')); ?>" alt="Gabos" width="234" height="175">
-                                </a>
-                                <p>
-                                    <span><?php echo esc_html($kicker); ?></span>
-                                    <span class="landing-footer__place"><?php echo esc_html($place); ?></span>
-                                </p>
-                            </div>
-                            <p class="landing-footer__legal">
-                                <span><?php echo esc_html($copyright); ?></span>
-                                <span><?php echo esc_html($address); ?></span>
-                            </p>
-                        </footer>
+                        <?php require get_template_directory() . '/template-parts/landing-footer.php'; ?>
                     </div>
                 </section>
             </div>
