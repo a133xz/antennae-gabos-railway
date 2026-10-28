@@ -23,6 +23,8 @@ export const settings: SiteSettings = {
   contactPhoneHours: 'Tue -- Sat 17.00-22.00',
   menuPdfUrl: MENU_PDF_URL,
   bookUrl: BOOK_URL,
+  christmasMenu: true,
+  christmasMenuUrl: '',
   emails: [
     { label: 'RESERVAS', address: 'reservas@gabosnewyork.com' },
     { label: 'ADMINISTRACION Y PR', address: 'sala@gabosnewyork.com' },

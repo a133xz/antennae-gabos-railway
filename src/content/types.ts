@@ -28,6 +28,9 @@ export type SiteSettings = {
   contactPhoneHours: string
   menuPdfUrl: string
   bookUrl: string
+  /** When true, the home header shows the Christmas menu link. */
+  christmasMenu: boolean
+  christmasMenuUrl: string
   emails: { label: string; address: string }[]
   originKicker: string
   originPlace: string
