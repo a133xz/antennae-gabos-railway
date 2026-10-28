@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getPayload } from 'payload'
-import config from '@payload-config'
-import { getSettings, isShopAvailable } from '@/content/site'
+import { getProductById, getSettings, isShopAvailable } from '@/content/site'
 import { getStripe } from '@/lib/stripe'
 
 type CheckoutItem = {
@@ -28,17 +26,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Cart is empty' }, { status: 400 })
   }
 
-  const payload = await getPayload({ config })
   const origin = new URL(request.url).origin
 
   for (const item of items) {
-    const result = await payload.find({
-      collection: 'products',
-      where: { id: { equals: item.productId } },
-      limit: 1,
-    })
-    const product = result.docs[0]
-    if (!product?.active || product.stripePriceId !== item.stripePriceId) {
+    const product = getProductById(item.productId)
+    if (!product?.active || !product.stripePriceId || product.stripePriceId !== item.stripePriceId) {
       return NextResponse.json({ error: 'Product pricing is out of date. Refresh and try again.' }, { status: 400 })
     }
   }

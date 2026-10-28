@@ -1,6 +1,6 @@
 import type { Product, SiteSettings } from './types'
 
-/** Copy used when the CMS is not configured. Edit the live site in /admin when Payload is running. */
+/** Site copy and shop catalog. */
 
 export const MENU_PDF_URL = 'https://gabosny.com/wp-content/uploads/2026/07/Menu_Web_July2026.pdf'
 export const BOOK_URL =
@@ -35,7 +35,7 @@ export const settings: SiteSettings = {
   shopAvailable: false,
 }
 
-type SeedProduct = Omit<Product, 'id' | 'stripeProductId' | 'stripePriceId'> & {
+type CatalogProduct = Omit<Product, 'id' | 'stripeProductId' | 'stripePriceId'> & {
   image: { src: string; alt: string }
   gallery?: { src: string; alt: string }[]
 }
@@ -43,7 +43,7 @@ type SeedProduct = Omit<Product, 'id' | 'stripeProductId' | 'stripePriceId'> & {
 /** Pre-cropped shop frames in `public/shop/cropped`. */
 const crop = (slug: string, id: string) => `/shop/cropped/${slug}__${id}.png`
 
-export const products: SeedProduct[] = [
+export const products: CatalogProduct[] = [
   {
     title: 'f1 shorts',
     slug: 'f1-shorts-1',

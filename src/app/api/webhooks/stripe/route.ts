@@ -14,11 +14,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
   }
 
-  const payload = await request.text()
+  const rawBody = await request.text()
   let event: Stripe.Event
 
   try {
-    event = stripe.webhooks.constructEvent(payload, signature, secret)
+    event = stripe.webhooks.constructEvent(rawBody, signature, secret)
   } catch {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
   }

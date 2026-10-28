@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import { CartProvider } from '@/lib/cart'
 import './globals.css'
 
-export const dynamic = 'force-dynamic'
-
 export const metadata: Metadata = {
   title: {
     default: "Gabo's",

@@ -11,7 +11,7 @@ export type CartLine = {
   imageSrc: string
   imageAlt: string
   size: string
-  /** Empty until Stripe Price ID is set in Payload — cart still works for preview. */
+  /** Empty until a Stripe Price ID is set on the product — cart still works for preview. */
   stripePriceId?: string
   quantity: number
 }
