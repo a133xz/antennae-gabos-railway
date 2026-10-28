@@ -1,0 +1,822 @@
+/*
+Theme Name: Gabos 2026
+Theme URI: https://gabosny.com
+Author: Gabos
+Description: Curtain site with an editable home landing. Shop is not included.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: gabos-2026
+*/
+
+@font-face {
+  font-family: "estilo";
+  src: url("fonts/EstiloPro-Bold.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "renner";
+  src: url("fonts/Renner-bold.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-curtain: #6e0001;
+  --gutter-inline: 20px;
+  --gutter-bottom: 20px;
+  --font-gabos: "estilo", Palatino, "Palatino Linotype", Georgia, serif;
+  --body: 1rem;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-curtain);
+  color: #fff;
+  font-family: var(--font-gabos);
+  font-weight: 200;
+  line-height: 1.2;
+}
+
+body.gabos-curtain-active {
+  overflow: hidden;
+}
+
+html.gabos-curtain-locked,
+body.gabos-curtain-locked {
+  overflow: hidden;
+  height: 100%;
+}
+
+a {
+  color: #fff;
+  font-family: var(--font-gabos);
+  font-size: var(--body);
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.wrapper {
+  background-color: var(--color-curtain);
+  width: 100%;
+  max-width: 1920px;
+  min-height: 100vh;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.wrapper--scroll {
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+.wrapper--scroll.wrapper--opened {
+  background-color: transparent;
+}
+
+body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
+  visibility: visible;
+}
+
+.wrapper--scroll.wrapper--opened .linkContainer--landing {
+  visibility: visible;
+}
+
+.wrapper .fixedCurtainLeft,
+.wrapper .fixedCurtainRight {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  z-index: 3;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.wrapper .fixedCurtainLeft {
+  left: 0;
+  object-position: right center;
+}
+
+.wrapper .fixedCurtainRight {
+  right: 0;
+  object-position: left center;
+}
+
+.wrapper--scroll .fixedCurtainLeft,
+.wrapper--scroll .fixedCurtainRight {
+  position: absolute;
+  top: 0;
+}
+
+.wrapper--scroll.wrapper--opened .fixedCurtainLeft,
+.wrapper--scroll.wrapper--opened .fixedCurtainRight {
+  z-index: 5;
+  pointer-events: none;
+}
+
+.wrapper .mobileCurtain,
+.wrapper .curtainLeft,
+.wrapper .curtainRight {
+  display: none;
+  height: 100vh;
+  z-index: 2;
+}
+
+.wrapper--scroll .mobileCurtain,
+.wrapper--scroll .curtainLeft,
+.wrapper--scroll .curtainRight {
+  position: fixed;
+  max-width: 100vw;
+}
+
+.wrapper .mobileCurtain {
+  width: 100%;
+  object-fit: cover;
+}
+
+.wrapper .navWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+.wrapper--scroll .navWrapper {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  align-items: flex-start;
+}
+
+.wrapper--scroll.wrapper--opened .navWrapper {
+  z-index: 1;
+}
+
+.wrapper .linkContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.wrapper--scroll .linkContainer--landing {
+  width: 100%;
+  max-width: 100%;
+  align-items: stretch;
+  position: relative;
+  min-width: 0;
+}
+
+.gabos-home {
+  font-size: 1.3125rem;
+  text-transform: uppercase;
+}
+
+.gabos-home h1 {
+  font-size: 2rem;
+  font-weight: 200;
+  line-height: normal;
+  margin: 0;
+}
+
+.gabos-hero {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  color: #fff;
+  background: transparent;
+}
+
+.gabos-hero-stage {
+  display: grid;
+  width: min(748px, calc(100% - 32px));
+  min-height: 315px;
+  place-items: center;
+  padding: 3rem 1.75rem;
+  background: transparent;
+}
+
+.gabos-hero-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(28px, 4vw, 72px);
+}
+
+.gabos-hero-nav-group {
+  display: flex;
+  gap: 3rem;
+}
+
+.gabos-hero-nav a {
+  text-transform: uppercase;
+}
+
+.gabos-hero-logo {
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.gabos-hero-logo-original {
+  display: none;
+}
+
+.gabos-hero-logo-monogram {
+  display: block;
+  width: 118px;
+  height: auto;
+}
+
+.gabos-christmas-menu {
+  position: absolute;
+  top: clamp(18px, 4vh, 40px);
+  left: 50%;
+  z-index: 10;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0;
+  max-width: none;
+  color: #fff;
+  font-size: 21px;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.flourish {
+  width: 82px;
+  height: 21px;
+}
+
+.flourish--flip {
+  transform: scaleX(-1);
+}
+
+.landing-panel {
+  --landing-huella-width: min(382.5px, 61.2vw);
+  --landing-statement-gap: clamp(96px, 10vw, 180px);
+  position: relative;
+  background-color: var(--color-curtain);
+  text-align: center;
+  color: #fff;
+}
+
+.landing-panel-inner {
+  padding: calc(var(--landing-huella-width) * (554 / 450.263) * 0.72) var(--gutter-inline) var(--gutter-bottom);
+}
+
+.landing-huellas {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 10;
+  width: var(--landing-huella-width);
+  aspect-ratio: 450.263 / 554.006;
+  transform: translateX(-50%) translateY(-28%);
+  pointer-events: none;
+}
+
+.landing-huella {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: huella-cycle 5.34s infinite;
+}
+
+.landing-huella img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.landing-huella:nth-child(1) { animation-name: huella-1; }
+.landing-huella:nth-child(2) { animation-name: huella-2; }
+.landing-huella:nth-child(3) { animation-name: huella-3; }
+.landing-huella:nth-child(4) { animation-name: huella-4; }
+.landing-huella:nth-child(5) { animation-name: huella-5; }
+.landing-huella:nth-child(6) { animation-name: huella-6; }
+
+@keyframes huella-1 {
+  0%, 7.8% { opacity: 0; }
+  8.6%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+@keyframes huella-2 {
+  0%, 15.7% { opacity: 0; }
+  16.5%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+@keyframes huella-3 {
+  0%, 23.6% { opacity: 0; }
+  24.4%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+@keyframes huella-4 {
+  0%, 31.4% { opacity: 0; }
+  32.2%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+@keyframes huella-5 {
+  0%, 39.3% { opacity: 0; }
+  40.1%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+@keyframes huella-6 {
+  0%, 47.1% { opacity: 0; }
+  47.9%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+
+.landing-statement {
+  max-width: 910px;
+  margin: 0 auto;
+  padding-top: var(--landing-statement-gap);
+  padding-bottom: var(--landing-statement-gap);
+}
+
+.landing-video {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 910px;
+  aspect-ratio: 2250 / 2813;
+}
+
+.landing-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landing-instagram {
+  display: grid;
+  margin: clamp(72px, 8vw, 120px) auto 0;
+  text-transform: uppercase;
+}
+
+.landing-instagram:hover {
+  opacity: 0.7;
+}
+
+.landing-footer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 1.5rem;
+  margin-top: clamp(96px, 12vh, 200px);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.landing-footer__brand {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+}
+
+.landing-footer__brand a {
+  line-height: 0;
+}
+
+.landing-footer__brand img {
+  width: auto;
+  height: 175px;
+}
+
+.landing-footer__brand p,
+.landing-footer__legal {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.landing-footer__place {
+  letter-spacing: 31.5px;
+  margin-right: -31.5px;
+}
+
+.landing-footer__legal {
+  justify-items: end;
+  text-align: right;
+}
+
+.wrapper .heading {
+  font-family: "renner", sans-serif;
+  font-size: 0.7rem;
+  font-weight: normal;
+  text-align: center;
+  text-transform: none;
+  letter-spacing: normal;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.wrapper .email,
+.wrapper .phoneNumber,
+.wrapper .details {
+  font-family: "renner", sans-serif;
+  font-size: 1.4rem;
+  font-weight: normal;
+  text-transform: none;
+  color: #fff;
+  padding-bottom: 30px;
+  width: 100%;
+  max-width: 30vw;
+}
+
+.wrapper .linkContainer a.email {
+  display: block;
+  font-family: "renner", sans-serif;
+  font-size: 1.4rem;
+  text-transform: none;
+}
+
+.wrapper .details.item {
+  display: block;
+}
+
+.wrapper .details p {
+  margin: 0;
+  text-align: center;
+}
+
+.wrapper .details .hours-line {
+  display: block;
+}
+
+.wrapper .details .hours-days,
+.wrapper .details .hours-time {
+  white-space: nowrap;
+}
+
+.wrapper .details .hours-time::before {
+  content: "\00a0";
+}
+
+.page-contact .linkContainer {
+  width: auto;
+  max-width: 100%;
+  align-items: center;
+}
+
+.page-contact .linkContainer .details,
+.page-contact .linkContainer a.email,
+.page-contact .linkContainer .heading {
+  width: min(100%, 30vw);
+  max-width: 30vw;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .landing-video {
+    width: 47.4%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .gabos-home {
+    font-size: calc(1.3125rem * 0.75);
+    background: var(--color-curtain);
+  }
+
+  .gabos-home h1 {
+    font-size: calc(2rem * 0.75);
+  }
+
+  .gabos-hero {
+    min-height: 100dvh;
+    place-items: start center;
+    padding-top: clamp(40px, 9vh, 72px);
+  }
+
+  .gabos-hero-stage {
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .gabos-hero-nav {
+    position: relative;
+    z-index: 6;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+  }
+
+  .gabos-hero-nav-group {
+    display: contents;
+  }
+
+  .gabos-hero-logo {
+    order: 1;
+    display: block;
+    width: 15%;
+    min-width: 200px;
+    margin: 0;
+    text-align: center;
+  }
+
+  .gabos-hero-logo-original {
+    display: inline;
+    width: 100%;
+    max-width: 50vw;
+    height: auto;
+    margin-bottom: 2vh;
+    transform: translateX(4%);
+  }
+
+  .gabos-hero-logo-monogram {
+    display: none;
+  }
+
+  .gabos-hero-nav-book { order: 2; }
+  .gabos-hero-nav-menu { order: 3; }
+  .gabos-hero-nav-contact { order: 4; }
+  .gabos-hero-nav-shop { order: 5; }
+
+  .gabos-hero-nav-menu,
+  .gabos-hero-nav-shop,
+  .gabos-hero-nav-book,
+  .gabos-hero-nav-contact {
+    display: block;
+    width: 100%;
+    max-width: 50vw;
+    margin: 0 0 5vh;
+    text-align: center;
+    font-size: 1.3125rem;
+  }
+
+  .gabos-christmas-menu {
+    position: static;
+    transform: none;
+    order: 0;
+    max-width: 70vw;
+    gap: 0.5rem;
+    margin-bottom: 5vh;
+    font-size: 21px;
+  }
+
+  .flourish {
+    width: 32px;
+    height: 10px;
+  }
+
+  .wrapper--scroll.wrapper--opened .navWrapper {
+    z-index: 4;
+  }
+
+  .wrapper--scroll.wrapper--opened .fixedCurtainLeft,
+  .wrapper--scroll.wrapper--opened .fixedCurtainRight {
+    z-index: 10;
+  }
+
+  .landing-panel {
+    --landing-huella-width: min(calc(382.5px * 0.7), calc(61.2vw * 0.7));
+    overflow: visible;
+  }
+
+  .landing-panel-inner {
+    padding-top: calc(var(--landing-huella-width) * 1.05 - 18vh);
+  }
+
+  .landing-huellas {
+    transform: translateX(-50%) translateY(calc(-15% - 18vh));
+  }
+
+  .landing-footer {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .landing-footer__brand img {
+    height: 120px;
+  }
+
+  .landing-footer__place {
+    letter-spacing: 0.35em;
+    margin-right: 0;
+  }
+
+  .landing-footer__legal {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .wrapper .details .hours-time {
+    display: block;
+  }
+
+  .wrapper .details .hours-time::before {
+    content: none;
+  }
+}
+
+@media screen and (max-width: 1350px) {
+  .wrapper .fixedCurtainLeft,
+  .wrapper .fixedCurtainRight {
+    width: 35%;
+  }
+
+  .wrapper .email,
+  .wrapper .phoneNumber,
+  .wrapper .details,
+  .wrapper .linkContainer a.email,
+  .page-contact .linkContainer .heading {
+    max-width: 80vw;
+    width: min(100%, 80vw);
+    font-size: var(--body);
+  }
+}
+
+@media screen and (min-width: 1921px) {
+  .wrapper {
+    max-width: none;
+  }
+
+  .wrapper .fixedCurtainLeft,
+  .wrapper .fixedCurtainRight {
+    position: fixed;
+    height: 100vh;
+    width: clamp(954px, 32vw, 1400px);
+  }
+
+  .wrapper--scroll .fixedCurtainLeft,
+  .wrapper--scroll .fixedCurtainRight {
+    position: absolute;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-huella {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+body.gabos-store {
+  background: #f2f2f2;
+  color: #251f1f;
+}
+
+.gabos-store-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+  font-size: 21px;
+  font-weight: 200;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.store-header a {
+  color: #251f1f;
+  font-size: 21px;
+  text-transform: uppercase;
+}
+
+.store-header a.is-active {
+  text-decoration: underline;
+}
+
+.store-desktop {
+  display: none;
+}
+
+.store-mobile-bar,
+.store-desktop {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.store-brand {
+  justify-self: center;
+}
+
+.store-menu-toggle {
+  justify-self: start;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.store-icon-close {
+  display: none;
+}
+
+.store-menu-open .store-icon-open {
+  display: none;
+}
+
+.store-menu-open .store-icon-close {
+  display: block;
+}
+
+.store-mobile-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.125rem;
+  margin-top: 2rem;
+}
+
+.store-mobile-panel[hidden] {
+  display: none;
+}
+
+.store-menu-open .store-mobile {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  padding: 20px;
+  background: #f2f2f2;
+}
+
+.shop-coming-soon {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-coming-soon p {
+  margin: 0;
+  width: min(909px, 90vw);
+  text-align: center;
+  font-size: 32px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.landing-footer--store {
+  color: #251f1f;
+}
+
+.landing-footer--store .landing-footer__brand img {
+  filter: brightness(0);
+}
+
+@media screen and (min-width: 768px) {
+  .store-mobile {
+    display: none;
+  }
+
+  .store-desktop {
+    display: grid;
+  }
+
+  .store-desktop nav {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  .shop-coming-soon p {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
