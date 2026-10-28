@@ -24,10 +24,12 @@ function CloseIcon() {
 export function StoreMobileMenu({
   items,
   brand,
+  showCart = true,
   panelClassName = 'bg-white',
 }: {
   items: StoreNavItem[]
   brand: ReactNode
+  showCart?: boolean
   panelClassName?: string
 }) {
   const pathname = usePathname()
@@ -59,7 +61,9 @@ export function StoreMobileMenu({
       </div>
       <div className="flex min-w-0 justify-center px-2">{brand}</div>
       <div className="flex h-10 items-center justify-end">
-        <CartLink className="inline-flex h-10 min-w-10 items-center justify-end text-[21px] uppercase leading-none transition-opacity hover:opacity-70" />
+        {showCart ? (
+          <CartLink className="inline-flex h-10 min-w-10 items-center justify-end text-[21px] uppercase leading-none transition-opacity hover:opacity-70" />
+        ) : null}
       </div>
     </div>
   )

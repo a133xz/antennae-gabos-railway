@@ -44,7 +44,6 @@ function toProduct(doc: PayloadProduct): Product {
 
 function toSettings(doc: SiteSetting): SiteSettings {
   return {
-    tagline: doc.tagline || '',
     copyright: doc.copyright || '',
     socialHandle: doc.socialHandle || '',
     socialUrl: doc.socialUrl || '',
@@ -57,15 +56,11 @@ function toSettings(doc: SiteSetting): SiteSettings {
     emails: (doc.emails ?? [])
       .filter((email) => email.label && email.address)
       .map((email) => ({ label: email.label as string, address: email.address as string })),
-    hero: pictures(doc.hero),
     originKicker: doc.originKicker || 'From',
     originPlace: doc.originPlace || '',
     storeAddress: doc.storeAddress || '',
     instagramLabel: doc.instagramLabel || 'Follow us on Instagram',
     editorialImage: picture(doc.editorialImage),
-    navLinks: (doc.navLinks ?? [])
-      .filter((link) => link.label && link.href)
-      .map((link) => ({ label: link.label as string, href: link.href as string })),
     /** Undefined = legacy sites stay live until “Shop available” is set in admin. */
     shopAvailable: doc.shopAvailable ?? true,
   }

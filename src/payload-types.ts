@@ -405,7 +405,7 @@ export interface SiteSetting {
    */
   bookUrl: string;
   /**
-   * When off, /shop shows “coming soon” and the product catalog is hidden. When on, the shop grid and product pages are live.
+   * When off, /shop and /cart show “coming soon”, the product catalog is hidden, and the cart link is removed. When on, the shop grid, product pages, and cart are live.
    */
   shopAvailable?: boolean | null;
   emails?:
@@ -415,23 +415,14 @@ export interface SiteSetting {
         id?: string | null;
       }[]
     | null;
-  tagline: string;
   copyright: string;
   socialHandle: string;
   socialUrl: string;
-  hero?: (number | Media)[] | null;
   originKicker?: string | null;
   originPlace?: string | null;
   storeAddress?: string | null;
   instagramLabel?: string | null;
   editorialImage?: (number | null) | Media;
-  navLinks?:
-    | {
-        label: string;
-        href: string;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -454,23 +445,14 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         address?: T;
         id?: T;
       };
-  tagline?: T;
   copyright?: T;
   socialHandle?: T;
   socialUrl?: T;
-  hero?: T;
   originKicker?: T;
   originPlace?: T;
   storeAddress?: T;
   instagramLabel?: T;
   editorialImage?: T;
-  navLinks?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

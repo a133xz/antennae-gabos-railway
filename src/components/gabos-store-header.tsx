@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { isShopAvailable } from '@/content/site'
 import type { SiteSettings } from '@/content/types'
 import { CartLink } from './cart-link'
 import { StoreMobileMenu } from './store-mobile-menu'
@@ -19,11 +20,13 @@ export function GabosStoreHeader({
   ]
 
   const panelClassName = surface === 'shop' ? 'bg-[#f2f2f2] text-[#251f1f]' : 'bg-white text-black'
+  const showCart = isShopAvailable(settings)
 
   return (
     <header className="pt-[var(--gutter-top)] pb-0">
       <StoreMobileMenu
         items={navItems}
+        showCart={showCart}
         panelClassName={panelClassName}
         brand={
           <Link href="/" className="text-[21px] uppercase transition-opacity hover:opacity-70">
@@ -38,7 +41,9 @@ export function GabosStoreHeader({
         </Link>
         <StoreNav items={navItems} className="justify-center md:gap-x-8 lg:gap-x-12" />
         <div className="flex items-center justify-end gap-4">
-          <CartLink className="text-[21px] uppercase transition-opacity hover:opacity-70" />
+          {showCart ? (
+            <CartLink className="text-[21px] uppercase transition-opacity hover:opacity-70" />
+          ) : null}
         </div>
       </div>
     </header>

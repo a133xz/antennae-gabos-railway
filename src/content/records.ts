@@ -1,13 +1,12 @@
 import type { Product, SiteSettings } from './types'
 
-/** Initial records loaded into Payload by `npm run seed`. Edit the live site in /admin. */
+/** Copy used when the CMS is not configured. Edit the live site in /admin when Payload is running. */
 
 export const MENU_PDF_URL = 'https://gabosny.com/wp-content/uploads/2026/07/Menu_Web_July2026.pdf'
 export const BOOK_URL =
   'https://www.covermanager.com/reservation/module_restaurant/restaurante-gabos-ne-york/spanish'
 
 export const settings: SiteSettings = {
-  tagline: 'New York-inspired supper club & cocktail bar',
   copyright: '© Gabos 2026',
   socialHandle: '@gabosmadrid',
   socialUrl: 'https://www.instagram.com/gabosmadrid/',
@@ -28,19 +27,11 @@ export const settings: SiteSettings = {
     { label: 'RESERVAS', address: 'reservas@gabosnewyork.com' },
     { label: 'ADMINISTRACION Y PR', address: 'sala@gabosnewyork.com' },
   ],
-  /** Home hero is the curtain shell — no full-bleed photo in static preview. */
-  hero: [],
   originKicker: 'From',
   originPlace: 'New York',
   storeAddress: 'Calle Prim 5, Madrid, Spain 28004',
   instagramLabel: 'Follow us on Instagram',
   editorialImage: { src: '/media/editorial.jpg', alt: 'Close-up of a cocktail glass' },
-  navLinks: [
-    { label: 'Menu', href: MENU_PDF_URL },
-    { label: 'shop', href: '/shop' },
-    { label: 'book', href: BOOK_URL },
-    { label: 'contact', href: '/contact' },
-  ],
   shopAvailable: false,
 }
 
@@ -49,7 +40,7 @@ type SeedProduct = Omit<Product, 'id' | 'stripeProductId' | 'stripePriceId'> & {
   gallery?: { src: string; alt: string }[]
 }
 
-/** Pre-cropped shop frames — regenerate with `npm run design:shop-crops`. */
+/** Pre-cropped shop frames in `public/shop/cropped`. */
 const crop = (slug: string, id: string) => `/shop/cropped/${slug}__${id}.png`
 
 export const products: SeedProduct[] = [

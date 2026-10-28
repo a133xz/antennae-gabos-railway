@@ -1,3 +1,4 @@
+import { isShopAvailable } from '@/content/site'
 import type { SiteSettings } from '@/content/types'
 import { GabosNavLink } from './gabos-nav-link'
 import { Logo } from './logo'
@@ -14,7 +15,11 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
 
   return (
     <header className="px-[var(--gutter-inline)] pt-[var(--gutter-top)] pb-[var(--gutter-top)] md:flex md:items-center md:justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center">
-      <StoreMobileMenu items={items} brand={<Logo className="justify-self-center" />} />
+      <StoreMobileMenu
+        items={items}
+        showCart={isShopAvailable(settings)}
+        brand={<Logo className="justify-self-center" />}
+      />
       <Logo className="hidden md:block" />
       <nav
         className="hidden flex-wrap items-center justify-center gap-x-4 gap-y-2 md:flex md:gap-x-8 lg:gap-x-12"

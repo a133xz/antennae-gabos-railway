@@ -2,7 +2,7 @@
 const CURTAIN_MOBILE_MAX_PX = 767
 
 /**
- * Port of public/curtain/curtain.js (Gabos theme).
+ * Curtain open/close motion for the home and contact pages.
  * Scoped to a `.wrapper` root so home and contact share the same animation.
  */
 export function runGabosCurtainAnimation(

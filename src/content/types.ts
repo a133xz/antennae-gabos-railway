@@ -19,7 +19,6 @@ export type Product = {
 }
 
 export type SiteSettings = {
-  tagline: string
   copyright: string
   socialHandle: string
   socialUrl: string
@@ -30,13 +29,11 @@ export type SiteSettings = {
   menuPdfUrl: string
   bookUrl: string
   emails: { label: string; address: string }[]
-  hero: Picture[]
   originKicker: string
   originPlace: string
   storeAddress: string
   instagramLabel: string
   editorialImage: Picture | null
-  navLinks: { label: string; href: string }[]
-  /** When true, /shop lists products; when false, /shop shows “coming soon”. */
+  /** When true, shop and cart are live; when false, both show “coming soon” and the cart link is hidden. */
   shopAvailable: boolean
 }

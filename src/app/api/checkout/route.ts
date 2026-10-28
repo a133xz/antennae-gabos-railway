@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+import { getSettings, isShopAvailable } from '@/content/site'
 import { getStripe } from '@/lib/stripe'
 
 type CheckoutItem = {
@@ -11,6 +12,11 @@ type CheckoutItem = {
 }
 
 export async function POST(request: Request) {
+  const settings = await getSettings()
+  if (!isShopAvailable(settings)) {
+    return NextResponse.json({ error: 'Shop is not available' }, { status: 403 })
+  }
+
   const stripe = getStripe()
   if (!stripe) {
     return NextResponse.json({ error: 'Stripe is not configured. See docs-internal/stripe-setup.md.' }, { status: 503 })

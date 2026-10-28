@@ -324,7 +324,7 @@ html:has(.gabos-page-shop) {
   outline-offset: 3px;
 }
 
-/* —— Curtain (from Gabos theme style.css + curtain.js) —— */
+/* —— Curtain —— */
 
 body.gabos-curtain-active {
   overflow: hidden;

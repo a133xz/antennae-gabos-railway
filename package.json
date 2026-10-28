@@ -8,25 +8,8 @@
     "build": "next build",
     "start": "next start",
     "payload": "payload",
-    "seed": "payload run src/seed.ts",
-    "seed:shop-images": "SEED_SYNC_PRODUCT_IMAGES=true payload run src/seed.ts",
-    "design:shop-crops": "node scripts/export-shop-crops.mjs",
-    "export:records": "node --env-file=.env ./node_modules/payload/bin.js run src/export-records.ts",
-    "export:records:live": "GABOS_USE_LIVE_DATABASE=true node --env-file=.env ./node_modules/payload/bin.js run src/export-records.ts",
     "generate:types": "payload generate:types",
-    "generate:importmap": "payload generate:importmap",
-    "railway:login": "railway login",
-    "railway:link": "railway link",
-    "railway:seed": "GABOS_USE_LIVE_DATABASE=true node --env-file=.env ./node_modules/payload/bin.js run src/seed.ts",
-    "railway:logs": "railway logs",
-    "railway:open": "railway open",
-    "railway:secret": "node -e \"console.log(require('crypto').randomBytes(32).toString('base64'))\"",
-    "railway:setup": "node scripts/railway-setup.mjs",
-    "railway:setup:seed": "node scripts/railway-setup.mjs --seed",
-    "railway:sync-env": "node scripts/railway-sync-local-env.mjs",
-    "railway:sync-seed": "node scripts/railway-sync-seed.mjs",
-    "push:railway": "railway up --detach -y -s gabos",
-    "deploy:railway": "npm run push:railway"
+    "generate:importmap": "payload generate:importmap"
   },
   "engines": {
     "node": ">=22"
@@ -46,7 +29,6 @@
     "stripe": "^17.7.0"
   },
   "devDependencies": {
-    "@railway/cli": "^5.71.0",
     "@tailwindcss/postcss": "^4.1.0",
     "@types/node": "^22.15.0",
     "@types/react": "^19.2.0",

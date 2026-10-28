@@ -1,6 +1,6 @@
 import type { Picture, Product } from '@/content/types'
 
-/** Pre-rendered crops from `npm run design:shop-crops` use these name segments. */
+/** Cropped shop frames in `public/shop/cropped` use these name segments. */
 const GRID_HOVER = /__grid-card-hover/
 const PDP = /__pdp-/
 

@@ -2,8 +2,8 @@ import { products as seedProducts, settings as staticSettings } from './records'
 import type { Product, SiteSettings } from './types'
 
 /**
- * Serve seed copy from `records.ts` when CMS env is not set (designer preview on Vercel).
- * Set `PAYLOAD_SECRET` + `DATABASE_URL` later to switch to Payload with no code change.
+ * Serve `records.ts` when the CMS is not configured (static preview).
+ * With `PAYLOAD_SECRET` set and static preview off, pages read Payload instead.
  */
 export function useStaticContent() {
   if (process.env.GABOS_STATIC_PREVIEW === 'true') return true
