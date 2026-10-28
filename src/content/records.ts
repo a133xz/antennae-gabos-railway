@@ -41,6 +41,7 @@ export const settings: SiteSettings = {
     { label: 'book', href: BOOK_URL },
     { label: 'contact', href: '/contact' },
   ],
+  shopAvailable: false,
 }
 
 type SeedProduct = Omit<Product, 'id' | 'stripeProductId' | 'stripePriceId'> & {

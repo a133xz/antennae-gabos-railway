@@ -31,6 +31,16 @@ export const SiteSettings: GlobalConfig = {
       admin: { description: 'Cover Manager or other booking link.' },
     },
     {
+      name: 'shopAvailable',
+      type: 'checkbox',
+      defaultValue: false,
+      label: 'Shop available',
+      admin: {
+        description:
+          'When off, /shop shows “coming soon” and the product catalog is hidden. When on, the shop grid and product pages are live.',
+      },
+    },
+    {
       name: 'emails',
       type: 'array',
       fields: [

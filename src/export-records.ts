@@ -91,6 +91,7 @@ ${hero.map((h) => `    ${emitPicture(h, '    ')},`).join('\n')}
   navLinks: [
 ${navLinks.map((l) => `    ${l},`).join('\n')}
   ],
+  shopAvailable: ${doc.shopAvailable === true ? 'true' : 'false'},
 }`
 }
 

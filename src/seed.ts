@@ -74,6 +74,7 @@ if (existingMedia.totalDocs === 0) {
     contactPhoneHours: settings.contactPhoneHours,
     menuPdfUrl: settings.menuPdfUrl,
     bookUrl: settings.bookUrl,
+    shopAvailable: settings.shopAvailable,
   },
 })
   console.log('Seeded site settings and media.')
@@ -97,6 +98,7 @@ if (existingMedia.totalDocs === 0) {
       originPlace: settings.originPlace,
       storeAddress: settings.storeAddress,
       instagramLabel: settings.instagramLabel,
+      shopAvailable: settings.shopAvailable,
     },
   })
   console.log('Updated site settings (Echo nav, menu PDF, book URL, contact copy).')

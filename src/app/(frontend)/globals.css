@@ -108,15 +108,17 @@
   }
 }
 
-/* Empty cart ≤767px: in-flow center between header and footer (no fixed viewport lock). */
+/* Empty cart / shop coming soon ≤767px: in-flow center between header and footer. */
 @media screen and (max-width: 767px) {
-  .gabos-page-white:has(.cart-empty) main {
+  .gabos-page-white:has(.cart-empty) main,
+  .gabos-page-white:has(.shop-coming-soon) main {
     padding-top: 0;
     padding-bottom: 0;
     min-height: 0;
   }
 
-  .gabos-page-white:has(.cart-empty) footer {
+  .gabos-page-white:has(.cart-empty) footer,
+  .gabos-page-white:has(.shop-coming-soon) footer {
     margin-top: 0;
   }
 }

@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation'
 import { AddToCartForm } from '@/components/add-to-cart-form'
 import { GabosStoreShell } from '@/components/gabos-store-shell'
 import { ShopPhoto } from '@/components/shop-photo'
-import { getProduct } from '@/content/site'
+import { ShopComingSoonView } from '@/components/shop-coming-soon-view'
+import { getProduct, getSettings, isShopAvailable } from '@/content/site'
 import { shopPdpPhotos } from '@/lib/shop-product-photos'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -16,6 +17,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductPage({ params }: Props) {
+  const settings = await getSettings()
+  if (!isShopAvailable(settings)) {
+    return (
+      <GabosStoreShell mainTop="cart">
+        <ShopComingSoonView />
+      </GabosStoreShell>
+    )
+  }
+
   const { slug } = await params
   const product = await getProduct(slug)
   if (!product) notFound()

@@ -404,6 +404,10 @@ export interface SiteSetting {
    * Cover Manager or other booking link.
    */
   bookUrl: string;
+  /**
+   * When off, /shop shows “coming soon” and the product catalog is hidden. When on, the shop grid and product pages are live.
+   */
+  shopAvailable?: boolean | null;
   emails?:
     | {
         label: string;
@@ -442,6 +446,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   contactPhoneHours?: T;
   menuPdfUrl?: T;
   bookUrl?: T;
+  shopAvailable?: T;
   emails?:
     | T
     | {

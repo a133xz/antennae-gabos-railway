@@ -37,4 +37,6 @@ export type SiteSettings = {
   instagramLabel: string
   editorialImage: Picture | null
   navLinks: { label: string; href: string }[]
+  /** When true, /shop lists products; when false, /shop shows “coming soon”. */
+  shopAvailable: boolean
 }

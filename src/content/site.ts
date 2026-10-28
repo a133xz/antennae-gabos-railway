@@ -66,7 +66,13 @@ function toSettings(doc: SiteSetting): SiteSettings {
     navLinks: (doc.navLinks ?? [])
       .filter((link) => link.label && link.href)
       .map((link) => ({ label: link.label as string, href: link.href as string })),
+    /** Undefined = legacy sites stay live until “Shop available” is set in admin. */
+    shopAvailable: doc.shopAvailable ?? true,
   }
+}
+
+export function isShopAvailable(settings: SiteSettings) {
+  return settings.shopAvailable
 }
 
 export const getSettings = cache(async () => {
