@@ -431,6 +431,145 @@ function gabos_2026_contact_field_layout($parent_key, $existing) {
     return $fields;
 }
 
+function gabos_2026_shop_page_field_layout($parent_key) {
+    $defaults = array(
+        1 => array('f1 shorts', 'f1-shorts-1'),
+        2 => array('f1 shorts', 'f1-shorts-2'),
+        3 => array('f1 shorts', 'f1-shorts-3'),
+        4 => array('f1 tank top', 'f1-tank-top-black'),
+    );
+
+    $fields = array(
+        array(
+            'key' => 'field_gabos_2026_shop_intro',
+            'label' => '',
+            'name' => '',
+            'type' => 'message',
+            'message' => 'Visitors see ' . trailingslashit(home_url('/shop')) . ' — set permalink slug to shop-settings (not shop) so it does not clash with the public URL.',
+            'parent' => $parent_key,
+        ),
+        array(
+            'key' => 'field_gabos_2026_shop_available',
+            'label' => 'Shop live',
+            'name' => 'shop_available',
+            'type' => 'true_false',
+            'ui' => 1,
+            'default_value' => 0,
+            'parent' => $parent_key,
+            'instructions' => 'Off: “coming soon” on /shop/ and cart hidden.',
+        ),
+    );
+
+    for ($n = 1; $n <= 4; $n++) {
+        $fields[] = array(
+            'key' => 'field_gabos_2026_shop_tab_' . $n,
+            'label' => 'Product ' . $n,
+            'type' => 'tab',
+            'placement' => 'top',
+            'parent' => $parent_key,
+        );
+        $fields[] = array(
+            'key' => 'field_gabos_2026_shop_p' . $n . '_title',
+            'label' => 'Title',
+            'name' => 'shop_product_' . $n . '_title',
+            'type' => 'text',
+            'placeholder' => $defaults[$n][0],
+            'parent' => $parent_key,
+        );
+        $fields[] = array(
+            'key' => 'field_gabos_2026_shop_p' . $n . '_slug',
+            'label' => 'URL slug',
+            'name' => 'shop_product_' . $n . '_slug',
+            'type' => 'text',
+            'placeholder' => $defaults[$n][1],
+            'parent' => $parent_key,
+            'instructions' => 'Link: /shop/' . $defaults[$n][1] . '/',
+        );
+        $fields[] = array(
+            'key' => 'field_gabos_2026_shop_p' . $n . '_price',
+            'label' => 'Price (EUR)',
+            'name' => 'shop_product_' . $n . '_price',
+            'type' => 'number',
+            'placeholder' => '40',
+            'step' => '0.01',
+            'parent' => $parent_key,
+        );
+        $fields[] = array(
+            'key' => 'field_gabos_2026_shop_p' . $n . '_sizes',
+            'label' => 'Sizes',
+            'name' => 'shop_product_' . $n . '_sizes',
+            'type' => 'text',
+            'placeholder' => 'XS, S, M, L, XL',
+            'parent' => $parent_key,
+        );
+        $fields[] = array(
+            'key' => 'field_gabos_2026_shop_p' . $n . '_description',
+            'label' => 'Description',
+            'name' => 'shop_product_' . $n . '_description',
+            'type' => 'textarea',
+            'rows' => 3,
+            'new_lines' => 'br',
+            'parent' => $parent_key,
+        );
+        $fields[] = array(
+            'key' => 'field_gabos_2026_shop_p' . $n . '_card',
+            'label' => 'Grid photo',
+            'name' => 'shop_product_' . $n . '_card_image',
+            'type' => 'image',
+            'return_format' => 'array',
+            'preview_size' => 'medium',
+            'parent' => $parent_key,
+        );
+        $fields[] = array(
+            'key' => 'field_gabos_2026_shop_p' . $n . '_hover',
+            'label' => 'Grid hover photo',
+            'name' => 'shop_product_' . $n . '_hover_image',
+            'type' => 'image',
+            'return_format' => 'array',
+            'preview_size' => 'medium',
+            'parent' => $parent_key,
+        );
+        $fields[] = array(
+            'key' => 'field_gabos_2026_shop_p' . $n . '_pdp1',
+            'label' => 'Product page photo 1',
+            'name' => 'shop_product_' . $n . '_pdp_image_1',
+            'type' => 'image',
+            'return_format' => 'array',
+            'preview_size' => 'medium',
+            'parent' => $parent_key,
+        );
+        $fields[] = array(
+            'key' => 'field_gabos_2026_shop_p' . $n . '_pdp2',
+            'label' => 'Product page photo 2',
+            'name' => 'shop_product_' . $n . '_pdp_image_2',
+            'type' => 'image',
+            'return_format' => 'array',
+            'preview_size' => 'medium',
+            'parent' => $parent_key,
+        );
+    }
+
+    foreach ($fields as $order => $field) {
+        $fields[$order]['menu_order'] = $order;
+    }
+    return $fields;
+}
+
+function gabos_2026_shop_page_fields($fields, $parent) {
+    if (!is_array($parent) || empty($parent['title']) || !is_array($fields)) {
+        return $fields;
+    }
+    if ($parent['title'] !== 'Shop catalog') {
+        return $fields;
+    }
+    foreach ($fields as $field) {
+        if (isset($field['name']) && $field['name'] === 'shop_available') {
+            return $fields;
+        }
+    }
+    return gabos_2026_shop_page_field_layout($parent['key']);
+}
+
 function gabos_2026_contact_page_fields($fields, $parent) {
     if (!is_array($parent) || empty($parent['title']) || !is_array($fields)) {
         return $fields;
@@ -456,12 +595,14 @@ function gabos_2026_hour_parts($line) {
 
 add_filter('acf/load_fields', 'gabos_2026_home_page_fields', 20, 2);
 add_filter('acf/load_fields', 'gabos_2026_contact_page_fields', 20, 2);
+add_filter('acf/load_fields', 'gabos_2026_shop_page_fields', 20, 2);
 
 add_filter('acf/load_field_group', function ($group) {
     if (!is_array($group) || empty($group['location'])) {
         return $group;
     }
     $contact_template = false;
+    $shop_template = false;
     foreach ($group['location'] as $rules) {
         if (!is_array($rules)) {
             continue;
@@ -469,11 +610,16 @@ add_filter('acf/load_field_group', function ($group) {
         foreach ($rules as $rule) {
             if (($rule['param'] ?? '') === 'page_template' && ($rule['value'] ?? '') === 'page-contact.php') {
                 $contact_template = true;
-                break 2;
+            }
+            if (($rule['param'] ?? '') === 'page_template' && ($rule['value'] ?? '') === 'page-shop-settings.php') {
+                $shop_template = true;
             }
         }
     }
     if ($contact_template && ($group['key'] ?? '') !== 'group_gabos_2026_contact') {
+        $group['active'] = false;
+    }
+    if ($shop_template && ($group['key'] ?? '') !== 'group_gabos_2026_shop') {
         $group['active'] = false;
     }
     return $group;
@@ -559,21 +705,6 @@ add_action('acf/init', function () {
                 'instructions' => 'Leave empty to keep @gabosmadrid.',
             ),
             array(
-                'key' => 'field_gabos_2026_tab_shop',
-                'label' => 'Shop',
-                'type' => 'tab',
-                'placement' => 'top',
-            ),
-            array(
-                'key' => 'field_gabos_2026_shop_available',
-                'label' => 'Shop live',
-                'name' => 'shop_available',
-                'type' => 'true_false',
-                'ui' => 1,
-                'default_value' => 0,
-                'instructions' => 'Off: /shop shows “coming soon” and cart is hidden. On: product grid and /shop/{slug} pages.',
-            ),
-            array(
                 'key' => 'field_gabos_2026_tab_footer',
                 'label' => 'Footer',
                 'type' => 'tab',
@@ -598,6 +729,25 @@ add_action('acf/init', function () {
         ),
         'position' => 'normal',
         'style' => 'default',
+        'active' => true,
+    ));
+
+    acf_add_local_field_group(array(
+        'key' => 'group_gabos_2026_shop',
+        'title' => 'Shop catalog',
+        'fields' => gabos_2026_shop_page_field_layout('group_gabos_2026_shop'),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'page-shop-settings.php',
+                ),
+            ),
+        ),
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
         'active' => true,
     ));
 

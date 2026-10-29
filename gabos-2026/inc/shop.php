@@ -1,17 +1,49 @@
 <?php
 
+const GABOS_2026_SHOP_PAGE_TEMPLATE = 'page-shop-settings.php';
+const GABOS_2026_SHOP_PRODUCT_SLOTS = 4;
+
+function gabos_2026_shop_page_id() {
+    static $page_id = null;
+    if ($page_id !== null) {
+        return $page_id;
+    }
+    $pages = get_posts(array(
+        'post_type' => 'page',
+        'post_status' => array('publish', 'draft', 'private'),
+        'posts_per_page' => 1,
+        'meta_key' => '_wp_page_template',
+        'meta_value' => GABOS_2026_SHOP_PAGE_TEMPLATE,
+        'no_found_rows' => true,
+        'fields' => 'ids',
+    ));
+    $page_id = $pages ? (int) $pages[0] : 0;
+    return $page_id;
+}
+
+/**
+ * @param mixed $default
+ * @return mixed
+ */
+function gabos_2026_shop_get_field($name, $default = null) {
+    $page_id = gabos_2026_shop_page_id();
+    if (!$page_id || !function_exists('get_field')) {
+        return $default;
+    }
+    $value = get_field($name, $page_id);
+    if ($value === null || $value === '') {
+        return $default;
+    }
+    return $value;
+}
+
 /** When false, /shop and product URLs show “coming soon” (matches Next `shopAvailable`). */
 function gabos_2026_shop_available($post_id = null) {
-    if ($post_id === null) {
-        $post_id = gabos_2026_front_id();
+    unset($post_id);
+    if (!gabos_2026_shop_page_id()) {
+        return false;
     }
-    if ($post_id && function_exists('get_field')) {
-        $value = get_field('shop_available', $post_id);
-        if ($value !== null && $value !== '') {
-            return (bool) $value;
-        }
-    }
-    return false;
+    return (bool) gabos_2026_shop_get_field('shop_available', false);
 }
 
 function gabos_2026_shop_url($slug = '') {
@@ -37,14 +69,100 @@ function gabos_2026_format_price($euros) {
 }
 
 /**
- * @return list<array<string, mixed>>
+ * @return array{src: string, alt: string}|null
  */
-function gabos_2026_shop_catalog() {
-    static $catalog = null;
-    if ($catalog !== null) {
-        return $catalog;
+function gabos_2026_shop_acf_picture($image, $alt_fallback = '') {
+    if (!is_array($image) || empty($image['url'])) {
+        return null;
+    }
+    return array(
+        'src' => $image['url'],
+        'alt' => !empty($image['alt']) ? (string) $image['alt'] : $alt_fallback,
+    );
+}
+
+/**
+ * @return list<string>
+ */
+function gabos_2026_shop_parse_sizes($raw) {
+    if (!is_string($raw) || trim($raw) === '') {
+        return array('XS', 'S', 'M', 'L', 'XL');
+    }
+    $parts = preg_split('/\s*,\s*/', trim($raw));
+    $sizes = array();
+    foreach ($parts as $part) {
+        $part = trim($part);
+        if ($part !== '') {
+            $sizes[] = $part;
+        }
+    }
+    return $sizes !== array() ? $sizes : array('XS', 'S', 'M', 'L', 'XL');
+}
+
+/**
+ * @return array<string, mixed>|null
+ */
+function gabos_2026_shop_product_from_slot($slot) {
+    $page_id = gabos_2026_shop_page_id();
+    if (!$page_id || !function_exists('get_field')) {
+        return null;
+    }
+    $title = trim((string) get_field('shop_product_' . $slot . '_title', $page_id));
+    $slug = sanitize_title((string) get_field('shop_product_' . $slot . '_slug', $page_id));
+    $card = gabos_2026_shop_acf_picture(get_field('shop_product_' . $slot . '_card_image', $page_id), $title);
+    if ($title === '' || $slug === '' || !$card) {
+        return null;
     }
 
+    $gallery = array($card);
+    $hover = gabos_2026_shop_acf_picture(get_field('shop_product_' . $slot . '_hover_image', $page_id), $title);
+    if ($hover) {
+        $gallery[] = $hover;
+    }
+    foreach (array('pdp_image_1', 'pdp_image_2') as $pdp_key) {
+        $pic = gabos_2026_shop_acf_picture(get_field('shop_product_' . $slot . '_' . $pdp_key, $page_id), $title);
+        if ($pic) {
+            $gallery[] = $pic;
+        }
+    }
+
+    return array(
+        'id' => (int) $slot,
+        'title' => $title,
+        'slug' => $slug,
+        'price' => (float) get_field('shop_product_' . $slot . '_price', $page_id),
+        'description' => (string) get_field('shop_product_' . $slot . '_description', $page_id),
+        'sizes' => gabos_2026_shop_parse_sizes((string) get_field('shop_product_' . $slot . '_sizes', $page_id)),
+        'image' => $card,
+        'gallery' => $gallery,
+        'active' => true,
+        'order' => (int) $slot - 1,
+    );
+}
+
+/**
+ * @return list<array<string, mixed>>
+ */
+function gabos_2026_shop_catalog_from_cms() {
+    if (!gabos_2026_shop_page_id()) {
+        return array();
+    }
+    $products = array();
+    for ($slot = 1; $slot <= GABOS_2026_SHOP_PRODUCT_SLOTS; $slot++) {
+        $product = gabos_2026_shop_product_from_slot($slot);
+        if ($product) {
+            $products[] = $product;
+        }
+    }
+    return $products;
+}
+
+/**
+ * Theme default catalog (matches Next `records.ts`).
+ *
+ * @return list<array<string, mixed>>
+ */
+function gabos_2026_shop_catalog_default() {
     $crop = function ($slug, $segment) {
         return array(
             'src' => gabos_2026_shop_crop_url($slug, $segment),
@@ -52,7 +170,7 @@ function gabos_2026_shop_catalog() {
         );
     };
 
-    $catalog = array(
+    return array(
         array(
             'id' => 1,
             'title' => 'f1 shorts',
@@ -106,8 +224,17 @@ function gabos_2026_shop_catalog() {
             'order' => 3,
         ),
     );
+}
 
-    return $catalog;
+/**
+ * @return list<array<string, mixed>>
+ */
+function gabos_2026_shop_catalog() {
+    $from_cms = gabos_2026_shop_catalog_from_cms();
+    if ($from_cms !== array()) {
+        return $from_cms;
+    }
+    return gabos_2026_shop_catalog_default();
 }
 
 /**
@@ -173,7 +300,7 @@ function gabos_2026_shop_pdp_photos($product) {
     }
     $rest = array();
     foreach ($gallery as $photo) {
-        if (!empty($photo['src']) && strpos($photo['src'], '__grid-card-hover') === false) {
+        if (!empty($photo['src']) && strpos($photo['src'], '__grid-card-hover') === false && $photo['src'] !== $product['image']['src']) {
             $rest[] = $photo;
         }
     }
