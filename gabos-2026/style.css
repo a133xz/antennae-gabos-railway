@@ -530,6 +530,7 @@ body.gabos-curtain-active .wrapper--scroll .linkContainer--landing {
   display: block;
   font-family: "renner", sans-serif;
   font-size: 1.4rem;
+  text-align: center;
   text-transform: none;
 }
 

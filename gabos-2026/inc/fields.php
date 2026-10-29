@@ -87,12 +87,12 @@ function gabos_2026_contact_url() {
 
 function gabos_2026_menu_link($post_id) {
     $regular = gabos_2026_url('menu', $post_id, GABOS_2026_MENU_URL);
-    $branch = gabos_2026_url('branch_menu', $post_id, '');
-    $choice = ($post_id && function_exists('get_field')) ? get_field('menu_choice', $post_id) : '';
-    if ($choice === 'branch' && $branch !== '') {
+    $brunch = gabos_2026_url('brunch_menu', $post_id, '');
+    $brunch_on = $post_id && function_exists('get_field') && (bool) get_field('brunch_on', $post_id);
+    if ($brunch_on && $brunch !== '') {
         return array(
-            'url' => $branch,
-            'label' => 'Branch menu',
+            'url' => $brunch,
+            'label' => gabos_2026_text('brunch_label', $post_id, 'Brunch menu'),
         );
     }
     return array(
@@ -101,12 +101,156 @@ function gabos_2026_menu_link($post_id) {
     );
 }
 
+function gabos_2026_column($field) {
+    if (!isset($field['wrapper']) || !is_array($field['wrapper'])) {
+        $field['wrapper'] = array(
+            'width' => '',
+            'class' => '',
+            'id' => '',
+        );
+    }
+    $field['wrapper']['width'] = '33';
+    return $field;
+}
+
+function gabos_2026_like_menu_field($menu_field, $key, $name, $label) {
+    $type = (is_array($menu_field) && !empty($menu_field['type'])) ? $menu_field['type'] : 'file';
+    $field = array(
+        'key' => $key,
+        'label' => $label,
+        'name' => $name,
+        'type' => $type,
+        'parent' => isset($menu_field['parent']) ? $menu_field['parent'] : '',
+    );
+    if ($type === 'file') {
+        $field['return_format'] = isset($menu_field['return_format']) ? $menu_field['return_format'] : 'array';
+        $field['library'] = isset($menu_field['library']) ? $menu_field['library'] : 'all';
+        $field['mime_types'] = isset($menu_field['mime_types']) ? $menu_field['mime_types'] : 'pdf';
+    }
+    return gabos_2026_column($field);
+}
+
+function gabos_2026_on_field($parent_key, $key, $name) {
+    return gabos_2026_column(array(
+        'key' => $key,
+        'label' => 'On',
+        'name' => $name,
+        'type' => 'true_false',
+        'ui' => 0,
+        'message' => 'On',
+        'parent' => $parent_key,
+    ));
+}
+
+function gabos_2026_home_page_fields($fields, $parent) {
+    if (!is_array($parent) || empty($parent['title']) || $parent['title'] !== 'Home page' || !is_array($fields)) {
+        return $fields;
+    }
+    foreach ($fields as $field) {
+        if (isset($field['name']) && $field['name'] === 'brunch_menu') {
+            return $fields;
+        }
+    }
+
+    $by_name = array();
+    foreach ($fields as $field) {
+        if (!empty($field['name']) && !isset($by_name[$field['name']])) {
+            $by_name[$field['name']] = $field;
+        }
+    }
+    if (!isset($by_name['menu'])) {
+        return $fields;
+    }
+
+    $parent_key = $parent['key'];
+    $pull = array('logo' => true, 'book' => true, 'menu' => true, 'on_off' => true, 'special_menu_text' => true, 'special_menu_file' => true);
+    $kept = array();
+    $menu_seen = false;
+    foreach ($fields as $field) {
+        $name = isset($field['name']) ? $field['name'] : '';
+        if (isset($pull[$name])) {
+            if ($name === 'menu' && !$menu_seen) {
+                $menu_seen = true;
+                $menu = $by_name['menu'];
+                if (!isset($menu['wrapper']) || !is_array($menu['wrapper'])) {
+                    $menu['wrapper'] = array('width' => '', 'class' => '', 'id' => '');
+                }
+                $menu['wrapper']['width'] = '';
+                $kept[] = $menu;
+                $kept[] = gabos_2026_like_menu_field($menu, 'field_gabos_2026_brunch_menu', 'brunch_menu', 'Brunch menu');
+                $kept[] = gabos_2026_on_field($parent_key, 'field_gabos_2026_brunch_on', 'brunch_on');
+                $kept[] = gabos_2026_column(array(
+                    'key' => 'field_gabos_2026_brunch_label',
+                    'label' => 'Label',
+                    'name' => 'brunch_label',
+                    'type' => 'text',
+                    'placeholder' => 'Brunch menu',
+                    'parent' => $parent_key,
+                ));
+                if (isset($by_name['special_menu_file'])) {
+                    $kept[] = gabos_2026_column($by_name['special_menu_file']);
+                } else {
+                    $kept[] = gabos_2026_like_menu_field($menu, 'field_gabos_2026_christmas_file', 'special_menu_file', 'Christmas menu');
+                }
+                if (isset($by_name['on_off'])) {
+                    $kept[] = gabos_2026_column($by_name['on_off']);
+                } else {
+                    $kept[] = gabos_2026_on_field($parent_key, 'field_gabos_2026_christmas', 'on_off');
+                }
+                if (isset($by_name['special_menu_text'])) {
+                    $kept[] = gabos_2026_column($by_name['special_menu_text']);
+                } else {
+                    $kept[] = gabos_2026_column(array(
+                        'key' => 'field_gabos_2026_christmas_label',
+                        'label' => 'Special menu text',
+                        'name' => 'special_menu_text',
+                        'type' => 'text',
+                        'placeholder' => 'nye menu',
+                        'parent' => $parent_key,
+                    ));
+                }
+            }
+            continue;
+        }
+        $kept[] = $field;
+    }
+
+    if (isset($by_name['book'])) {
+        $book_at = null;
+        foreach ($kept as $index => $field) {
+            if (isset($field['name']) && ($field['name'] === 'special_menu_text' || $field['name'] === 'brunch_label')) {
+                $book_at = $index + 1;
+            }
+        }
+        $book = $by_name['book'];
+        if (!isset($book['wrapper']) || !is_array($book['wrapper'])) {
+            $book['wrapper'] = array('width' => '', 'class' => '', 'id' => '');
+        }
+        $book['wrapper']['width'] = '';
+        if ($book_at === null) {
+            $kept[] = $book;
+        } else {
+            array_splice($kept, $book_at, 0, array($book));
+        }
+    }
+
+    foreach ($kept as $order => $field) {
+        $kept[$order]['menu_order'] = $order;
+        if (empty($kept[$order]['parent'])) {
+            $kept[$order]['parent'] = $parent_key;
+        }
+    }
+    return $kept;
+}
+
 function gabos_2026_hour_parts($line) {
     if (preg_match('/^(.+?)\s+(\d{1,2}\.\d{2}\s+a\s+\d{1,2}\.\d{2})$/', $line, $match)) {
         return array($match[1], $match[2]);
     }
     return array($line, '');
 }
+
+add_filter('acf/load_fields', 'gabos_2026_home_page_fields', 20, 2);
 
 add_action('acf/init', function () {
     if (!function_exists('acf_add_local_field_group')) {
@@ -133,14 +277,13 @@ add_action('acf/init', function () {
                 'instructions' => 'Shown under the curtain. Leave empty to keep the current sentence.',
             ),
             array(
-                'key' => 'field_gabos_2026_video',
-                'label' => 'Editorial video',
-                'name' => 'editorial_video',
-                'type' => 'file',
+                'key' => 'field_gabos_2026_logo',
+                'label' => 'Logo',
+                'name' => 'logo',
+                'type' => 'image',
                 'return_format' => 'array',
-                'library' => 'all',
-                'mime_types' => 'mp4,webm',
-                'instructions' => 'Leave empty to keep the video shipped with the theme.',
+                'preview_size' => 'medium',
+                'instructions' => 'Leave empty to keep the logo shipped with the theme.',
             ),
             array(
                 'key' => 'field_gabos_2026_poster',
@@ -152,103 +295,20 @@ add_action('acf/init', function () {
                 'instructions' => 'Still frame shown before the video plays.',
             ),
             array(
-                'key' => 'field_gabos_2026_tab_menus',
-                'label' => 'Menus',
-                'type' => 'tab',
-                'placement' => 'top',
-            ),
-            array(
-                'key' => 'field_gabos_2026_menu',
-                'label' => 'Menu',
-                'name' => 'menu',
+                'key' => 'field_gabos_2026_video',
+                'label' => 'Editorial video',
+                'name' => 'editorial_video',
                 'type' => 'file',
                 'return_format' => 'array',
                 'library' => 'all',
-                'mime_types' => 'pdf',
-                'instructions' => 'Regular menu PDF. Leave empty to keep the file already on the site.',
-            ),
-            array(
-                'key' => 'field_gabos_2026_branch_menu',
-                'label' => 'Branch menu',
-                'name' => 'branch_menu',
-                'type' => 'file',
-                'return_format' => 'array',
-                'library' => 'all',
-                'mime_types' => 'pdf',
-                'instructions' => 'PDF used when the menu link is set to Branch menu.',
-            ),
-            array(
-                'key' => 'field_gabos_2026_menu_choice',
-                'label' => 'Menu link shows',
-                'name' => 'menu_choice',
-                'type' => 'button_group',
-                'choices' => array(
-                    'regular' => 'Menu',
-                    'branch' => 'Branch menu',
-                ),
-                'default_value' => 'regular',
-                'return_format' => 'value',
-                'layout' => 'horizontal',
-                'instructions' => 'Switches the Menu link on the home page and the shop. Branch menu is used only after a PDF is uploaded above.',
-            ),
-            array(
-                'key' => 'field_gabos_2026_christmas',
-                'label' => 'Show Christmas menu',
-                'name' => 'on_off',
-                'type' => 'true_false',
-                'ui' => 1,
-                'ui_on_text' => 'Shown',
-                'ui_off_text' => 'Hidden',
-                'instructions' => 'Adds the seasonal link above the home navigation. It does not replace Menu.',
-            ),
-            array(
-                'key' => 'field_gabos_2026_christmas_label',
-                'label' => 'Christmas menu label',
-                'name' => 'special_menu_text',
-                'type' => 'text',
-                'placeholder' => 'nye menu',
-                'instructions' => 'Leave empty to show “nye menu”.',
-                'conditional_logic' => array(
-                    array(
-                        array(
-                            'field' => 'field_gabos_2026_christmas',
-                            'operator' => '==',
-                            'value' => '1',
-                        ),
-                    ),
-                ),
-            ),
-            array(
-                'key' => 'field_gabos_2026_christmas_file',
-                'label' => 'Christmas menu PDF',
-                'name' => 'special_menu_file',
-                'type' => 'file',
-                'return_format' => 'array',
-                'library' => 'all',
-                'mime_types' => 'pdf',
-                'instructions' => 'File the seasonal link opens.',
-                'conditional_logic' => array(
-                    array(
-                        array(
-                            'field' => 'field_gabos_2026_christmas',
-                            'operator' => '==',
-                            'value' => '1',
-                        ),
-                    ),
-                ),
+                'mime_types' => 'mp4,webm',
+                'instructions' => 'Leave empty to keep the video shipped with the theme.',
             ),
             array(
                 'key' => 'field_gabos_2026_tab_instagram',
                 'label' => 'Instagram',
                 'type' => 'tab',
                 'placement' => 'top',
-            ),
-            array(
-                'key' => 'field_gabos_2026_follow',
-                'label' => 'Profile link',
-                'name' => 'follow',
-                'type' => 'url',
-                'instructions' => 'Instagram profile URL. Leave empty to keep https://www.instagram.com/gabosmadrid/',
             ),
             array(
                 'key' => 'field_gabos_2026_ig_label',
