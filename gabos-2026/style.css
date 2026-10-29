@@ -766,8 +766,8 @@ body.gabos-store {
 
 html:has(.shop-coming-soon),
 body.gabos-store:has(.shop-coming-soon) {
-  height: 100%;
-  overflow: hidden;
+  height: auto;
+  overflow: visible;
 }
 
 .gabos-store-page {
@@ -864,35 +864,29 @@ body.gabos-store:has(.shop-coming-soon) {
 
 .gabos-store-page:has(.shop-coming-soon) {
   box-sizing: border-box;
-  height: 100dvh;
-  max-height: 100dvh;
-  overflow: hidden;
+  min-height: 100dvh;
+  height: auto;
+  max-height: none;
+  overflow: visible;
 }
 
-body.admin-bar .gabos-store-page:has(.shop-coming-soon) {
-  height: calc(100dvh - 32px);
-  max-height: calc(100dvh - 32px);
-}
-
-.shop-coming-soon {
+.shop-coming-soon,
+.cart-empty {
+  display: flex;
   flex: 1 1 auto;
-  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: calc(100dvh - 8rem);
   padding: 0;
 }
 
 .shop-coming-soon p,
 .cart-empty p {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  width: auto;
-  max-width: none;
+  width: min(909px, 90vw);
   margin: 0;
-  padding: 0 20px;
   text-align: center;
   font-size: 32px;
   line-height: 1;
@@ -917,33 +911,17 @@ body.admin-bar .gabos-store-page:has(.shop-coming-soon) {
   margin-top: 0;
 }
 
-@media screen and (max-width: 782px) {
-  body.admin-bar .gabos-store-page:has(.shop-coming-soon) {
-    height: calc(100dvh - 46px);
-    max-height: calc(100dvh - 46px);
-  }
-}
-
 @media screen and (max-width: 767px) {
-  html:has(.shop-coming-soon),
   html:has(.cart-empty),
-  body.gabos-store:has(.shop-coming-soon),
   body.gabos-store:has(.cart-empty) {
     height: auto;
     overflow: visible;
   }
 
-  .gabos-store-page:has(.shop-coming-soon),
   .gabos-store-page:has(.cart-empty) {
     height: auto;
     max-height: none;
     overflow: visible;
-  }
-
-  body.admin-bar .gabos-store-page:has(.shop-coming-soon),
-  body.admin-bar .gabos-store-page:has(.cart-empty) {
-    height: auto;
-    max-height: none;
   }
 
   .gabos-store-page:has(.shop-coming-soon) .landing-footer,
@@ -958,11 +936,9 @@ body.admin-bar .gabos-store-page:has(.shop-coming-soon) {
 
   .shop-coming-soon,
   .cart-empty {
-    flex: 1 0 auto;
-    min-height: calc(100dvh + min(28dvh, 240px));
-    padding: 0;
+    min-height: calc(100dvh - 7rem);
+    padding-bottom: min(28dvh, 240px);
   }
-
 }
 
 @media screen and (min-width: 768px) {
