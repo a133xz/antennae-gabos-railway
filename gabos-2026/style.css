@@ -788,7 +788,11 @@ body.gabos-store:has(.shop-coming-soon) {
 }
 
 .store-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   padding-top: 20px;
+  background: #fff;
 }
 
 .store-header a {
@@ -830,7 +834,7 @@ body.gabos-store:has(.shop-coming-soon) {
   padding: 0;
   border: 0;
   background: transparent;
-  color: inherit;
+  color: #000;
   cursor: pointer;
 }
 
@@ -876,19 +880,26 @@ body.gabos-store:has(.shop-coming-soon) {
 
 .shop-coming-soon,
 .cart-empty {
-  display: grid;
-  grid-template-rows: calc(
-      100dvh - var(--store-placeholder-header) - var(--store-placeholder-footer-peek)
-    )
-    auto;
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   width: 100%;
+  min-height: calc(
+    100svh - var(--store-placeholder-header) - var(--store-placeholder-footer-peek)
+  );
   padding: 0;
 }
 
 .shop-coming-soon p,
 .cart-empty p {
-  grid-row: 1;
-  place-self: center;
+  position: static;
+  inset: auto;
+  transform: none;
   width: min(909px, 90vw);
   margin: 0;
   text-align: center;
