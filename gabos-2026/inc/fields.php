@@ -2,6 +2,7 @@
 
 const GABOS_2026_STATEMENT = "Gabo's is a New York-inspired supper club and cocktail bar in Madrid offering late-night dining, vinyl music, and classic American bites";
 const GABOS_2026_MENU_URL = 'https://gabosny.com/wp-content/uploads/2026/07/Menu_Web_July2026.pdf';
+const GABOS_2026_BRUNCH_MENU_URL = 'https://gabosny.com/wp-content/uploads/2026/01/Gabos_Brunch.pdf';
 const GABOS_2026_BOOK_URL = 'https://www.covermanager.com/reservation/module_restaurant/restaurante-gabos-ne-york/spanish';
 const GABOS_2026_FOLLOW_URL = 'https://www.instagram.com/gabosmadrid/';
 const GABOS_2026_IG_LABEL = 'Follow us on Instagram';
@@ -87,12 +88,12 @@ function gabos_2026_contact_url() {
 
 function gabos_2026_menu_link($post_id) {
     $regular = gabos_2026_url('menu', $post_id, GABOS_2026_MENU_URL);
-    $brunch = gabos_2026_url('brunch_menu', $post_id, '');
+    $brunch = gabos_2026_url('brunch_menu', $post_id, GABOS_2026_BRUNCH_MENU_URL);
     $brunch_on = $post_id && function_exists('get_field') && (bool) get_field('brunch_on', $post_id);
-    if ($brunch_on && $brunch !== '') {
+    if ($brunch_on) {
         return array(
             'url' => $brunch,
-            'label' => gabos_2026_text('brunch_label', $post_id, 'Brunch menu'),
+            'label' => gabos_2026_text('brunch_label', $post_id, 'brunch'),
         );
     }
     return array(
@@ -190,7 +191,7 @@ function gabos_2026_home_page_fields($fields, $parent) {
                 $menu['wrapper']['width'] = '';
                 $kept[] = $menu;
                 $special_menu = gabos_2026_like_menu_field($menu, 'field_gabos_2026_brunch_menu', 'brunch_menu', 'Special menu');
-                $special_menu['instructions'] = 'PDF used when the row below is on. Replaces the Menu link only.';
+                $special_menu['instructions'] = 'Leave empty to use Gabos_Brunch.pdf. Used when On is ticked; replaces the Menu link only.';
                 $kept[] = $special_menu;
                 $kept[] = gabos_2026_on_field(
                     $parent_key,
@@ -203,8 +204,8 @@ function gabos_2026_home_page_fields($fields, $parent) {
                     'label' => 'Menu link label',
                     'name' => 'brunch_label',
                     'type' => 'text',
-                    'placeholder' => 'Brunch menu',
-                    'instructions' => 'Text on the main Menu link when Special menu is on.',
+                    'placeholder' => 'brunch',
+                    'instructions' => 'Leave empty to show “brunch” on the Menu link when Special menu is on.',
                     'parent' => $parent_key,
                 ));
                 if (isset($by_name['special_menu_file'])) {
@@ -232,7 +233,7 @@ function gabos_2026_home_page_fields($fields, $parent) {
                 if (isset($by_name['special_menu_text'])) {
                     $christmas_label = gabos_2026_column($by_name['special_menu_text']);
                     $christmas_label['label'] = 'Link label';
-                    $christmas_label['instructions'] = 'Text on the extra link, e.g. nye menu.';
+                    $christmas_label['instructions'] = 'Leave empty to show “nye menu” on the extra link.';
                     $kept[] = $christmas_label;
                 } else {
                     $kept[] = gabos_2026_column(array(
@@ -240,8 +241,7 @@ function gabos_2026_home_page_fields($fields, $parent) {
                         'label' => 'Link label',
                         'name' => 'special_menu_text',
                         'type' => 'text',
-                        'placeholder' => 'nye menu',
-                        'instructions' => 'Text on the extra link, e.g. nye menu.',
+                        'instructions' => 'Leave empty to show “nye menu” on the extra link.',
                         'parent' => $parent_key,
                     ));
                 }
