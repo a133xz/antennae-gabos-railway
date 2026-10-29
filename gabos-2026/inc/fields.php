@@ -16,6 +16,10 @@ const GABOS_2026_EMAIL_RES = 'reservas@gabosnewyork.com';
 const GABOS_2026_EMAIL_ADMIN = 'sala@gabosnewyork.com';
 const GABOS_2026_EMAIL_RES_LABEL = 'RESERVAS';
 const GABOS_2026_EMAIL_ADMIN_LABEL = 'ADMINISTRACION Y PR';
+const GABOS_2026_CONTACT_HOURS_HEADING = 'Opening hours:';
+const GABOS_2026_CONTACT_HOURS_TUE_WED = 'Tuesday -- Wednesday 19.30 a 02.00';
+const GABOS_2026_CONTACT_HOURS_THU_FRI = 'Thursday -- Friday 13.00 a 02.00';
+const GABOS_2026_CONTACT_HOURS_SAT = 'Saturday 12.30 a 02.00';
 
 function gabos_2026_asset($file) {
     return get_template_directory_uri() . '/assets/' . ltrim($file, '/');
@@ -295,84 +299,13 @@ function gabos_2026_home_page_fields($fields, $parent) {
     return $kept;
 }
 
-function gabos_2026_default_hours_lines() {
-    return array(
-        'Opening hours:',
-        'Tuesday -- Wednesday 19.30 a 02.00',
-        'Thursday -- Friday 13.00 a 02.00',
-        'Saturday 12.30 a 02.00',
-    );
-}
-
-function gabos_2026_default_hours_text() {
-    return implode("\n", gabos_2026_default_hours_lines());
-}
-
-function gabos_2026_line_looks_like_phone($line) {
-    $line = trim($line);
-    if ($line === '') {
-        return true;
-    }
-    if (preg_match('/^\s*T:\s*\d/u', $line)) {
-        return true;
-    }
-    if (preg_match('/\b(tel|telephone|phone)\b/i', $line)) {
-        return true;
-    }
-    if (preg_match('/^\d[\d\s]{7,}\s*$/u', $line)) {
-        return true;
-    }
-    return false;
-}
-
-/** Drop phone/reservation lines mistakenly stored in opening hours. */
-function gabos_2026_filter_opening_hours_lines(array $lines) {
-    $out = array();
-    foreach ($lines as $line) {
-        $line = trim($line);
-        if ($line === '' || gabos_2026_line_looks_like_phone($line)) {
-            continue;
-        }
-        $out[] = $line;
-    }
-    return $out;
-}
-
-function gabos_2026_opening_hours_lines_are_complete(array $lines) {
-    $defaults = gabos_2026_default_hours_lines();
-    if (count($lines) < count($defaults)) {
-        return false;
-    }
-    $blob = strtolower(implode("\n", $lines));
-    if (strpos($blob, 'saturday') === false) {
-        return false;
-    }
-    return true;
-}
-
 function gabos_2026_contact_hours_lines($post_id) {
-    $defaults = gabos_2026_default_hours_lines();
-    $raw = '';
-    if ($post_id && function_exists('get_field')) {
-        $value = get_field('contact_hours', $post_id);
-        if (is_string($value) && trim($value) !== '') {
-            $raw = $value;
-        }
-    }
-    if (trim($raw) === '') {
-        return $defaults;
-    }
-    if (strpos($raw, '<') !== false) {
-        $raw = wp_strip_all_tags(str_replace(array('<br />', '<br/>', '<br>', '</p>', '</div>'), "\n", $raw));
-    }
-    $lines = preg_split('/\r\n|\r|\n/', $raw);
-    $lines = array_map('trim', $lines);
-    $lines = array_values(array_filter($lines, 'strlen'));
-    $lines = gabos_2026_filter_opening_hours_lines($lines);
-    if ($lines === array() || !gabos_2026_opening_hours_lines_are_complete($lines)) {
-        return $defaults;
-    }
-    return $lines;
+    return array(
+        gabos_2026_text('contact_hours_heading', $post_id, GABOS_2026_CONTACT_HOURS_HEADING),
+        gabos_2026_text('contact_hours_tue_wed', $post_id, GABOS_2026_CONTACT_HOURS_TUE_WED),
+        gabos_2026_text('contact_hours_thu_fri', $post_id, GABOS_2026_CONTACT_HOURS_THU_FRI),
+        gabos_2026_text('contact_hours_sat', $post_id, GABOS_2026_CONTACT_HOURS_SAT),
+    );
 }
 
 function gabos_2026_field_width($field, $width) {
@@ -410,7 +343,6 @@ function gabos_2026_contact_field_layout($parent_key, $existing) {
         return $width !== '' ? gabos_2026_field_width($field, $width) : $field;
     };
 
-    $default_hours = gabos_2026_default_hours_text();
     $fields = array(
         array(
             'key' => 'field_gabos_2026_contact_intro',
@@ -420,15 +352,33 @@ function gabos_2026_contact_field_layout($parent_key, $existing) {
             'message' => 'One block for the contact curtain. Leave fields empty to keep the theme default.',
             'parent' => $parent_key,
         ),
-        array(
-            'key' => 'field_gabos_2026_contact_hours',
-            'label' => 'Opening hours',
-            'name' => 'contact_hours',
-            'type' => 'textarea',
-            'rows' => 6,
-            'new_lines' => 'br',
-            'parent' => $parent_key,
-            'instructions' => "Leave empty to use:\n" . $default_hours,
+        $text(
+            'field_gabos_2026_contact_hours_heading',
+            'contact_hours_heading',
+            'Opening hours heading',
+            'Leave empty to keep ' . GABOS_2026_CONTACT_HOURS_HEADING,
+            '50'
+        ),
+        $text(
+            'field_gabos_2026_contact_hours_tue_wed',
+            'contact_hours_tue_wed',
+            'Tuesday -- Wednesday',
+            'Leave empty to keep ' . GABOS_2026_CONTACT_HOURS_TUE_WED,
+            '50'
+        ),
+        $text(
+            'field_gabos_2026_contact_hours_thu_fri',
+            'contact_hours_thu_fri',
+            'Thursday -- Friday',
+            'Leave empty to keep ' . GABOS_2026_CONTACT_HOURS_THU_FRI,
+            '50'
+        ),
+        $text(
+            'field_gabos_2026_contact_hours_sat',
+            'contact_hours_sat',
+            'Saturday',
+            'Leave empty to keep ' . GABOS_2026_CONTACT_HOURS_SAT,
+            '50'
         ),
         $text(
             'field_gabos_2026_contact_phone',
@@ -492,7 +442,7 @@ function gabos_2026_contact_page_fields($fields, $parent) {
         return $fields;
     }
     foreach ($fields as $field) {
-        if (isset($field['name']) && $field['name'] === 'contact_hours') {
+        if (isset($field['name']) && $field['name'] === 'contact_hours_heading') {
             return $fields;
         }
     }
