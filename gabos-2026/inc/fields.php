@@ -384,29 +384,29 @@ function gabos_2026_contact_field_layout($parent_key, $existing) {
             'field_gabos_2026_email_res_label',
             'email_res_label',
             'Reservation label',
-            'Shown above the reservation email. Leave empty to keep RESERVAS.',
-            ''
+            'Leave empty to keep RESERVAS on the site.',
+            '50'
         ),
         $text(
             'field_gabos_2026_email_res',
             'email_res',
             'Reservation email',
             'Leave empty to keep ' . GABOS_2026_EMAIL_RES . '.',
-            ''
+            '50'
         ),
         $text(
             'field_gabos_2026_email_admin_label',
             'email_admin_label',
             'Administration label',
-            'Shown above the admin email. Leave empty to keep ADMINISTRACION Y PR.',
-            ''
+            'Leave empty to keep ADMINISTRACION Y PR on the site.',
+            '50'
         ),
         $text(
             'field_gabos_2026_email_admin',
             'email_admin',
             'Administration email',
             'Leave empty to keep ' . GABOS_2026_EMAIL_ADMIN . '.',
-            ''
+            '50'
         ),
     );
 
