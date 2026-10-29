@@ -108,13 +108,33 @@
   }
 }
 
-/* Empty cart / shop coming soon ≤767px: centered in view, extra pad below for scroll. */
+/* Coming soon / empty cart: fixed full-viewport stage — centered on all breakpoints. */
+.gabos-page-white:has(.cart-empty) main,
+.gabos-page-white:has(.shop-coming-soon) main {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.store-placeholder-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.store-placeholder-stage p {
+  width: min(909px, 90vw);
+  margin: 0;
+  pointer-events: auto;
+}
+
 @media screen and (max-width: 767px) {
   .gabos-page-white:has(.cart-empty) main,
   .gabos-page-white:has(.shop-coming-soon) main {
-    padding-top: 0;
-    padding-bottom: 0;
-    min-height: 0;
+    min-height: calc(100dvh + min(28dvh, 240px));
   }
 
   .gabos-page-white:has(.cart-empty) footer,
@@ -124,20 +144,9 @@
 
   .shop-coming-soon,
   .cart-empty {
-    flex: 0 0 auto;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    min-height: calc(100dvh - 11rem);
-    padding-top: calc(var(--store-vertical-edge-gap) + 48px);
-    padding-bottom: calc(var(--store-vertical-edge-gap) + 48px + min(28dvh, 240px));
-  }
-
-  .shop-coming-soon p,
-  .cart-empty p {
-    display: block;
-    flex: none;
-    min-height: 0;
+    flex: 1 0 auto;
+    min-height: 100dvh;
+    padding: 0;
   }
 }
 

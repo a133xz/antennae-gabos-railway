@@ -88,10 +88,10 @@ export function CartView() {
 
   if (lines.length === 0) {
     return (
-      <div className={`store-cart cart-empty flex min-h-0 flex-1 flex-col ${fade}`}>
-        <p className="mx-auto w-[min(909px,90vw)] text-center text-[32px] uppercase leading-none md:fixed md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
-          your cart is empty
-        </p>
+      <div className={`store-cart cart-empty ${fade}`}>
+        <div className="store-placeholder-stage">
+          <p className="text-center text-[32px] uppercase leading-none">your cart is empty</p>
+        </div>
       </div>
     )
   }

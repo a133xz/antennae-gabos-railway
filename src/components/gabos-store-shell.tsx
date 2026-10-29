@@ -9,8 +9,8 @@ export async function GabosStoreShell({
 }: {
   children: React.ReactNode
   surface?: 'white' | 'shop'
-  /** Cart uses --cart-top; shop/PDP use --shop-after-nav. */
-  mainTop?: 'shop' | 'cart'
+  /** Cart uses --cart-top; shop/PDP use --shop-after-nav; placeholder = coming soon / empty cart center. */
+  mainTop?: 'shop' | 'cart' | 'placeholder'
 }) {
   const settings = await getSettings()
   const page =
@@ -30,9 +30,11 @@ export async function GabosStoreShell({
       <GabosStoreHeader settings={settings} surface={surface} />
       <main
         className={
-          mainTop === 'cart'
-            ? 'flex flex-1 flex-col pt-[var(--cart-top)] pb-[var(--shop-before-footer)]'
-            : 'flex flex-1 flex-col pt-[var(--shop-after-nav)] pb-[var(--shop-before-footer)]'
+          mainTop === 'placeholder'
+            ? 'flex flex-1 flex-col pt-0 pb-0'
+            : mainTop === 'cart'
+              ? 'flex flex-1 flex-col pt-[var(--cart-top)] pb-[var(--shop-before-footer)]'
+              : 'flex flex-1 flex-col pt-[var(--shop-after-nav)] pb-[var(--shop-before-footer)]'
         }
       >
         {children}

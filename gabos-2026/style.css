@@ -875,19 +875,24 @@ body.admin-bar .gabos-store-page:has(.shop-coming-soon) {
 }
 
 .shop-coming-soon {
-  display: flex;
   flex: 1 1 auto;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   min-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding: 0;
 }
 
-.shop-coming-soon p {
-  margin: 0 auto;
-  width: min(909px, 90vw);
+.shop-coming-soon p,
+.cart-empty p {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0 20px;
   text-align: center;
   font-size: 32px;
   line-height: 1;
@@ -953,21 +958,11 @@ body.admin-bar .gabos-store-page:has(.shop-coming-soon) {
 
   .shop-coming-soon,
   .cart-empty {
-    flex: 0 0 auto;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    min-height: calc(100dvh - 11rem);
-    padding-top: calc(var(--store-vertical-edge-gap) + 48px);
-    padding-bottom: calc(var(--store-vertical-edge-gap) + 48px + min(28dvh, 240px));
+    flex: 1 0 auto;
+    min-height: calc(100dvh + min(28dvh, 240px));
+    padding: 0;
   }
 
-  .shop-coming-soon p,
-  .cart-empty p {
-    display: block;
-    flex: none;
-    min-height: 0;
-  }
 }
 
 @media screen and (min-width: 768px) {
@@ -989,14 +984,6 @@ body.admin-bar .gabos-store-page:has(.shop-coming-soon) {
     gap: 2rem;
   }
 
-  .shop-coming-soon p {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    width: min(909px, 90vw);
-    margin: 0;
-    transform: translate(-50%, -50%);
-  }
 }
 
 @media screen and (min-width: 1024px) {

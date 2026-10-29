@@ -10,7 +10,7 @@ export default async function CartPage() {
   const settings = await getSettings()
   if (!isShopAvailable(settings)) {
     return (
-      <GabosStoreShell mainTop="cart">
+      <GabosStoreShell mainTop="placeholder">
         <ShopComingSoonView />
       </GabosStoreShell>
     )
