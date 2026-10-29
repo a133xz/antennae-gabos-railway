@@ -34,8 +34,10 @@ Text Domain: gabos-2026
   --body: 1rem;
   --shop-before-footer: 150px;
   --store-vertical-edge-gap: 104px;
+  --store-vertical-stack-gap: 40px;
   --store-placeholder-header: calc(var(--gutter-top, 20px) + 2.5rem);
-  --store-placeholder-scroll-pad: min(28dvh, 240px);
+  /* Short scroll past centered copy to reach footer (not a full extra screen). */
+  --store-placeholder-footer-peek: min(10dvh, 72px);
   --cart-top-min: 113px;
   --cart-top-max: 242px;
   --cart-top-height-min: 50rem;
@@ -875,7 +877,10 @@ body.gabos-store:has(.shop-coming-soon) {
 .shop-coming-soon,
 .cart-empty {
   display: grid;
-  grid-template-rows: calc(100dvh - var(--store-placeholder-header)) auto;
+  grid-template-rows: calc(
+      100dvh - var(--store-placeholder-header) - var(--store-placeholder-footer-peek)
+    )
+    auto;
   width: 100%;
   padding: 0;
 }
@@ -925,19 +930,12 @@ body.gabos-store:has(.shop-coming-soon) {
 
   .gabos-store-page:has(.shop-coming-soon) .landing-footer,
   .gabos-store-page:has(.cart-empty) .landing-footer {
-    margin-top: var(--store-vertical-edge-gap);
+    margin-top: var(--store-vertical-stack-gap);
   }
 
   .landing-footer__brand-group {
     transform: scale(0.8);
     transform-origin: center center;
-  }
-
-  .shop-coming-soon::after,
-  .cart-empty::after {
-    content: '';
-    grid-row: 2;
-    height: var(--store-placeholder-scroll-pad);
   }
 }
 
