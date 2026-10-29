@@ -19,7 +19,10 @@ Credentials: `.env` (see `.env.example`).
 
 | Area | Location |
 |------|----------|
-| Shop “coming soon”, cart empty, store layout | `gabos-2026/style.css`, `gabos-2026/page-*.php`, template parts |
+| Shop grid, PDP, coming soon, catalog | `gabos-2026/inc/shop.php`, `page-shop.php`, `page-shop-product.php`, `template-parts/shop-*`, `assets/shop/cropped/` |
+| Shop on/off | Home page → **Shop** tab → **Shop live** (`shop_available`) |
+| `/shop/{slug}` | Product URLs when shop is live (see `gabos_2026_shop_url()`) |
+| Cart (future) | `gabos_2026_cart_url()` → `/cart/` |
 | Breakpoints | `docs/mobile-nav-breakpoints.md`, `gabos-2026/style.css` |
 
 ## Cursor

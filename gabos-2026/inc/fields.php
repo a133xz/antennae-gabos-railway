@@ -559,6 +559,21 @@ add_action('acf/init', function () {
                 'instructions' => 'Leave empty to keep @gabosmadrid.',
             ),
             array(
+                'key' => 'field_gabos_2026_tab_shop',
+                'label' => 'Shop',
+                'type' => 'tab',
+                'placement' => 'top',
+            ),
+            array(
+                'key' => 'field_gabos_2026_shop_available',
+                'label' => 'Shop live',
+                'name' => 'shop_available',
+                'type' => 'true_false',
+                'ui' => 1,
+                'default_value' => 0,
+                'instructions' => 'Off: /shop shows “coming soon” and cart is hidden. On: product grid and /shop/{slug} pages.',
+            ),
+            array(
                 'key' => 'field_gabos_2026_tab_footer',
                 'label' => 'Footer',
                 'type' => 'tab',

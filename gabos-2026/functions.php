@@ -1,6 +1,7 @@
 <?php
 
 require get_template_directory() . '/inc/fields.php';
+require get_template_directory() . '/inc/shop.php';
 
 add_action('after_setup_theme', function () {
     add_theme_support('title-tag');
@@ -10,19 +11,24 @@ add_filter('use_block_editor_for_post', '__return_false');
 
 add_action('init', function () {
     remove_post_type_support('page', 'editor');
+    add_rewrite_rule('^shop/([^/]+)/?$', 'index.php?gabos_shop_product=$matches[1]', 'top');
     add_rewrite_rule('^shop/?$', 'index.php?gabos_shop=1', 'top');
-    if (get_option('gabos_2026_rewrite') !== '2') {
+    if (get_option('gabos_2026_rewrite') !== '3') {
         flush_rewrite_rules(false);
-        update_option('gabos_2026_rewrite', '2');
+        update_option('gabos_2026_rewrite', '3');
     }
 });
 
 add_filter('query_vars', function ($vars) {
     $vars[] = 'gabos_shop';
+    $vars[] = 'gabos_shop_product';
     return $vars;
 });
 
 add_filter('template_include', function ($template) {
+    if (get_query_var('gabos_shop_product')) {
+        return get_template_directory() . '/page-shop-product.php';
+    }
     if (get_query_var('gabos_shop')) {
         return get_template_directory() . '/page-shop.php';
     }
@@ -41,7 +47,7 @@ remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');
 
 add_action('after_switch_theme', function () {
     flush_rewrite_rules(false);
-    update_option('gabos_2026_rewrite', '2');
+        update_option('gabos_2026_rewrite', '3');
     do_action('litespeed_purge_all');
 });
 
@@ -66,7 +72,7 @@ add_action('wp_enqueue_scripts', function () {
         filemtime($dir . '/style.css')
     );
 
-    if (!get_query_var('gabos_shop')) {
+    if (!gabos_2026_is_shop_route()) {
         wp_enqueue_script(
             'gabos-2026-curtain',
             $uri . '/js/curtain.js',
