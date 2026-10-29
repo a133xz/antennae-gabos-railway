@@ -9,7 +9,6 @@ const GABOS_2026_IG_HANDLE = '@gabosmadrid';
 const GABOS_2026_ADDRESS = 'Calle Prim 5, Madrid, Spain 28004';
 const GABOS_2026_ORIGIN_KICKER = 'From';
 const GABOS_2026_ORIGIN_PLACE = 'New York';
-const GABOS_2026_COPYRIGHT = '© Gabos 2026';
 const GABOS_2026_PHONE = '91 639 1343';
 const GABOS_2026_PHONE_HOURS = 'Tue -- Sat 17.00-22.00';
 const GABOS_2026_EMAIL_RES = 'reservas@gabosnewyork.com';
@@ -146,24 +145,6 @@ add_action('acf/init', function () {
                 'key' => 'field_gabos_2026_address',
                 'label' => 'Address',
                 'name' => 'store_address',
-                'type' => 'text',
-            ),
-            array(
-                'key' => 'field_gabos_2026_origin_kicker',
-                'label' => 'Origin kicker',
-                'name' => 'origin_kicker',
-                'type' => 'text',
-            ),
-            array(
-                'key' => 'field_gabos_2026_origin_place',
-                'label' => 'Origin place',
-                'name' => 'origin_place',
-                'type' => 'text',
-            ),
-            array(
-                'key' => 'field_gabos_2026_copyright',
-                'label' => 'Copyright',
-                'name' => 'copyright',
                 'type' => 'text',
             ),
         ),

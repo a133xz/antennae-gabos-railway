@@ -1,8 +1,8 @@
 <?php
 $gabos_footer_id = gabos_2026_front_id();
-$gabos_footer_kicker = gabos_2026_text('origin_kicker', $gabos_footer_id, GABOS_2026_ORIGIN_KICKER);
-$gabos_footer_place = preg_replace('/\s+/', '', gabos_2026_text('origin_place', $gabos_footer_id, GABOS_2026_ORIGIN_PLACE));
-$gabos_footer_copyright = gabos_2026_text('copyright', $gabos_footer_id, GABOS_2026_COPYRIGHT);
+$gabos_footer_kicker = GABOS_2026_ORIGIN_KICKER;
+$gabos_footer_place = preg_replace('/\s+/', '', GABOS_2026_ORIGIN_PLACE);
+$gabos_footer_copyright = '© Gabos ' . wp_date('Y');
 $gabos_footer_address = gabos_2026_text('store_address', $gabos_footer_id, GABOS_2026_ADDRESS);
 $gabos_footer_class = 'landing-footer';
 if (!empty($gabos_footer_on_light)) {
