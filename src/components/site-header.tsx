@@ -7,7 +7,7 @@ import type { StoreNavItem } from './store-nav'
 
 export function SiteHeader({ settings }: { settings: SiteSettings }) {
   const items: StoreNavItem[] = [
-    { label: 'Menu', href: settings.menuPdfUrl, download: true, external: true },
+    { label: 'Menu', href: settings.menuPdfUrl, external: true },
     { label: 'shop', href: '/shop', activePrefix: '/shop' },
     { label: 'book', href: settings.bookUrl, external: true },
     { label: 'contact', href: '/contact' },
@@ -30,8 +30,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
             key={item.href}
             href={item.href}
             label={item.label}
-            download={item.label === 'Menu'}
-            external={item.label === 'book'}
+            external={item.label === 'Menu' || item.label === 'book'}
             className="text-[19px] uppercase transition-opacity hover:opacity-70"
           />
         ))}

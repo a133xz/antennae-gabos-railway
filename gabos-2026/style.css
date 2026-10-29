@@ -954,9 +954,12 @@ body.admin-bar .gabos-store-page:has(.shop-coming-soon) {
   .shop-coming-soon,
   .cart-empty {
     flex: 0 0 auto;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: calc(100dvh - 11rem);
     padding-top: calc(var(--store-vertical-edge-gap) + 48px);
-    padding-bottom: calc(var(--store-vertical-edge-gap) + 48px);
+    padding-bottom: calc(var(--store-vertical-edge-gap) + 48px + min(28dvh, 240px));
   }
 
   .shop-coming-soon p,

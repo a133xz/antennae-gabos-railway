@@ -52,7 +52,7 @@ require get_template_directory() . '/template-parts/document-open.php';
                                 <?php echo $special_url ? '</a>' : '</p>'; ?>
                             <?php endif; ?>
                             <div class="gabos-hero-nav-group">
-                                <a class="gabos-hero-nav-menu" href="<?php echo esc_url($menu['url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($menu['label']); ?></a>
+                                <?php echo gabos_2026_menu_link_html($menu, 'gabos-hero-nav-menu'); ?>
                                 <a class="gabos-hero-nav-shop" href="<?php echo esc_url(home_url('/shop/')); ?>">shop</a>
                             </div>
                             <a class="gabos-hero-logo" href="<?php echo esc_url(home_url('/')); ?>" aria-label="Gabos home">

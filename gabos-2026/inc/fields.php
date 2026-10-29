@@ -104,6 +104,24 @@ function gabos_2026_menu_link($post_id) {
     );
 }
 
+/** PDF menu link: new tab only (never `download` — same-origin PDFs would save to disk). */
+function gabos_2026_menu_link_html($menu, $class = '') {
+    $attrs = array(
+        'href' => esc_url($menu['url']),
+        'target' => '_blank',
+        'rel' => 'noopener noreferrer',
+        'data-gabos-menu-link' => '1',
+    );
+    if ($class !== '') {
+        $attrs['class'] = $class;
+    }
+    $parts = array();
+    foreach ($attrs as $name => $value) {
+        $parts[] = sprintf('%s="%s"', esc_attr($name), esc_attr($value));
+    }
+    return sprintf('<a %s>%s</a>', implode(' ', $parts), esc_html($menu['label']));
+}
+
 function gabos_2026_column($field) {
     if (!isset($field['wrapper']) || !is_array($field['wrapper'])) {
         $field['wrapper'] = array(

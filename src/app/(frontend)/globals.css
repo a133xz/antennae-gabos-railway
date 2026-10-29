@@ -108,7 +108,7 @@
   }
 }
 
-/* Empty cart / shop coming soon ≤767px: in-flow center between header and footer. */
+/* Empty cart / shop coming soon ≤767px: centered in view, extra pad below for scroll. */
 @media screen and (max-width: 767px) {
   .gabos-page-white:has(.cart-empty) main,
   .gabos-page-white:has(.shop-coming-soon) main {
@@ -119,7 +119,25 @@
 
   .gabos-page-white:has(.cart-empty) footer,
   .gabos-page-white:has(.shop-coming-soon) footer {
-    margin-top: 0;
+    margin-top: var(--store-vertical-edge-gap);
+  }
+
+  .shop-coming-soon,
+  .cart-empty {
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: calc(100dvh - 11rem);
+    padding-top: calc(var(--store-vertical-edge-gap) + 48px);
+    padding-bottom: calc(var(--store-vertical-edge-gap) + 48px + min(28dvh, 240px));
+  }
+
+  .shop-coming-soon p,
+  .cart-empty p {
+    display: block;
+    flex: none;
+    min-height: 0;
   }
 }
 
@@ -262,7 +280,7 @@
     padding-top: var(--store-vertical-edge-gap);
   }
 
-  .gabos-page-white:has(.store-cart) main {
+  .gabos-page-white:has(.store-cart):not(:has(.cart-empty)):not(:has(.shop-coming-soon)) main {
     padding-top: var(--store-vertical-edge-gap);
   }
 

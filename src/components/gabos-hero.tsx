@@ -63,7 +63,7 @@ export function GabosHero({ settings }: { settings: SiteSettings }) {
             <GabosNavLink
               href={settings.menuPdfUrl}
               label="Menu"
-              download
+              external
               className={`${navLink} gabos-hero-nav-menu`}
             />
             <GabosNavLink href="/shop" label="shop" className={`${navLink} gabos-hero-nav-shop`} />

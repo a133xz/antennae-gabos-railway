@@ -13,7 +13,7 @@ export function GabosStoreHeader({
   surface?: 'white' | 'shop'
 }) {
   const navItems: StoreNavItem[] = [
-    { label: 'Menu', href: settings.menuPdfUrl, download: true, external: true },
+    { label: 'Menu', href: settings.menuPdfUrl, external: true },
     { label: 'shop', href: '/shop', activePrefix: '/shop' },
     { label: 'book', href: settings.bookUrl, external: true },
     { label: 'contact', href: '/contact' },
