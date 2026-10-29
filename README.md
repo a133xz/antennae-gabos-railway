@@ -1,6 +1,7 @@
 # Gabos
 
-Next.js site for Gabo's.
+**Production:** WordPress theme in `gabos-2026/` — deploy with `npm run deploy:theme`.  
+The Next.js app in `src/` is **not** live anymore (legacy). See [docs/wordpress-production.md](docs/wordpress-production.md).
 
 ## Requirements
 

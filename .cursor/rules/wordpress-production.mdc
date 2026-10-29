@@ -1,0 +1,25 @@
+---
+description: Production is WordPress (gabos-2026); do not edit the Next.js app unless explicitly asked
+alwaysApply: true
+---
+
+# WordPress is production
+
+This repo transitioned off the Next.js frontend. **Live site = WordPress theme `gabos-2026/` only.**
+
+## Do
+
+- Implement UI, shop/cart, and layout in **`gabos-2026/`** (PHP templates, `style.css`, theme JS if any).
+- Deploy with **`npm run deploy:theme`** (FTP upload of changed files under `gabos-2026/` only).
+- Use **`docs/mobile-nav-breakpoints.md`** for breakpoint tokens when relevant.
+
+## Do not (default)
+
+- Do **not** change **`src/`**, **`public/`** (for Next), or Next **`app/`** routes unless the user **explicitly** asks to work on the React site again.
+- Do **not** assume `npm run dev` / Vercel reflects what users see in production.
+
+## If the user reports a bug on the live site
+
+Fix it in **`gabos-2026/`**, then remind them to run `npm run deploy:theme` (or `--all` if git-based diff missed files).
+
+See **`docs/wordpress-production.md`**.
