@@ -324,7 +324,7 @@ function gabos_2026_contact_field_layout($parent_key, $existing) {
         }
     }
 
-    $text = function ($key, $name, $label, $instructions = '', $width = '') use ($parent_key, $by_name) {
+    $text = function ($key, $name, $label, $placeholder, $width = '') use ($parent_key, $by_name) {
         if (isset($by_name[$name])) {
             $field = $by_name[$name];
         } else {
@@ -336,9 +336,7 @@ function gabos_2026_contact_field_layout($parent_key, $existing) {
             );
         }
         $field['label'] = $label;
-        if ($instructions !== '') {
-            $field['instructions'] = $instructions;
-        }
+        $field['placeholder'] = $placeholder;
         $field['parent'] = $parent_key;
         return $width !== '' ? gabos_2026_field_width($field, $width) : $field;
     };
@@ -349,77 +347,77 @@ function gabos_2026_contact_field_layout($parent_key, $existing) {
             'label' => '',
             'name' => '',
             'type' => 'message',
-            'message' => 'One block for the contact curtain. Leave fields empty to keep the theme default.',
+            'message' => 'Leave a field empty to use the grey placeholder text on the live site.',
             'parent' => $parent_key,
         ),
         $text(
             'field_gabos_2026_contact_hours_heading',
             'contact_hours_heading',
             'Opening hours heading',
-            'Leave empty to keep ' . GABOS_2026_CONTACT_HOURS_HEADING,
+            GABOS_2026_CONTACT_HOURS_HEADING,
             '50'
         ),
         $text(
             'field_gabos_2026_contact_hours_tue_wed',
             'contact_hours_tue_wed',
             'Tuesday -- Wednesday',
-            'Leave empty to keep ' . GABOS_2026_CONTACT_HOURS_TUE_WED,
+            GABOS_2026_CONTACT_HOURS_TUE_WED,
             '50'
         ),
         $text(
             'field_gabos_2026_contact_hours_thu_fri',
             'contact_hours_thu_fri',
             'Thursday -- Friday',
-            'Leave empty to keep ' . GABOS_2026_CONTACT_HOURS_THU_FRI,
+            GABOS_2026_CONTACT_HOURS_THU_FRI,
             '50'
         ),
         $text(
             'field_gabos_2026_contact_hours_sat',
             'contact_hours_sat',
             'Saturday',
-            'Leave empty to keep ' . GABOS_2026_CONTACT_HOURS_SAT,
+            GABOS_2026_CONTACT_HOURS_SAT,
             '50'
         ),
         $text(
             'field_gabos_2026_contact_phone',
             'number',
             'Phone',
-            'Leave empty to keep ' . GABOS_2026_PHONE . '.',
+            GABOS_2026_PHONE,
             '50'
         ),
         $text(
             'field_gabos_2026_contact_phone_hours',
             'contact_phone_hours',
             'Phone hours',
-            'Leave empty to keep ' . GABOS_2026_PHONE_HOURS . '.',
+            GABOS_2026_PHONE_HOURS,
             '50'
         ),
         $text(
             'field_gabos_2026_email_res_label',
             'email_res_label',
             'Reservation label',
-            'Leave empty to keep RESERVAS on the site.',
+            GABOS_2026_EMAIL_RES_LABEL,
             '50'
         ),
         $text(
             'field_gabos_2026_email_res',
             'email_res',
             'Reservation email',
-            'Leave empty to keep ' . GABOS_2026_EMAIL_RES . '.',
+            GABOS_2026_EMAIL_RES,
             '50'
         ),
         $text(
             'field_gabos_2026_email_admin_label',
             'email_admin_label',
             'Administration label',
-            'Leave empty to keep ADMINISTRACION Y PR on the site.',
+            GABOS_2026_EMAIL_ADMIN_LABEL,
             '50'
         ),
         $text(
             'field_gabos_2026_email_admin',
             'email_admin',
             'Administration email',
-            'Leave empty to keep ' . GABOS_2026_EMAIL_ADMIN . '.',
+            GABOS_2026_EMAIL_ADMIN,
             '50'
         ),
     );
