@@ -130,8 +130,8 @@ function gabos_2026_like_menu_field($menu_field, $key, $name, $label) {
     return gabos_2026_column($field);
 }
 
-function gabos_2026_on_field($parent_key, $key, $name) {
-    return gabos_2026_column(array(
+function gabos_2026_on_field($parent_key, $key, $name, $instructions = '') {
+    $field = array(
         'key' => $key,
         'label' => 'On',
         'name' => $name,
@@ -139,7 +139,11 @@ function gabos_2026_on_field($parent_key, $key, $name) {
         'ui' => 0,
         'message' => 'On',
         'parent' => $parent_key,
-    ));
+    );
+    if ($instructions !== '') {
+        $field['instructions'] = $instructions;
+    }
+    return gabos_2026_column($field);
 }
 
 function gabos_2026_home_page_fields($fields, $parent) {
@@ -163,7 +167,15 @@ function gabos_2026_home_page_fields($fields, $parent) {
     }
 
     $parent_key = $parent['key'];
-    $pull = array('logo' => true, 'book' => true, 'menu' => true, 'on_off' => true, 'special_menu_text' => true, 'special_menu_file' => true);
+    $pull = array(
+        'logo' => true,
+        'book' => true,
+        'follow' => true,
+        'menu' => true,
+        'on_off' => true,
+        'special_menu_text' => true,
+        'special_menu_file' => true,
+    );
     $kept = array();
     $menu_seen = false;
     foreach ($fields as $field) {
@@ -177,35 +189,59 @@ function gabos_2026_home_page_fields($fields, $parent) {
                 }
                 $menu['wrapper']['width'] = '';
                 $kept[] = $menu;
-                $kept[] = gabos_2026_like_menu_field($menu, 'field_gabos_2026_brunch_menu', 'brunch_menu', 'Brunch menu');
-                $kept[] = gabos_2026_on_field($parent_key, 'field_gabos_2026_brunch_on', 'brunch_on');
+                $special_menu = gabos_2026_like_menu_field($menu, 'field_gabos_2026_brunch_menu', 'brunch_menu', 'Special menu');
+                $special_menu['instructions'] = 'PDF used when the row below is on. Replaces the Menu link only.';
+                $kept[] = $special_menu;
+                $kept[] = gabos_2026_on_field(
+                    $parent_key,
+                    'field_gabos_2026_brunch_on',
+                    'brunch_on',
+                    'Replaces the Menu link with Special menu.'
+                );
                 $kept[] = gabos_2026_column(array(
                     'key' => 'field_gabos_2026_brunch_label',
-                    'label' => 'Label',
+                    'label' => 'Menu link label',
                     'name' => 'brunch_label',
                     'type' => 'text',
                     'placeholder' => 'Brunch menu',
+                    'instructions' => 'Text on the main Menu link when Special menu is on.',
                     'parent' => $parent_key,
                 ));
                 if (isset($by_name['special_menu_file'])) {
-                    $kept[] = gabos_2026_column($by_name['special_menu_file']);
+                    $christmas_file = gabos_2026_column($by_name['special_menu_file']);
+                    $christmas_file['label'] = 'Christmas menu';
+                    $christmas_file['instructions'] = 'PDF for the extra seasonal link above the navigation.';
+                    $kept[] = $christmas_file;
                 } else {
-                    $kept[] = gabos_2026_like_menu_field($menu, 'field_gabos_2026_christmas_file', 'special_menu_file', 'Christmas menu');
+                    $christmas_file = gabos_2026_like_menu_field($menu, 'field_gabos_2026_christmas_file', 'special_menu_file', 'Christmas menu');
+                    $christmas_file['instructions'] = 'PDF for the extra seasonal link above the navigation.';
+                    $kept[] = $christmas_file;
                 }
                 if (isset($by_name['on_off'])) {
-                    $kept[] = gabos_2026_column($by_name['on_off']);
+                    $christmas_on = gabos_2026_column($by_name['on_off']);
+                    $christmas_on['instructions'] = 'Shows the extra seasonal link above the navigation. Does not replace Menu.';
+                    $kept[] = $christmas_on;
                 } else {
-                    $kept[] = gabos_2026_on_field($parent_key, 'field_gabos_2026_christmas', 'on_off');
+                    $kept[] = gabos_2026_on_field(
+                        $parent_key,
+                        'field_gabos_2026_christmas',
+                        'on_off',
+                        'Shows the extra seasonal link above the navigation. Does not replace Menu.'
+                    );
                 }
                 if (isset($by_name['special_menu_text'])) {
-                    $kept[] = gabos_2026_column($by_name['special_menu_text']);
+                    $christmas_label = gabos_2026_column($by_name['special_menu_text']);
+                    $christmas_label['label'] = 'Link label';
+                    $christmas_label['instructions'] = 'Text on the extra link, e.g. nye menu.';
+                    $kept[] = $christmas_label;
                 } else {
                     $kept[] = gabos_2026_column(array(
                         'key' => 'field_gabos_2026_christmas_label',
-                        'label' => 'Special menu text',
+                        'label' => 'Link label',
                         'name' => 'special_menu_text',
                         'type' => 'text',
                         'placeholder' => 'nye menu',
+                        'instructions' => 'Text on the extra link, e.g. nye menu.',
                         'parent' => $parent_key,
                     ));
                 }
@@ -218,7 +254,7 @@ function gabos_2026_home_page_fields($fields, $parent) {
     if (isset($by_name['book'])) {
         $book_at = null;
         foreach ($kept as $index => $field) {
-            if (isset($field['name']) && ($field['name'] === 'special_menu_text' || $field['name'] === 'brunch_label')) {
+            if (isset($field['name']) && $field['name'] === 'special_menu_text') {
                 $book_at = $index + 1;
             }
         }
@@ -309,6 +345,13 @@ add_action('acf/init', function () {
                 'label' => 'Instagram',
                 'type' => 'tab',
                 'placement' => 'top',
+            ),
+            array(
+                'key' => 'field_gabos_2026_follow',
+                'label' => 'Follow',
+                'name' => 'follow',
+                'type' => 'url',
+                'instructions' => 'Insert the link to your social media profile here. Leave empty to keep https://www.instagram.com/gabosmadrid/',
             ),
             array(
                 'key' => 'field_gabos_2026_ig_label',
