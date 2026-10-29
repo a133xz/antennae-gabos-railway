@@ -34,6 +34,8 @@ Text Domain: gabos-2026
   --body: 1rem;
   --shop-before-footer: 150px;
   --store-vertical-edge-gap: 104px;
+  --store-placeholder-header: calc(var(--gutter-top, 20px) + 2.5rem);
+  --store-placeholder-scroll-pad: min(28dvh, 240px);
   --cart-top-min: 113px;
   --cart-top-max: 242px;
   --cart-top-height-min: 50rem;
@@ -872,19 +874,16 @@ body.gabos-store:has(.shop-coming-soon) {
 
 .shop-coming-soon,
 .cart-empty {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: calc(100dvh - var(--store-placeholder-header)) auto;
   width: 100%;
-  min-height: calc(100dvh - 8rem);
   padding: 0;
 }
 
 .shop-coming-soon p,
 .cart-empty p {
+  grid-row: 1;
+  place-self: center;
   width: min(909px, 90vw);
   margin: 0;
   text-align: center;
@@ -934,10 +933,11 @@ body.gabos-store:has(.shop-coming-soon) {
     transform-origin: center center;
   }
 
-  .shop-coming-soon,
-  .cart-empty {
-    min-height: calc(100dvh - 7rem);
-    padding-bottom: min(28dvh, 240px);
+  .shop-coming-soon::after,
+  .cart-empty::after {
+    content: '';
+    grid-row: 2;
+    height: var(--store-placeholder-scroll-pad);
   }
 }
 

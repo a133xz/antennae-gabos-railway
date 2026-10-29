@@ -89,7 +89,9 @@ export function CartView() {
   if (lines.length === 0) {
     return (
       <div className={`store-cart cart-empty ${fade}`}>
-        <p className="text-center text-[32px] uppercase leading-none">your cart is empty</p>
+        <div className="store-placeholder-viewport">
+          <p className="text-[32px] uppercase leading-none">your cart is empty</p>
+        </div>
       </div>
     )
   }

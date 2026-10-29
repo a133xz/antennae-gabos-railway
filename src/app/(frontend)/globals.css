@@ -45,6 +45,9 @@
    * and from last line (subtotal / add to cart) → footer Gabos logo.
    */
   --store-vertical-edge-gap: 104px;
+  /* Placeholder pages: header block (gutter + nav row) for viewport-centered copy. */
+  --store-placeholder-header: calc(var(--gutter-top) + 2.5rem);
+  --store-placeholder-scroll-pad: min(28dvh, 240px);
   /* Stacked copy / cart actions / footer groups (≤1023px). */
   --store-vertical-stack-gap: 40px;
   --store-vertical-stack-gap-wide: 72px;
@@ -108,7 +111,7 @@
   }
 }
 
-/* Coming soon / empty cart: in-flow center (scrolls with page), extra space below on mobile. */
+/* Coming soon / empty cart: in-flow, optically centered in viewport (not fixed). */
 .gabos-page-white:has(.cart-empty) main,
 .gabos-page-white:has(.shop-coming-soon) main {
   display: flex;
@@ -121,20 +124,38 @@
 .shop-coming-soon,
 .cart-empty {
   display: flex;
-  flex: 1 1 auto;
   flex-direction: column;
+  width: 100%;
+}
+
+.store-placeholder-viewport {
+  display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
-  min-height: calc(100dvh - 8rem);
-  padding: 0;
+  min-height: calc(100dvh - var(--store-placeholder-header));
 }
 
-.shop-coming-soon p,
-.cart-empty p {
+.store-placeholder-viewport p,
+.shop-coming-soon:not(:has(.store-placeholder-viewport)) p,
+.cart-empty:not(:has(.store-placeholder-viewport)) p {
   width: min(909px, 90vw);
   margin: 0;
+  text-align: center;
+}
+
+.shop-coming-soon:not(:has(.store-placeholder-viewport)),
+.cart-empty:not(:has(.store-placeholder-viewport)) {
+  display: grid;
+  grid-template-rows: calc(100dvh - var(--store-placeholder-header)) auto;
+}
+
+.shop-coming-soon:not(:has(.store-placeholder-viewport)) p,
+.cart-empty:not(:has(.store-placeholder-viewport)) p {
+  grid-row: 1;
+  place-self: center;
 }
 
 @media screen and (max-width: 767px) {
@@ -143,10 +164,17 @@
     margin-top: var(--store-vertical-edge-gap);
   }
 
-  .shop-coming-soon,
-  .cart-empty {
-    min-height: calc(100dvh - 7rem);
-    padding-bottom: min(28dvh, 240px);
+  .shop-coming-soon::after,
+  .cart-empty::after {
+    content: '';
+    flex: 0 0 var(--store-placeholder-scroll-pad);
+    width: 100%;
+  }
+
+  .shop-coming-soon:not(:has(.store-placeholder-viewport))::after,
+  .cart-empty:not(:has(.store-placeholder-viewport))::after {
+    grid-row: 2;
+    height: var(--store-placeholder-scroll-pad);
   }
 }
 
