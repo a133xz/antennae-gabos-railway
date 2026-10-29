@@ -308,25 +308,71 @@ function gabos_2026_default_hours_text() {
     return implode("\n", gabos_2026_default_hours_lines());
 }
 
+function gabos_2026_line_looks_like_phone($line) {
+    $line = trim($line);
+    if ($line === '') {
+        return true;
+    }
+    if (preg_match('/^\s*T:\s*\d/u', $line)) {
+        return true;
+    }
+    if (preg_match('/\b(tel|telephone|phone)\b/i', $line)) {
+        return true;
+    }
+    if (preg_match('/^\d[\d\s]{7,}\s*$/u', $line)) {
+        return true;
+    }
+    return false;
+}
+
+/** Drop phone/reservation lines mistakenly stored in opening hours. */
+function gabos_2026_filter_opening_hours_lines(array $lines) {
+    $out = array();
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if ($line === '' || gabos_2026_line_looks_like_phone($line)) {
+            continue;
+        }
+        $out[] = $line;
+    }
+    return $out;
+}
+
+function gabos_2026_opening_hours_lines_are_complete(array $lines) {
+    $defaults = gabos_2026_default_hours_lines();
+    if (count($lines) < count($defaults)) {
+        return false;
+    }
+    $blob = strtolower(implode("\n", $lines));
+    if (strpos($blob, 'saturday') === false) {
+        return false;
+    }
+    return true;
+}
+
 function gabos_2026_contact_hours_lines($post_id) {
+    $defaults = gabos_2026_default_hours_lines();
     $raw = '';
     if ($post_id && function_exists('get_field')) {
         $value = get_field('contact_hours', $post_id);
         if (is_string($value) && trim($value) !== '') {
             $raw = $value;
-        } else {
-            $legacy = get_field('details', $post_id);
-            if (is_string($legacy) && trim($legacy) !== '') {
-                $raw = wp_strip_all_tags(str_replace(array('<br />', '<br/>', '<br>', '</p>', '</div>'), "\n", $legacy));
-            }
         }
     }
     if (trim($raw) === '') {
-        return gabos_2026_default_hours_lines();
+        return $defaults;
+    }
+    if (strpos($raw, '<') !== false) {
+        $raw = wp_strip_all_tags(str_replace(array('<br />', '<br/>', '<br>', '</p>', '</div>'), "\n", $raw));
     }
     $lines = preg_split('/\r\n|\r|\n/', $raw);
     $lines = array_map('trim', $lines);
-    return array_values(array_filter($lines, 'strlen'));
+    $lines = array_values(array_filter($lines, 'strlen'));
+    $lines = gabos_2026_filter_opening_hours_lines($lines);
+    if ($lines === array() || !gabos_2026_opening_hours_lines_are_complete($lines)) {
+        return $defaults;
+    }
+    return $lines;
 }
 
 function gabos_2026_field_width($field, $width) {
