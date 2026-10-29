@@ -18,7 +18,7 @@ require get_template_directory() . '/template-parts/document-open.php';
                 <span></span>
             </div>
             <nav class="store-mobile-panel" aria-label="Primary" hidden>
-                <a href="<?php echo esc_url($menu['url']); ?>" download><?php echo esc_html($menu['label']); ?></a>
+                <a href="<?php echo esc_url($menu['url']); ?>" download target="_blank" rel="noopener noreferrer"><?php echo esc_html($menu['label']); ?></a>
                 <a class="is-active" href="<?php echo esc_url(home_url('/shop/')); ?>">shop</a>
                 <a href="<?php echo esc_url($book_url); ?>" target="_blank" rel="noopener noreferrer">book</a>
                 <a href="<?php echo esc_url($contact_url); ?>">contact</a>
@@ -27,7 +27,7 @@ require get_template_directory() . '/template-parts/document-open.php';
         <div class="store-desktop">
             <a class="store-brand" href="<?php echo esc_url(home_url('/')); ?>">gabos</a>
             <nav aria-label="Primary">
-                <a href="<?php echo esc_url($menu['url']); ?>" download><?php echo esc_html($menu['label']); ?></a>
+                <a href="<?php echo esc_url($menu['url']); ?>" download target="_blank" rel="noopener noreferrer"><?php echo esc_html($menu['label']); ?></a>
                 <a class="is-active" href="<?php echo esc_url(home_url('/shop/')); ?>">shop</a>
                 <a href="<?php echo esc_url($book_url); ?>" target="_blank" rel="noopener noreferrer">book</a>
                 <a href="<?php echo esc_url($contact_url); ?>">contact</a>
