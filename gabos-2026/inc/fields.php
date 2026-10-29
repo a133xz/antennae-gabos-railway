@@ -14,6 +14,8 @@ const GABOS_2026_PHONE = '91 639 1343';
 const GABOS_2026_PHONE_HOURS = 'Tue -- Sat 17.00-22.00';
 const GABOS_2026_EMAIL_RES = 'reservas@gabosnewyork.com';
 const GABOS_2026_EMAIL_ADMIN = 'sala@gabosnewyork.com';
+const GABOS_2026_EMAIL_RES_LABEL = 'RESERVAS';
+const GABOS_2026_EMAIL_ADMIN_LABEL = 'ADMINISTRACION Y PR';
 
 function gabos_2026_asset($file) {
     return get_template_directory_uri() . '/assets/' . ltrim($file, '/');
@@ -275,6 +277,164 @@ function gabos_2026_home_page_fields($fields, $parent) {
     return $kept;
 }
 
+function gabos_2026_default_hours_lines() {
+    return array(
+        'Opening hours:',
+        'Tuesday -- Wednesday 19.30 a 02.00',
+        'Thursday -- Friday 13.00 a 02.00',
+        'Saturday 12.30 a 02.00',
+    );
+}
+
+function gabos_2026_default_hours_text() {
+    return implode("\n", gabos_2026_default_hours_lines());
+}
+
+function gabos_2026_contact_hours_lines($post_id) {
+    $raw = '';
+    if ($post_id && function_exists('get_field')) {
+        $value = get_field('contact_hours', $post_id);
+        if (is_string($value) && trim($value) !== '') {
+            $raw = $value;
+        } else {
+            $legacy = get_field('details', $post_id);
+            if (is_string($legacy) && trim($legacy) !== '') {
+                $raw = wp_strip_all_tags(str_replace(array('<br />', '<br/>', '<br>', '</p>', '</div>'), "\n", $legacy));
+            }
+        }
+    }
+    if (trim($raw) === '') {
+        return gabos_2026_default_hours_lines();
+    }
+    $lines = preg_split('/\r\n|\r|\n/', $raw);
+    $lines = array_map('trim', $lines);
+    return array_values(array_filter($lines, 'strlen'));
+}
+
+function gabos_2026_field_width($field, $width) {
+    if (!isset($field['wrapper']) || !is_array($field['wrapper'])) {
+        $field['wrapper'] = array('width' => '', 'class' => '', 'id' => '');
+    }
+    $field['wrapper']['width'] = (string) $width;
+    return $field;
+}
+
+function gabos_2026_contact_field_layout($parent_key, $existing) {
+    $by_name = array();
+    foreach ($existing as $field) {
+        if (!empty($field['name']) && !isset($by_name[$field['name']])) {
+            $by_name[$field['name']] = $field;
+        }
+    }
+
+    $text = function ($key, $name, $label, $instructions = '', $width = '') use ($parent_key, $by_name) {
+        if (isset($by_name[$name])) {
+            $field = $by_name[$name];
+        } else {
+            $field = array(
+                'key' => $key,
+                'name' => $name,
+                'type' => 'text',
+                'parent' => $parent_key,
+            );
+        }
+        $field['label'] = $label;
+        if ($instructions !== '') {
+            $field['instructions'] = $instructions;
+        }
+        $field['parent'] = $parent_key;
+        return $width !== '' ? gabos_2026_field_width($field, $width) : $field;
+    };
+
+    $default_hours = gabos_2026_default_hours_text();
+    $fields = array(
+        array(
+            'key' => 'field_gabos_2026_contact_intro',
+            'label' => '',
+            'name' => '',
+            'type' => 'message',
+            'message' => 'One block for the contact curtain. Leave fields empty to keep the theme default.',
+            'parent' => $parent_key,
+        ),
+        array(
+            'key' => 'field_gabos_2026_contact_hours',
+            'label' => 'Opening hours',
+            'name' => 'contact_hours',
+            'type' => 'textarea',
+            'rows' => 6,
+            'new_lines' => 'br',
+            'parent' => $parent_key,
+            'instructions' => "Leave empty to use:\n" . $default_hours,
+        ),
+        $text(
+            'field_gabos_2026_contact_phone',
+            'number',
+            'Phone',
+            'Leave empty to keep ' . GABOS_2026_PHONE . '.',
+            '50'
+        ),
+        $text(
+            'field_gabos_2026_contact_phone_hours',
+            'contact_phone_hours',
+            'Phone hours',
+            'Leave empty to keep ' . GABOS_2026_PHONE_HOURS . '.',
+            '50'
+        ),
+        $text(
+            'field_gabos_2026_email_res_label',
+            'email_res_label',
+            'Reservation label',
+            'Shown above the reservation email. Leave empty to keep RESERVAS.',
+            ''
+        ),
+        $text(
+            'field_gabos_2026_email_res',
+            'email_res',
+            'Reservation email',
+            'Leave empty to keep ' . GABOS_2026_EMAIL_RES . '.',
+            ''
+        ),
+        $text(
+            'field_gabos_2026_email_admin_label',
+            'email_admin_label',
+            'Administration label',
+            'Shown above the admin email. Leave empty to keep ADMINISTRACION Y PR.',
+            ''
+        ),
+        $text(
+            'field_gabos_2026_email_admin',
+            'email_admin',
+            'Administration email',
+            'Leave empty to keep ' . GABOS_2026_EMAIL_ADMIN . '.',
+            ''
+        ),
+    );
+
+    foreach ($fields as $order => $field) {
+        $fields[$order]['menu_order'] = $order;
+        if (empty($fields[$order]['parent'])) {
+            $fields[$order]['parent'] = $parent_key;
+        }
+    }
+    return $fields;
+}
+
+function gabos_2026_contact_page_fields($fields, $parent) {
+    if (!is_array($parent) || empty($parent['title']) || !is_array($fields)) {
+        return $fields;
+    }
+    $title = $parent['title'];
+    if ($title !== 'Contact' && $title !== 'Contact page' && $title !== 'Contact extra') {
+        return $fields;
+    }
+    foreach ($fields as $field) {
+        if (isset($field['name']) && $field['name'] === 'contact_hours') {
+            return $fields;
+        }
+    }
+    return gabos_2026_contact_field_layout($parent['key'], $fields);
+}
+
 function gabos_2026_hour_parts($line) {
     if (preg_match('/^(.+?)\s+(\d{1,2}\.\d{2}\s+a\s+\d{1,2}\.\d{2})$/', $line, $match)) {
         return array($match[1], $match[2]);
@@ -283,6 +443,29 @@ function gabos_2026_hour_parts($line) {
 }
 
 add_filter('acf/load_fields', 'gabos_2026_home_page_fields', 20, 2);
+add_filter('acf/load_fields', 'gabos_2026_contact_page_fields', 20, 2);
+
+add_filter('acf/load_field_group', function ($group) {
+    if (!is_array($group) || empty($group['location'])) {
+        return $group;
+    }
+    $contact_template = false;
+    foreach ($group['location'] as $rules) {
+        if (!is_array($rules)) {
+            continue;
+        }
+        foreach ($rules as $rule) {
+            if (($rule['param'] ?? '') === 'page_template' && ($rule['value'] ?? '') === 'page-contact.php') {
+                $contact_template = true;
+                break 2;
+            }
+        }
+    }
+    if ($contact_template && ($group['key'] ?? '') !== 'group_gabos_2026_contact') {
+        $group['active'] = false;
+    }
+    return $group;
+});
 
 add_action('acf/init', function () {
     if (!function_exists('acf_add_local_field_group')) {
@@ -393,16 +576,8 @@ add_action('acf/init', function () {
 
     acf_add_local_field_group(array(
         'key' => 'group_gabos_2026_contact',
-        'title' => 'Contact extra',
-        'fields' => array(
-            array(
-                'key' => 'field_gabos_2026_phone_hours',
-                'label' => 'Phone hours',
-                'name' => 'contact_phone_hours',
-                'type' => 'text',
-                'instructions' => 'Line under the phone number. Leave empty to hide it when Details is already filled in.',
-            ),
-        ),
+        'title' => 'Contact',
+        'fields' => gabos_2026_contact_field_layout('group_gabos_2026_contact', array()),
         'location' => array(
             array(
                 array(
@@ -414,6 +589,7 @@ add_action('acf/init', function () {
         ),
         'position' => 'normal',
         'style' => 'default',
+        'label_placement' => 'top',
         'active' => true,
     ));
 });

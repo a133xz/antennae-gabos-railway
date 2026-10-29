@@ -8,13 +8,9 @@ $phone = gabos_2026_text('number', $post_id, GABOS_2026_PHONE);
 $phone_hours = gabos_2026_text('contact_phone_hours', $post_id, GABOS_2026_PHONE_HOURS);
 $email_res = gabos_2026_text('email_res', $post_id, GABOS_2026_EMAIL_RES);
 $email_admin = gabos_2026_text('email_admin', $post_id, GABOS_2026_EMAIL_ADMIN);
-
-$default_hours = array(
-    'Opening hours:',
-    'Tuesday -- Wednesday 19.30 a 02.00',
-    'Thursday -- Friday 13.00 a 02.00',
-    'Saturday 12.30 a 02.00',
-);
+$email_res_label = gabos_2026_text('email_res_label', $post_id, GABOS_2026_EMAIL_RES_LABEL);
+$email_admin_label = gabos_2026_text('email_admin_label', $post_id, GABOS_2026_EMAIL_ADMIN_LABEL);
+$hours_lines = gabos_2026_contact_hours_lines($post_id);
 
 $gabos_locked = true;
 require get_template_directory() . '/template-parts/document-open.php';
@@ -25,7 +21,7 @@ require get_template_directory() . '/template-parts/document-open.php';
         <div class="linkContainer">
             <div class="details item">
                 <p>
-                    <?php foreach ($default_hours as $line) : ?>
+                    <?php foreach ($hours_lines as $line) : ?>
                         <?php list($days, $time) = gabos_2026_hour_parts($line); ?>
                         <span class="hours-line">
                             <?php if ($time) : ?>
@@ -46,11 +42,11 @@ require get_template_directory() . '/template-parts/document-open.php';
                 <?php endif; ?>
             </div>
             <?php if ($email_res !== '') : ?>
-                <p class="heading">RESERVAS</p>
+                <p class="heading"><?php echo esc_html($email_res_label); ?></p>
                 <a class="email item" href="<?php echo esc_url('mailto:' . $email_res); ?>"><?php echo esc_html($email_res); ?></a>
             <?php endif; ?>
             <?php if ($email_admin !== '') : ?>
-                <p class="heading">ADMINISTRACION Y PR</p>
+                <p class="heading"><?php echo esc_html($email_admin_label); ?></p>
                 <a class="email item" href="<?php echo esc_url('mailto:' . $email_admin); ?>"><?php echo esc_html($email_admin); ?></a>
             <?php endif; ?>
         </div>
