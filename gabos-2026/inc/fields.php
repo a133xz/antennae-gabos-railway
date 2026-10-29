@@ -85,6 +85,22 @@ function gabos_2026_contact_url() {
     return home_url('/contact/');
 }
 
+function gabos_2026_menu_link($post_id) {
+    $regular = gabos_2026_url('menu', $post_id, GABOS_2026_MENU_URL);
+    $branch = gabos_2026_url('branch_menu', $post_id, '');
+    $choice = ($post_id && function_exists('get_field')) ? get_field('menu_choice', $post_id) : '';
+    if ($choice === 'branch' && $branch !== '') {
+        return array(
+            'url' => $branch,
+            'label' => 'Branch menu',
+        );
+    }
+    return array(
+        'url' => $regular,
+        'label' => 'Menu',
+    );
+}
+
 function gabos_2026_hour_parts($line) {
     if (preg_match('/^(.+?)\s+(\d{1,2}\.\d{2}\s+a\s+\d{1,2}\.\d{2})$/', $line, $match)) {
         return array($match[1], $match[2]);
@@ -101,6 +117,12 @@ add_action('acf/init', function () {
         'key' => 'group_gabos_2026_home',
         'title' => 'Home landing',
         'fields' => array(
+            array(
+                'key' => 'field_gabos_2026_tab_landing',
+                'label' => 'Landing',
+                'type' => 'tab',
+                'placement' => 'top',
+            ),
             array(
                 'key' => 'field_gabos_2026_statement',
                 'label' => 'Statement',
@@ -130,22 +152,130 @@ add_action('acf/init', function () {
                 'instructions' => 'Still frame shown before the video plays.',
             ),
             array(
+                'key' => 'field_gabos_2026_tab_menus',
+                'label' => 'Menus',
+                'type' => 'tab',
+                'placement' => 'top',
+            ),
+            array(
+                'key' => 'field_gabos_2026_menu',
+                'label' => 'Menu',
+                'name' => 'menu',
+                'type' => 'file',
+                'return_format' => 'array',
+                'library' => 'all',
+                'mime_types' => 'pdf',
+                'instructions' => 'Regular menu PDF. Leave empty to keep the file already on the site.',
+            ),
+            array(
+                'key' => 'field_gabos_2026_branch_menu',
+                'label' => 'Branch menu',
+                'name' => 'branch_menu',
+                'type' => 'file',
+                'return_format' => 'array',
+                'library' => 'all',
+                'mime_types' => 'pdf',
+                'instructions' => 'PDF used when the menu link is set to Branch menu.',
+            ),
+            array(
+                'key' => 'field_gabos_2026_menu_choice',
+                'label' => 'Menu link shows',
+                'name' => 'menu_choice',
+                'type' => 'button_group',
+                'choices' => array(
+                    'regular' => 'Menu',
+                    'branch' => 'Branch menu',
+                ),
+                'default_value' => 'regular',
+                'return_format' => 'value',
+                'layout' => 'horizontal',
+                'instructions' => 'Switches the Menu link on the home page and the shop. Branch menu is used only after a PDF is uploaded above.',
+            ),
+            array(
+                'key' => 'field_gabos_2026_christmas',
+                'label' => 'Show Christmas menu',
+                'name' => 'on_off',
+                'type' => 'true_false',
+                'ui' => 1,
+                'ui_on_text' => 'Shown',
+                'ui_off_text' => 'Hidden',
+                'instructions' => 'Adds the seasonal link above the home navigation. It does not replace Menu.',
+            ),
+            array(
+                'key' => 'field_gabos_2026_christmas_label',
+                'label' => 'Christmas menu label',
+                'name' => 'special_menu_text',
+                'type' => 'text',
+                'placeholder' => 'nye menu',
+                'instructions' => 'Leave empty to show “nye menu”.',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field' => 'field_gabos_2026_christmas',
+                            'operator' => '==',
+                            'value' => '1',
+                        ),
+                    ),
+                ),
+            ),
+            array(
+                'key' => 'field_gabos_2026_christmas_file',
+                'label' => 'Christmas menu PDF',
+                'name' => 'special_menu_file',
+                'type' => 'file',
+                'return_format' => 'array',
+                'library' => 'all',
+                'mime_types' => 'pdf',
+                'instructions' => 'File the seasonal link opens.',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field' => 'field_gabos_2026_christmas',
+                            'operator' => '==',
+                            'value' => '1',
+                        ),
+                    ),
+                ),
+            ),
+            array(
+                'key' => 'field_gabos_2026_tab_instagram',
+                'label' => 'Instagram',
+                'type' => 'tab',
+                'placement' => 'top',
+            ),
+            array(
+                'key' => 'field_gabos_2026_follow',
+                'label' => 'Profile link',
+                'name' => 'follow',
+                'type' => 'url',
+                'instructions' => 'Instagram profile URL. Leave empty to keep https://www.instagram.com/gabosmadrid/',
+            ),
+            array(
                 'key' => 'field_gabos_2026_ig_label',
-                'label' => 'Instagram label',
+                'label' => 'Label',
                 'name' => 'instagram_label',
                 'type' => 'text',
+                'instructions' => 'Line above the handle. Leave empty to keep “Follow us on Instagram”.',
             ),
             array(
                 'key' => 'field_gabos_2026_ig_handle',
-                'label' => 'Instagram handle',
+                'label' => 'Handle',
                 'name' => 'instagram_handle',
                 'type' => 'text',
+                'instructions' => 'Leave empty to keep @gabosmadrid.',
+            ),
+            array(
+                'key' => 'field_gabos_2026_tab_footer',
+                'label' => 'Footer',
+                'type' => 'tab',
+                'placement' => 'top',
             ),
             array(
                 'key' => 'field_gabos_2026_address',
                 'label' => 'Address',
                 'name' => 'store_address',
                 'type' => 'text',
+                'instructions' => 'Leave empty to keep Calle Prim 5, Madrid, Spain 28004.',
             ),
         ),
         'location' => array(

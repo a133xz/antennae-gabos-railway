@@ -1,6 +1,6 @@
 <?php
 $post_id = gabos_2026_front_id();
-$menu_url = gabos_2026_url('menu', $post_id, GABOS_2026_MENU_URL);
+$menu = gabos_2026_menu_link($post_id);
 $book_url = gabos_2026_url('book', $post_id, GABOS_2026_BOOK_URL);
 $contact_url = gabos_2026_contact_url();
 $gabos_plain = true;
@@ -18,7 +18,7 @@ require get_template_directory() . '/template-parts/document-open.php';
                 <span></span>
             </div>
             <nav class="store-mobile-panel" aria-label="Primary" hidden>
-                <a href="<?php echo esc_url($menu_url); ?>" download>Menu</a>
+                <a href="<?php echo esc_url($menu['url']); ?>" download><?php echo esc_html($menu['label']); ?></a>
                 <a class="is-active" href="<?php echo esc_url(home_url('/shop/')); ?>">shop</a>
                 <a href="<?php echo esc_url($book_url); ?>" target="_blank" rel="noopener noreferrer">book</a>
                 <a href="<?php echo esc_url($contact_url); ?>">contact</a>
@@ -27,7 +27,7 @@ require get_template_directory() . '/template-parts/document-open.php';
         <div class="store-desktop">
             <a class="store-brand" href="<?php echo esc_url(home_url('/')); ?>">gabos</a>
             <nav aria-label="Primary">
-                <a href="<?php echo esc_url($menu_url); ?>" download>Menu</a>
+                <a href="<?php echo esc_url($menu['url']); ?>" download><?php echo esc_html($menu['label']); ?></a>
                 <a class="is-active" href="<?php echo esc_url(home_url('/shop/')); ?>">shop</a>
                 <a href="<?php echo esc_url($book_url); ?>" target="_blank" rel="noopener noreferrer">book</a>
                 <a href="<?php echo esc_url($contact_url); ?>">contact</a>

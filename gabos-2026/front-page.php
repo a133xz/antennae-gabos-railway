@@ -1,6 +1,6 @@
 <?php
 $post_id = gabos_2026_front_id();
-$menu_url = gabos_2026_url('menu', $post_id, GABOS_2026_MENU_URL);
+$menu = gabos_2026_menu_link($post_id);
 $book_url = gabos_2026_url('book', $post_id, GABOS_2026_BOOK_URL);
 $follow_url = gabos_2026_url('follow', $post_id, GABOS_2026_FOLLOW_URL);
 $logo = gabos_2026_image('logo', $post_id);
@@ -52,7 +52,7 @@ require get_template_directory() . '/template-parts/document-open.php';
                                 <?php echo $special_url ? '</a>' : '</p>'; ?>
                             <?php endif; ?>
                             <div class="gabos-hero-nav-group">
-                                <a class="gabos-hero-nav-menu" href="<?php echo esc_url($menu_url); ?>" download>Menu</a>
+                                <a class="gabos-hero-nav-menu" href="<?php echo esc_url($menu['url']); ?>" download><?php echo esc_html($menu['label']); ?></a>
                                 <a class="gabos-hero-nav-shop" href="<?php echo esc_url(home_url('/shop/')); ?>">shop</a>
                             </div>
                             <a class="gabos-hero-logo" href="<?php echo esc_url(home_url('/')); ?>" aria-label="Gabos home">
