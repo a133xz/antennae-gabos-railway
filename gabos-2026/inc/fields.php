@@ -441,14 +441,6 @@ function gabos_2026_shop_page_field_layout($parent_key) {
 
     $fields = array(
         array(
-            'key' => 'field_gabos_2026_shop_intro',
-            'label' => '',
-            'name' => '',
-            'type' => 'message',
-            'message' => 'Visitors see ' . trailingslashit(home_url('/shop')) . ' — set permalink slug to shop-settings (not shop) so it does not clash with the public URL.',
-            'parent' => $parent_key,
-        ),
-        array(
             'key' => 'field_gabos_2026_shop_available',
             'label' => 'Shop live',
             'name' => 'shop_available',
@@ -456,7 +448,6 @@ function gabos_2026_shop_page_field_layout($parent_key) {
             'ui' => 1,
             'default_value' => 0,
             'parent' => $parent_key,
-            'instructions' => 'Off: “coming soon” on /shop/ and cart hidden.',
         ),
     );
 
@@ -596,6 +587,19 @@ function gabos_2026_hour_parts($line) {
 add_filter('acf/load_fields', 'gabos_2026_home_page_fields', 20, 2);
 add_filter('acf/load_fields', 'gabos_2026_contact_page_fields', 20, 2);
 add_filter('acf/load_fields', 'gabos_2026_shop_page_fields', 20, 2);
+
+add_filter('acf/prepare_field/name=shop_available', function ($field) {
+    if (!is_array($field)) {
+        return $field;
+    }
+    $live = !empty($field['value']);
+    if ($live) {
+        $field['instructions'] = 'Shop is live.';
+    } else {
+        $field['instructions'] = 'Coming soon is displayed.';
+    }
+    return $field;
+});
 
 add_filter('acf/load_field_group', function ($group) {
     if (!is_array($group) || empty($group['location'])) {
