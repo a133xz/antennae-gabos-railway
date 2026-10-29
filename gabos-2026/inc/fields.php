@@ -88,12 +88,12 @@ function gabos_2026_contact_url() {
 
 function gabos_2026_menu_link($post_id) {
     $regular = gabos_2026_url('menu', $post_id, GABOS_2026_MENU_URL);
-    $brunch = gabos_2026_url('brunch_menu', $post_id, GABOS_2026_BRUNCH_MENU_URL);
+    $brunch = gabos_2026_url('special_menu_file', $post_id, GABOS_2026_BRUNCH_MENU_URL);
     $brunch_on = $post_id && function_exists('get_field') && (bool) get_field('brunch_on', $post_id);
     if ($brunch_on) {
         return array(
             'url' => $brunch,
-            'label' => gabos_2026_text('brunch_label', $post_id, 'brunch'),
+            'label' => gabos_2026_text('special_menu_text', $post_id, 'brunch'),
         );
     }
     return array(
@@ -152,7 +152,7 @@ function gabos_2026_home_page_fields($fields, $parent) {
         return $fields;
     }
     foreach ($fields as $field) {
-        if (isset($field['name']) && $field['name'] === 'brunch_menu') {
+        if (isset($field['name']) && $field['name'] === 'christmas_menu_file') {
             return $fields;
         }
     }
@@ -190,36 +190,39 @@ function gabos_2026_home_page_fields($fields, $parent) {
                 }
                 $menu['wrapper']['width'] = '';
                 $kept[] = $menu;
-                $special_menu = gabos_2026_like_menu_field($menu, 'field_gabos_2026_brunch_menu', 'brunch_menu', 'Special menu');
-                $special_menu['instructions'] = 'Leave empty to use Gabos_Brunch.pdf. Used when On is ticked; replaces the Menu link only.';
-                $kept[] = $special_menu;
+                if (isset($by_name['special_menu_file'])) {
+                    $special_file = gabos_2026_column($by_name['special_menu_file']);
+                } else {
+                    $special_file = gabos_2026_like_menu_field($menu, 'field_gabos_2026_special_menu_file', 'special_menu_file', 'Special menu');
+                }
+                $special_file['label'] = 'Special menu';
+                $special_file['instructions'] = 'Leave empty to use Gabos_Brunch.pdf. Used when On is ticked; replaces the Menu link only.';
+                $kept[] = $special_file;
                 $kept[] = gabos_2026_on_field(
                     $parent_key,
                     'field_gabos_2026_brunch_on',
                     'brunch_on',
                     'Replaces the Menu link with Special menu.'
                 );
-                $kept[] = gabos_2026_column(array(
-                    'key' => 'field_gabos_2026_brunch_label',
-                    'label' => 'Menu link label',
-                    'name' => 'brunch_label',
-                    'type' => 'text',
-                    'placeholder' => 'brunch',
-                    'instructions' => 'Leave empty to show “brunch” on the Menu link when Special menu is on.',
-                    'parent' => $parent_key,
-                ));
-                if (isset($by_name['special_menu_file'])) {
-                    $christmas_file = gabos_2026_column($by_name['special_menu_file']);
-                    $christmas_file['label'] = 'Christmas menu';
-                    $christmas_file['instructions'] = 'PDF for the extra seasonal link above the navigation.';
-                    $kept[] = $christmas_file;
+                if (isset($by_name['special_menu_text'])) {
+                    $menu_label = gabos_2026_column($by_name['special_menu_text']);
                 } else {
-                    $christmas_file = gabos_2026_like_menu_field($menu, 'field_gabos_2026_christmas_file', 'special_menu_file', 'Christmas menu');
-                    $christmas_file['instructions'] = 'PDF for the extra seasonal link above the navigation.';
-                    $kept[] = $christmas_file;
+                    $menu_label = array(
+                        'key' => 'field_gabos_2026_special_menu_text',
+                        'name' => 'special_menu_text',
+                        'type' => 'text',
+                        'parent' => $parent_key,
+                    );
                 }
+                $menu_label['label'] = 'Menu link label';
+                $menu_label['instructions'] = 'Leave empty to show “brunch” on the Menu link when Special menu is on.';
+                $kept[] = $menu_label;
+                $christmas_file = gabos_2026_like_menu_field($menu, 'field_gabos_2026_christmas_menu_file', 'christmas_menu_file', 'Christmas menu');
+                $christmas_file['instructions'] = 'PDF for the extra seasonal link above the navigation.';
+                $kept[] = $christmas_file;
                 if (isset($by_name['on_off'])) {
                     $christmas_on = gabos_2026_column($by_name['on_off']);
+                    $christmas_on['label'] = 'On';
                     $christmas_on['instructions'] = 'Shows the extra seasonal link above the navigation. Does not replace Menu.';
                     $kept[] = $christmas_on;
                 } else {
@@ -230,21 +233,14 @@ function gabos_2026_home_page_fields($fields, $parent) {
                         'Shows the extra seasonal link above the navigation. Does not replace Menu.'
                     );
                 }
-                if (isset($by_name['special_menu_text'])) {
-                    $christmas_label = gabos_2026_column($by_name['special_menu_text']);
-                    $christmas_label['label'] = 'Link label';
-                    $christmas_label['instructions'] = 'Leave empty to show “nye menu” on the extra link.';
-                    $kept[] = $christmas_label;
-                } else {
-                    $kept[] = gabos_2026_column(array(
-                        'key' => 'field_gabos_2026_christmas_label',
-                        'label' => 'Link label',
-                        'name' => 'special_menu_text',
-                        'type' => 'text',
-                        'instructions' => 'Leave empty to show “nye menu” on the extra link.',
-                        'parent' => $parent_key,
-                    ));
-                }
+                $kept[] = gabos_2026_column(array(
+                    'key' => 'field_gabos_2026_christmas_label',
+                    'label' => 'Link label',
+                    'name' => 'christmas_menu_label',
+                    'type' => 'text',
+                    'instructions' => 'Leave empty to show “nye menu” on the extra link.',
+                    'parent' => $parent_key,
+                ));
             }
             continue;
         }
@@ -254,7 +250,7 @@ function gabos_2026_home_page_fields($fields, $parent) {
     if (isset($by_name['book'])) {
         $book_at = null;
         foreach ($kept as $index => $field) {
-            if (isset($field['name']) && $field['name'] === 'special_menu_text') {
+            if (isset($field['name']) && $field['name'] === 'christmas_menu_label') {
                 $book_at = $index + 1;
             }
         }

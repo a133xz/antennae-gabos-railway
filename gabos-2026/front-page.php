@@ -8,8 +8,8 @@ $logo_url = $logo ? $logo['url'] : gabos_2026_asset('Artboard-1-1.png');
 $logo_alt = ($logo && $logo['alt'] !== '') ? $logo['alt'] : "Gabo's";
 
 $special_on = $post_id && function_exists('get_field') && (bool) get_field('on_off', $post_id);
-$special_text = gabos_2026_text('special_menu_text', $post_id, 'nye menu');
-$special_url = gabos_2026_url('special_menu_file', $post_id, '');
+$special_text = gabos_2026_text('christmas_menu_label', $post_id, 'nye menu');
+$special_url = gabos_2026_url('christmas_menu_file', $post_id, '');
 
 $statement = gabos_2026_text('statement', $post_id, GABOS_2026_STATEMENT);
 $video_url = gabos_2026_url('editorial_video', $post_id, gabos_2026_asset('video.mp4'));
